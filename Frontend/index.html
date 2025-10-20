@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Subida de Imagen - Proyecto IA</title>
+  <style>
+    body { font-family: Arial; max-width: 500px; margin: 2rem auto; text-align: center; }
+    input, button { margin-top: 1rem; }
+    img { max-width: 100%; margin-top: 1rem; }
+    .result { margin-top: 1rem; font-weight: bold; }
+  </style>
+</head>
+
+<body>
+  <h1>Subir Imagen</h1>
+  <input type="file" id="fileInput" accept="image/*">
+  <button onclick="uploadImage()">Enviar</button>
+  
+  <div class="result" id="result"></div>
+  <img id="preview" alt="">
+
+  <script>
+    function uploadImage() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) {
+        alert('Por favor seleccioná una imagen.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      // Cambiá esta URL a la de tu backend
+      fetch('http://localhost:5000/upload', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('result').innerText = 
+          `Resultado 1: ${data.result1}\nResultado 2: ${data.result2}`;
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Ocurrió un error al enviar la imagen.');
+      });
+    }
+
+    // Vista previa de imagen
+    document.getElementById('fileInput').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      const preview = document.getElementById('preview');
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+      } else {
+        preview.src = '';
+      }
+    });
+  </script>
+</body>
+
+</html>
