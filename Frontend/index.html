@@ -2,19 +2,103 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Subida de Imagen - Proyecto IA</title>
+  <title>CarcaScore 🏰</title>
   <style>
-    body { font-family: Arial; max-width: 500px; margin: 2rem auto; text-align: center; }
-    input, button { margin-top: 1rem; }
-    img { max-width: 100%; margin-top: 1rem; }
-    .result { margin-top: 1rem; font-weight: bold; }
+    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Roboto&display=swap');
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #F7F3E3;
+      color: #2B4A6F;
+      max-width: 600px;
+      margin: 2rem auto;
+      text-align: center;
+      padding: 1rem;
+      border: 4px solid #D6B56A;
+      border-radius: 12px;
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.15);
+    }
+
+    h1 {
+      font-family: 'UnifrakturCook', cursive;
+      font-size: 3rem;
+      color: #2B4A6F;
+      text-shadow: 2px 2px #D6B56A;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+      color: #5B4636;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    input[type="file"] {
+      background-color: #D6B56A;
+      color: #2B4A6F;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    button {
+      background-color: #2B4A6F;
+      color: #F7F3E3;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1E3550;
+    }
+
+    img {
+      max-width: 100%;
+      margin-top: 1rem;
+      border: 3px solid #D6B56A;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+      background-color: #7BA05B;
+      color: #F7F3E3;
+      padding: 1rem;
+      border-radius: 8px;
+      display: none;
+      white-space: pre-line;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 
 <body>
-  <h1>Subir Imagen</h1>
+  <h1>CarcaScore</h1>
+  <h2>🏰 Subí una imagen del tablero final y obtené la puntuación de ambos jugadores 🧮</h2>
+
   <input type="file" id="fileInput" accept="image/*">
-  <button onclick="uploadImage()">Enviar</button>
+  <br>
+  <button onclick="uploadImage()">Calcular Puntaje</button>
   
   <div class="result" id="result"></div>
   <img id="preview" alt="">
@@ -30,15 +114,16 @@
       const formData = new FormData();
       formData.append('image', file);
 
-      // Cambiá esta URL a la de tu backend
       fetch('http://localhost:5000/upload', {
         method: 'POST',
         body: formData
       })
       .then(response => response.json())
       .then(data => {
-        document.getElementById('result').innerText = 
-          `Resultado 1: ${data.result1}\nResultado 2: ${data.result2}`;
+        const resultBox = document.getElementById('result');
+        resultBox.innerText = `🧑 Jugador 1: ${data.result1} puntos\n👑 Jugador 2: ${data.result2} puntos`;
+        resultBox.style.display = 'block';
+        resultBox.classList.add('fade-in');
       })
       .catch(err => {
         console.error(err);
@@ -46,7 +131,6 @@
       });
     }
 
-    // Vista previa de imagen
     document.getElementById('fileInput').addEventListener('change', (e) => {
       const file = e.target.files[0];
       const preview = document.getElementById('preview');
@@ -58,5 +142,4 @@
     });
   </script>
 </body>
-
 </html>
