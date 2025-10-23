@@ -1,25 +1,23 @@
-from PIL import Image, ImageDraw
-import os
-from dataclasses import dataclass
-from typing import Tuple, List
+from PIL import Image, ImageDraw #pillow
+import os #para trabajar con rutas de archivos
+from dataclasses import dataclass #decorador para las clases pa
+from typing import Tuple, List, Optional #para algunas notaciones
 
 @dataclass
 class Tile:
-    """Representa una loseta del tablero de Carcassonne"""
-    nombre: str  # Letra del tile: A, B, C, D, E, F, G, H, I, J, K, M, N, O, P, Q, R, S, T, U, V, W, X, Y
+    """Representa una tile pa"""
+    nombre: str  # tipo de tile (A..X)
     orientacion: int  # 0, 1, 2, 3 (rotación en múltiplos de 90°)
     meeple: Tuple[int, int]  # (jugador, posición) 
                               # jugador: 0=ninguno, 1=jugador1, 2=jugador2
-                              # posición: 0-8 (ver mapa de posiciones abajo)
-
-
+                              # posición: 0-8 (ver mapa de posiciones)
 
 
 
 @dataclass
 class Board:
-    """Representa el tablero completo del juego"""
-    tiles: List[List[Tile]]  # matriz de losetas
+    """Representa el tablero completo del tiles paaa"""
+    tiles: List[List[Optional[Tile]]]  # matriz de losetas (puede tener None(Optional))
 
 
 
@@ -27,86 +25,213 @@ class Board:
 
 
 class BoardImageGenerator:
+    """Generador de imágenes de tableros de Carcassonne"""
+    
+    # mapa de posiciones de meeples (coordenadas relativas 0.0-1.0)
+    MEEPLE_POSITIONS = {
+        0: (0.20, 0.20),  # Noroeste
+        1: (0.50, 0.15),  # Norte
+        2: (0.80, 0.20),  # Noreste
+        3: (0.15, 0.50),  # Oeste
+        4: (0.50, 0.50),  # Centro
+        5: (0.85, 0.50),  # Este
+        6: (0.20, 0.80),  # Suroeste
+        7: (0.50, 0.85),  # Sur
+        8: (0.80, 0.80),  # Sureste
+    }
+
+
+    
     def __init__(self, tiles_folder: str, tile_size: int = 200):
         """
-        Inicializa el generador de imágenes del tablero de Carcassonne
-
+        inicializa el generador de imagenes de tablerou
+        
         Args:
-            tiles_folder: ruta a la carpeta con las imágenes de las losetas (A.jpg, B.jpg, etc.)
-            tile_size: tamaño de cada loseta en píxeles (recomendado: 150-250)
+            tiles_folder: Ruta a la carpeta con las imágenes PNG/JPG de los tiles (A.png hasta X.png)
+            tile_size: Tamaño en píxeles para normalizar cada loseta (default: 200)
         """
         self.tiles_folder = tiles_folder
         self.tile_size = tile_size
         self.meeple_colors = {
-            1: (255, 0, 0),    # Rojo para jugador 1
-            2: (0, 0, 255)     # Azul para jugador 2
+            1: (255, 0, 0),    # rojo para jugador 1
+            2: (0, 0, 255),    # azul para jugador 2
         }
+        self._tile_cache = {}  # cache para imágenes cargadas
         
-    def load_tile_image(self, tile_name: str) -> Image.Image:
-        """Carga la imagen de una loseta desde el disco"""
-        # Intentar con .jpg primero, luego .png
-        tile_path = os.path.join(self.tiles_folder, f"{tile_name}.jpg")
-        if not os.path.exists(tile_path):
-            tile_path = os.path.join(self.tiles_folder, f"{tile_name}.png")
+
+
+    def _find_tile_file(self, tile_name: str) -> Optional[str]:
+        """
+        busca el archivo de imagen del tile (PNG o JPG)
         
-        if not os.path.exists(tile_path):
-            # Si no existe la imagen, crear una loseta vacía con el nombre
-            img = Image.new('RGB', (self.tile_size, self.tile_size), color='lightgray')
-            draw = ImageDraw.Draw(img)
-            draw.rectangle([0, 0, self.tile_size-1, self.tile_size-1], outline='black', width=2)
-            # Dibujar el nombre del tile en el centro
-            text_size = self.tile_size // 3
-            draw.text((self.tile_size//2 - text_size//4, self.tile_size//2 - text_size//4), 
-                     tile_name, fill='black')
-            return img
+        Args:
+            tile_name: Nombre del tile (letra A-X, 24 tiles en total)
+            
+        Returns:
+            ruta completa del archivo o None si no existe
+        """
+        for extension in ['.png', '.jpg', '.jpeg', '.PNG', '.JPG', '.JPEG']:
+            tile_path = os.path.join(self.tiles_folder, f"{tile_name}{extension}")
+            if os.path.exists(tile_path):
+                return tile_path
+        return None
+    
+
+
+    def _create_placeholder_tile(self, tile_name: str) -> Image.Image:
+        """
+        Crea una loseta placeholder cuando no se encuentra la imagen
         
-        img = Image.open(tile_path)
-        img = img.resize((self.tile_size, self.tile_size), Image.Resampling.LANCZOS)
+        Args:
+            tile_name: Nombre del tile para mostrar
+            
+        Returns:
+            Imagen placeholder
+        """
+        img = Image.new('RGB', (self.tile_size, self.tile_size), color='lightgray')
+        #esto crea una imagen desde cero (modo de color,(tamañoX,tamañoY),color de fondo)
+
+        draw = ImageDraw.Draw(img)
+        #instancia como un "lapiz" para dibujar sobre img
+        
+        # pinto un borde
+        draw.rectangle([0, 0, self.tile_size-1, self.tile_size-1], outline='black', width=3)
+        
+        # Texto centrado
+        text_size = self.tile_size // 3
+        bbox = draw.textbbox((0, 0), tile_name) #calculo el bounding box, devuelvo (x1,y1,x2,y2)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+        x = (self.tile_size - text_width) // 2
+        y = (self.tile_size - text_height) // 2
+        draw.text((x, y), tile_name, fill='black') #dibujo texto en la imagen
+        
         return img
+    
+
+
+    def load_tile_image(self, tile_name: str) -> Image.Image:
+        """
+        Carga y normaliza la imagen de una loseta
+        
+        Args:
+            tile_name: Nombre del tile (A-X, 24 tiles)
+            
+        Returns:
+            Imagen normalizada al tamaño configurado
+        """
+        # Verificar cache
+        if tile_name in self._tile_cache:
+            return self._tile_cache[tile_name].copy()
+        
+        # Buscar archivo
+        tile_path = self._find_tile_file(tile_name)
+        
+        if tile_path is None:
+            print(f"⚠ Advertencia: No se encontró imagen para tile '{tile_name}', usando placeholder")
+            img = self._create_placeholder_tile(tile_name) #si no encuentro la imagen hago imagen placeholder
+        else:
+            try:
+                # Cargar imagen
+                img = Image.open(tile_path)
+                
+                # Convertir a RGB si es necesario (por si tiene canal alpha)
+                if img.mode != 'RGB':
+                    img = img.convert('RGB')
+                
+                # Resize manteniendo proporción y centrando si es necesario
+                img = self._resize_and_center(img)
+                
+            except Exception as e:
+                print(f"⚠ Error al cargar '{tile_path}': {e}")
+                img = self._create_placeholder_tile(tile_name)
+        
+        # Guardar en cache
+        self._tile_cache[tile_name] = img.copy()
+        return img
+    
+
+
+    def _resize_and_center(self, img: Image.Image) -> Image.Image:
+        """
+        Redimensiona la imagen al tamaño objetivo manteniendo proporción
+        y centra si es necesario
+        
+        Args:
+            img: Imagen original (cualquier tamaño)
+            
+        Returns:
+            Imagen redimensionada y centrada
+        """
+        # Calcular proporción
+        width, height = img.size
+        aspect_ratio = width / height
+        
+        if aspect_ratio > 1:  # Más ancha que alta
+            new_width = self.tile_size
+            new_height = int(self.tile_size / aspect_ratio)
+        else:  # Más alta que ancha o cuadrada
+            new_height = self.tile_size
+            new_width = int(self.tile_size * aspect_ratio)
+        
+        # Redimensionar
+        img_resized = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+        
+        # Si no es cuadrada, centrar en canvas cuadrado
+        if new_width != self.tile_size or new_height != self.tile_size:
+            canvas = Image.new('RGB', (self.tile_size, self.tile_size), color='white')
+            offset_x = (self.tile_size - new_width) // 2
+            offset_y = (self.tile_size - new_height) // 2
+            canvas.paste(img_resized, (offset_x, offset_y))
+            return canvas
+        
+        return img_resized
     
     def rotate_tile(self, img: Image.Image, orientation: int) -> Image.Image:
         """
         Rota la imagen según la orientación
-        0 = 0°, 1 = 90°, 2 = 180°, 3 = 270°
+        
+        Args:
+            img: Imagen a rotar
+            orientation: 0=0°, 1=90°, 2=180°, 3=270°
+            
+        Returns:
+            Imagen rotada
         """
         angle = orientation * 90
         return img.rotate(-angle, expand=False)
     
+
+
     def get_meeple_position(self, position: int) -> Tuple[int, int]:
         """
-        Calcula las coordenadas del meeple según su posición (0-8)
-        Mapa de posiciones para Carcassonne:
+        Calcula las coordenadas absolutas del meeple
         
-        0 (NO)  1 (N)   2 (NE)
-        3 (O)   4 (C)   5 (E)
-        6 (SO)  7 (S)   8 (SE)
-        
-        Uso típico:
-        - Posición 4 (Centro): Monasterios, campos centrales
-        - Posiciones 1,3,5,7 (Bordes): Caminos, ciudades en bordes
-        - Posiciones 0,2,6,8 (Esquinas): Campos en esquinas
+        Args:
+            position: Posición del meeple (0-8)
+            
+        Returns:
+            Tupla (x, y) en píxeles
         """
-        # Posiciones relativas en la loseta (0.0 a 1.0)
-        positions_map = {
-            0: (0.20, 0.20),  # Noroeste
-            1: (0.50, 0.15),  # Norte
-            2: (0.80, 0.20),  # Noreste
-            3: (0.15, 0.50),  # Oeste
-            4: (0.50, 0.50),  # Centro
-            5: (0.85, 0.50),  # Este
-            6: (0.20, 0.80),  # Suroeste
-            7: (0.50, 0.85),  # Sur
-            8: (0.80, 0.80),  # Sureste
-        }
-        
-        rel_x, rel_y = positions_map.get(position, (0.5, 0.5))
+        rel_x, rel_y = self.MEEPLE_POSITIONS.get(position, (0.5, 0.5))
         x = int(rel_x * self.tile_size)
         y = int(rel_y * self.tile_size)
-        
         return (x, y)
     
+
+    
     def draw_meeple(self, img: Image.Image, player: int, position: int) -> Image.Image:
-        """Dibuja un meeple en la loseta (estilo Carcassonne)"""
+        """
+        Dibuja un meeple en la loseta
+        
+        Args:
+            img: Imagen de la loseta
+            player: Número de jugador (0=ninguno, 1, 2, etc.)
+            position: Posición del meeple (0-8)
+            
+        Returns:
+            Imagen con el meeple dibujado
+        """
         if player == 0:
             return img
         
@@ -114,35 +239,43 @@ class BoardImageGenerator:
         draw = ImageDraw.Draw(img_copy)
         
         x, y = self.get_meeple_position(position)
-        radius = self.tile_size // 10  # Tamaño del meeple
-        color = self.meeple_colors.get(player, (0, 0, 0))
+        radius = self.tile_size // 10
+        color = self.meeple_colors.get(player, (128, 128, 128))  # Gris por defecto
         
-        # Dibujar meeple simplificado
-        # Cabeza
+        # Cabeza del meeple
         head_radius = radius // 2
-        draw.ellipse([x - head_radius, y - radius, x + head_radius, y - radius + head_radius*2], 
-                     fill=color, outline='black', width=1)
+        draw.ellipse(
+            [x - head_radius, y - radius, 
+             x + head_radius, y - radius + head_radius * 2], 
+            fill=color, outline='black', width=1
+        )
         
-        # Cuerpo
+        # Cuerpo del meeple
         body_width = radius
         body_height = radius
-        draw.ellipse([x - body_width, y - radius//3, x + body_width, y + body_height], 
-                     fill=color, outline='black', width=2)
+        draw.ellipse(
+            [x - body_width, y - radius // 3, 
+             x + body_width, y + body_height], 
+            fill=color, outline='black', width=2
+        )
         
         return img_copy
     
-    def generate_board_image(self, board: Board, output_path: str = "tablero.jpg"):
+    def generate_board_image(self, board: Board, output_path: str = "tablero.jpg") -> Image.Image:
         """
-        Genera la imagen del tablero completo
+        Genera la imagen completa del tablero
         
         Args:
-            board: objeto Board con la matriz de losetas
-            output_path: ruta donde guardar la imagen generada
+            board: Objeto Board con la matriz de tiles
+            output_path: Ruta donde guardar la imagen
+            
+        Returns:
+            Imagen generada
         """
         rows = len(board.tiles)
         cols = len(board.tiles[0]) if rows > 0 else 0
         
-        # Crear imagen del tamaño del tablero completo
+        # Crear canvas del tablero
         board_width = cols * self.tile_size
         board_height = rows * self.tile_size
         board_img = Image.new('RGB', (board_width, board_height), color='white')
@@ -153,13 +286,9 @@ class BoardImageGenerator:
                 if tile is None:
                     continue
                 
-                # Cargar imagen de la loseta
+                # Cargar y procesar tile
                 tile_img = self.load_tile_image(tile.nombre)
-                
-                # Rotar según orientación
                 tile_img = self.rotate_tile(tile_img, tile.orientacion)
-                
-                # Dibujar meeple si existe
                 tile_img = self.draw_meeple(tile_img, tile.meeple[0], tile.meeple[1])
                 
                 # Pegar en el tablero
@@ -167,56 +296,70 @@ class BoardImageGenerator:
                 y = i * self.tile_size
                 board_img.paste(tile_img, (x, y))
         
-        # Guardar imagen
+        # Guardar
         board_img.save(output_path, 'JPEG', quality=95)
-        print(f"✓ Imagen del tablero guardada en: {output_path}")
+        
+        # Información
+        print(f"✓ Tablero generado exitosamente")
+        print(f"  Archivo: {output_path}")
         print(f"  Dimensiones: {board_width}x{board_height} píxeles")
         print(f"  Tablero: {rows}x{cols} losetas")
+        print(f"  Tiles en cache: {len(self._tile_cache)}")
+        
         return board_img
+    
+    def add_player_color(self, player_number: int, color: Tuple[int, int, int]):
+        """
+        Añade un color personalizado para un jugador
+        
+        Args:
+            player_number: Número del jugador (1, 2, 3, etc.)
+            color: Tupla RGB (r, g, b)
+        """
+        self.meeple_colors[player_number] = color
 
 
 # =============================================================================
 # EJEMPLO DE USO
 # =============================================================================
 if __name__ == "__main__":
-    print("Generador de Tablero de Carcassonne con Pillow")
-    print("=" * 50)
+    print("=" * 60)
+    print("GENERADOR DE TABLERO DE CARCASSONNE")
+    print("=" * 60)
     
-    # Ejemplo 1: Tablero pequeño 3x3
+    # Crear tablero de ejemplo
     ejemplo_tiles = [
         [
-            Tile("D", 0, (1, 4)),   # Tile D sin rotar, meeple rojo en centro
+            Tile("D", 0, (1, 4)),   # Tile D, meeple rojo en centro
             Tile("U", 1, (0, 0)),   # Tile U rotado 90°, sin meeple
             Tile("B", 0, (2, 1))    # Tile B, meeple azul en norte
         ],
         [
-            Tile("V", 2, (0, 0)),   # Tile V rotado 180°, sin meeple
+            Tile("V", 2, (0, 0)),   # Tile V rotado 180°
             Tile("N", 0, (1, 5)),   # Tile N, meeple rojo en este
-            Tile("D", 3, (0, 0))    # Tile D rotado 270°, sin meeple
+            Tile("D", 3, (0, 0))    # Tile D rotado 270°
         ],
         [
             Tile("U", 0, (2, 7)),   # Tile U, meeple azul en sur
-            Tile("V", 1, (0, 0)),   # Tile V rotado 90°, sin meeple
+            Tile("V", 1, (0, 0)),   # Tile V rotado 90°
             Tile("D", 2, (1, 3))    # Tile D rotado 180°, meeple rojo en oeste
         ]
     ]
     
     board = Board(tiles=ejemplo_tiles)
     
-    # IMPORTANTE: Ajustar la ruta a tu carpeta de tiles
+    # Configurar generador
     generator = BoardImageGenerator(
-        tiles_folder="/dataset/Tiles",  # Carpeta donde están A.jpg, B.jpg, C.jpg, etc.
-        tile_size=200            # Tamaño de cada loseta (150-250 recomendado)
+        tiles_folder="./tiles",  # Carpeta con archivos PNG/JPG
+        tile_size=200            # Tamaño normalizado
     )
+    
     
     print("\nGenerando imagen del tablero...")
     generator.generate_board_image(board, "tablero_carcassonne.jpg")
     
-    print("\n" + "=" * 50)
-    print("Mapa de posiciones de meeples:")
-    print("  0 (NO)  1 (N)   2 (NE)")
-    print("  3 (O)   4 (C)   5 (E)")
-    print("  6 (SO)  7 (S)   8 (SE)")
-    print("\nColores:")
+    print("\n" + "=" * 60)
+    print("\nCOLORES DE JUGADORES:")
     print("  Jugador 1: Rojo")
     print("  Jugador 2: Azul")
+    print("=" * 60)
