@@ -1,0 +1,72 @@
+{
+  "matrix": [
+    [
+      {
+        "letter": "R",
+        "rotation": 0
+      },
+      null
+    ],
+    [
+      {
+        "letter": "Q",
+        "rotation": 0
+      },
+      {
+        "letter": "Q",
+        "rotation": 3
+      }
+    ],
+    [
+      {
+        "letter": "O",
+        "rotation": 0
+      },
+      null
+    ],
+    [
+      {
+        "letter": "O",
+        "rotation": 1
+      },
+      null
+    ]
+  ],
+  "tiles": [
+    {
+      "row": 0,
+      "col": 0,
+      "letter": "R",
+      "rotation": 0,
+      "confidence": 0.14092478156089783
+    },
+    {
+      "row": 1,
+      "col": 1,
+      "letter": "Q",
+      "rotation": 3,
+      "confidence": 0.11956746876239777
+    },
+    {
+      "row": 1,
+      "col": 0,
+      "letter": "Q",
+      "rotation": 0,
+      "confidence": 0.10267618298530579
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "letter": "O",
+      "rotation": 0,
+      "confidence": 0.09475284814834595
+    },
+    {
+      "row": 3,
+      "col": 0,
+      "letter": "O",
+      "rotation": 1,
+      "confidence": 0.10159143805503845
+    }
+  ]
+}
