@@ -329,23 +329,183 @@ if __name__ == "__main__":
     
     # Crear tablero de ejemplo
     ejemplo_tiles = [
+        # FILA 0
         [
-            Tile("D", 0, (1, 4)),   # Tile D, meeple rojo en centro
-            Tile("U", 1, (0, 0)),   # Tile U rotado 90°, sin meeple
-            Tile("B", 0, (2, 1))    # Tile B, meeple azul en norte
+            None,              # Col 0
+            None,              # Col 1
+            None,              # Col 2
+            None,              # Col 3
+            Tile("W", 0, (0, 0)),  # Col 4
+            Tile("D", 1, (0, 0)),  # Col 5
+            None,                # Col 6
+            None,              # Col 7
+            None,              # Col 8
+            None,              # Col 9
+            None,              # Col 10
+            None,              # Col 11
         ],
+
+        # FILA 1
         [
-            Tile("V", 2, (0, 0)),   # Tile V rotado 180°
-            Tile("N", 0, (1, 5)),   # Tile N, meeple rojo en este
-            Tile("D", 3, (0, 0))    # Tile D rotado 270°
+            None,              # Col 0
+            Tile("C", 0, (0, 0)),  # Col 1
+            None,              # Col 2
+            None,              # Col 3
+            Tile("L", 0, (0, 0)),  # Col 4
+            Tile("N", 0, (0, 0)),  # Col 5
+            Tile("N", 2, (0, 0)),  # Col 6
+            Tile("T", 3, (0, 0)),  # Col 7
+            Tile("S", 1, (0, 0)),              # Col 8
+            Tile("H", 0, (0, 0)),              # Col 9
+            Tile("I", 2, (0, 0)),              # Col 10
+            None,              # Col 11
         ],
+
+        # FILA 2
         [
-            Tile("U", 0, (2, 7)),   # Tile U, meeple azul en sur
-            Tile("V", 1, (0, 0)),   # Tile V rotado 90°
-            Tile("D", 2, (1, 3))    # Tile D rotado 180°, meeple rojo en oeste
+            None,              # Col 0
+            Tile("S", 3, (0, 0)),  # Col 1
+            Tile("V", 0, (0, 0)),  # Col 2
+            None,              # Col 3
+            Tile("W", 2, (0, 0)),  # Col 4
+            Tile("V", 0, (0, 0)),  # Col 5
+            None,               # Col 6
+            Tile("P", 0, (0, 0)),  # Col 7
+            None,           # Col 8
+            Tile("E", 2, (0, 0)),              # Col 9
+            None,              # Col 10
+            None,              # Col 11
+        ],
+
+        # FILA 3
+        [
+            None,              # Col 0
+            None,  # Col 1
+            Tile("W", 3, (0, 0)),  # Col 2
+            Tile("U", 1, (0, 0)),  # Col 3
+            Tile("U", 1, (0, 0)),  # Col 4
+            Tile("P", 0, (0, 0)),  # Col 5
+            Tile("M", 3, (0, 0)),              # Col 6
+            None,  # Col 7
+            Tile("U", 0, (0, 0)),  # Col 8
+            Tile("H", 1, (0, 0)),              # Col 9
+            None,              # Col 10
+            None,              # Col 11
+        ],
+
+        # FILA 4
+        [
+            None,  # Col 0
+            None,  # Col 1
+            Tile("U", 0, (0, 0)),  # Col 2
+            Tile("V", 3, (0, 0)),  # Col 3
+            Tile("V", 0, (0, 0)),  # Col 4
+            Tile("B", 0, (0, 0)),  # Col 5
+            Tile("E", 0, (0, 0)),  # Col 6
+            Tile("V", 3, (0, 0)),              # Col 7
+            Tile("K", 0, (0, 0)),  # Col 8
+            Tile("R", 0, (0, 0)),              # Col 9
+            Tile("P", 0, (0, 0)),              # Col 10
+            Tile("J", 2, (0, 0)),              # Col 11
+        ],
+
+        # FILA 5
+        [
+            Tile("A", 0, (0, 0)),  # Col 0 - Con meeple negro
+            None,  # Col 1
+            Tile("U", 0, (0, 0)),  # Col 2
+            Tile("V", 2, (0, 0)),              # Col 3
+            Tile("K", 0, (0, 0)),  # Col 4
+            Tile("F", 0, (0, 0)),  # Col 5
+            Tile("M", 3, (0, 0)),  # Col 6
+            Tile("D", 0, (0, 0)),  # Col 7
+            Tile("G", 1, (0, 0)),              # Col 8
+            Tile("H", 0, (0, 0)),              # Col 9
+            None,              # Col 10
+            None,              # Col 11
+        ],
+
+        # FILA 6
+        [
+            Tile("V", 2, (0, 0)),              # Col 0
+            Tile("U", 1, (0, 0)),  # Col 1
+            Tile("W", 2, (0, 0)),              # Col 2
+            Tile("D", 1, (0, 0)),  # Col 3
+            None,  # Col 4
+            None,  # Col 5
+            Tile("I", 3, (0, 0)),  # Col 6
+            Tile("M", 3, (0, 0)),  # Col 7
+            Tile("A", 1, (0, 0)),              # Col 8
+            Tile("V", 3, (0, 0)),              # Col 9
+            Tile("V", 0, (0, 0)),              # Col 10
+            Tile("U", 0, (0, 0)),              # Col 11
+        ],
+
+        # FILA 7
+        [
+            None,              # Col 0
+            Tile("B", 0, (0, 0)),  # Col 1
+            Tile("E", 1, (0, 0)),  # Col 2
+            Tile("R", 3, (0, 0)),  # Col 3
+            Tile("E", 0, (0, 0)),  # Col 4
+            Tile("Q", 3, (0, 0)),  # Col 5 - Con meeple centro
+            Tile("N", 3, (0, 0)),  # Col 6
+            Tile("R", 0, (0, 0)),              # Col 7
+            None,              # Col 8
+            Tile("D", 2, (0, 0)),              # Col 9
+            None,              # Col 10
+            None,              # Col 11
+        ],
+
+        # FILA 8
+        [
+            None,              # Col 0
+            None,              # Col 1
+            Tile("B", 0, (0, 0)),  # Col 2
+            Tile("E", 0, (0, 0)),  # Col 3
+            Tile("B", 0, (0, 0)),              # Col 4
+            None,  # Col 5
+            Tile("F", 1, (0, 0)),  # Col 6
+            None,  # Col 7
+            None,              # Col 8
+            Tile("V", 0, (0, 0)),              # Col 9
+            Tile("X", 1, (0, 0)),              # Col 10
+            None,              # Col 11
+        ],
+
+        # FILA 9
+        [
+            None,              # Col 0
+            None,              # Col 1
+            None,  # Col 2
+            None,  # Col 3
+            None,  # Col 4
+            None,  # Col 5 - Con meeple azul
+            Tile("L", 3, (0, 0)),  # Col 6
+            Tile("P", 3, (0, 0)),  # Col 7
+            Tile("O", 3, (0, 0)),              # Col 8
+            None,              # Col 9
+            None,              # Col 10
+            None,              # Col 11
+        ],
+
+        # FILA 10 (última)
+        [
+            None,              # Col 0
+            None,              # Col 1
+            None,  # Col 2
+            None,  # Col 3
+            None,  # Col 4
+            None,  # Col 5 - Con meeple azul
+            Tile("U", 0, (0, 0)),  # Col 6
+            None,  # Col 7
+            Tile("L", 3, (0, 0)),              # Col 8
+            None,              # Col 9
+            None,              # Col 10
+            None,              # Col 11
         ]
     ]
-    
+
     board = Board(tiles=ejemplo_tiles)
     
     # Configurar generador
