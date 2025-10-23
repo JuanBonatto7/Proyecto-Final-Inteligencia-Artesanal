@@ -7,7 +7,7 @@ CORS(app)  # habilita requests desde el front
 @app.route('/upload', methods=['POST'])
 def upload():
     file = request.files['image']
-    # Acá iría tu modelo de IA
+    # Acá iría 
     result1 = "Predicción 1"
     result2 = "Predicción 2"
     return jsonify({"result1": result1, "result2": result2})
