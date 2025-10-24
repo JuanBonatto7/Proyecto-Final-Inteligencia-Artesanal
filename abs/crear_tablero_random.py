@@ -2,7 +2,7 @@ from generateBoardImage import Board, BoardImageGenerator
 from RandomOM import generar_tablero
 
 # --- 1️⃣ Generar un tablero random ---
-n = 5 # tamaño del tablero (6x6 por ejemplo)
+n = 20 # tamaño del tablero (6x6 por ejemplo)
 tablero_random = generar_tablero(n)
 
 # --- 2️⃣ Convertir al formato esperado por BoardImageGenerator ---
