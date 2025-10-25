@@ -10,10 +10,6 @@ class Tile:
     meeple: Tuple[int, int]  # (jugador, posición)
 
 
-# =============================================================================
-# TILESET CORREGIDO - 60 LOSETAS TOTALES
-# =============================================================================
-
 TILESET = {
     "A": {"borders": {"N": "field", "E": "field", "S": "road", "W": "field"}, "count": 2},
     "B": {"borders": {"N": "field", "E": "field", "S": "field", "W": "field"}, "count": 4},
@@ -152,27 +148,34 @@ def encontrar_rotacion_valida(nombre_loseta: str,
 # GENERACIÓN DEL TABLERO
 # =============================================================================
 
-def generar_tablero(n: int = 25) -> List[List[Optional[Tile]]]:
-    """Genera un tablero n×n de Carcassonne."""
-    print(f"📊 Generando tablero {n}×{n} con {TOTAL_LOSETAS} losetas disponibles\n")
+def generar_tablero(n: int = 5) -> List[List[Optional[Tile]]]:
+    """
+    Genera un tablero cuadrado n x n válido respetando el inventario y las reglas del juego.
     
+    Args:
+        n: Tamaño del tablero (default=5)
+        
+    Returns:
+        List[List[Optional[Tile]]]: Matriz que representa el tablero con las losetas colocadas
+    """
+    # Inicializar tablero vacío
     tablero = [[None for _ in range(n)] for _ in range(n)]
     centro = n // 2
     
+    # Crear inventario de losetas disponibles
     disponibles = {nombre: cantidad["count"] for nombre, cantidad in TILESET.items()}
     
-    meeples_totales = {1: random.randint(8, 12), 2: random.randint(8, 12)}
+    # Asignar meeples por jugador (3-5 por jugador)
+    meeples_totales = {1: random.randint(3, 5), 2: random.randint(3, 5)}
     meeples_usados = {1: 0, 2: 0}
     
-    # Loseta inicial
+    # Colocar loseta inicial en el centro
     nombre_inicial = random.choice(list(disponibles.keys()))
     orientacion_inicial = random.choice([0, 1, 2, 3])
     tablero[centro][centro] = Tile(nombre_inicial, orientacion_inicial, (0, 0))
     disponibles[nombre_inicial] -= 1
     
-    print(f"🎯 Loseta inicial: {nombre_inicial} (rot {orientacion_inicial}) en ({centro},{centro})")
-    
-    # Ordenar posiciones por distancia
+    # Ordenar posiciones por distancia al centro
     posiciones = []
     for i in range(n):
         for j in range(n):
@@ -184,29 +187,26 @@ def generar_tablero(n: int = 25) -> List[List[Optional[Tile]]]:
     posiciones.sort(key=lambda x: (x[0], random.random()))
     
     # Llenar tablero
-    colocadas = 1
-    
     for _, fila, col in posiciones:
+        # Verificar si hay vecinos
         vecinos = obtener_vecinos_con_direccion(tablero, fila, col)
         if len(vecinos) == 0:
             continue
         
+        # Obtener losetas disponibles
         tipos_disponibles = [t for t, cant in disponibles.items() if cant > 0]
-        
         if not tipos_disponibles:
             break
         
         random.shuffle(tipos_disponibles)
         
-        colocada = False
-        
+        # Intentar colocar una loseta válida
         for tipo in tipos_disponibles:
-            # Buscar rotación válida
             rot_valida = encontrar_rotacion_valida(tipo, tablero, fila, col)
             
             if rot_valida is not None:
-                # Decidir meeple
-                jugador = random.choice([0, 0, 0, 0, 0, 0, 0, 1, 2, 2])
+                # Decidir si colocar meeple (30% probabilidad)
+                jugador = random.choice([0, 0, 0, 0, 0, 0, 0, 1, 2])
                 
                 if jugador > 0 and meeples_usados[jugador] < meeples_totales[jugador]:
                     meeple = (jugador, random.randint(0, 8))
@@ -217,27 +217,7 @@ def generar_tablero(n: int = 25) -> List[List[Optional[Tile]]]:
                 # Colocar loseta
                 tablero[fila][col] = Tile(tipo, rot_valida, meeple)
                 disponibles[tipo] -= 1
-                colocadas += 1
-                colocada = True
                 break
-        
-        if not colocada:
-            pass  # No se pudo colocar ninguna loseta aquí
-    
-    # Estadísticas
-    losetas_usadas = TOTAL_LOSETAS - sum(disponibles.values())
-    cobertura = (colocadas / (n * n)) * 100
-    
-    print(f"\n{'='*60}")
-    print(f"📊 ESTADÍSTICAS DEL TABLERO GENERADO")
-    print(f"{'='*60}")
-    print(f"  Tamaño del tablero:      {n}×{n} ({n*n} posiciones)")
-    print(f"  Losetas colocadas:       {colocadas}")
-    print(f"  Cobertura:               {cobertura:.1f}%")
-    print(f"  Losetas usadas del set:  {losetas_usadas}/{TOTAL_LOSETAS}")
-    print(f"  Meeples rojos:           {meeples_usados[1]}/{meeples_totales[1]}")
-    print(f"  Meeples azules:          {meeples_usados[2]}/{meeples_totales[2]}")
-    print(f"{'='*60}\n")
     
     return tablero
 
