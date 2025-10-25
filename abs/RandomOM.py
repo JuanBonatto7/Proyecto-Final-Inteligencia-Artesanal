@@ -102,7 +102,7 @@ def verificar_compatibilidad(
     """
     vecinos = obtener_vecinos_con_direccion(tablero, fila, col)
 
-    # ✅ Permitir la primera ficha del tablero
+    #  Permitir la primera ficha del tablero
     if len(vecinos) == 0:
         return True
 
