@@ -170,7 +170,7 @@ class FieldVisualizer:
             Imagen resumen
         """
         # Crear imagen blanca
-        img_height = max(200, 100 + len(field_results) * 30)
+        img_height = max(200, 100 + len(field_results) * 30 + 80)
         summary = np.ones((img_height, 600, 3), dtype=np.uint8) * 255
         
         y_pos = 30
@@ -202,7 +202,7 @@ class FieldVisualizer:
                 )
                 y_pos += 25
         
-        # Totales
+       # Totales
         y_pos += 15
         cv2.putText(
             summary, "TOTALES:", (20, y_pos),
@@ -210,19 +210,15 @@ class FieldVisualizer:
         )
         y_pos += 25
         
-        if len(player_totals) == 0:
+        # Mostrar SIEMPRE ambos jugadores, incluso con 0 puntos
+        for player_id in ['MEEPLE_1', 'MEEPLE_2']:
+            player_name = PLAYER_NAMES.get(player_id, player_id)
+            total = player_totals.get(player_id, 0)
+            text = f"{player_name}: {total} puntos"
             cv2.putText(
-                summary, "Sin puntos", (20, y_pos),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (100, 100, 100), 1
+                summary, text, (20, y_pos),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1
             )
-        else:
-            for player, total in player_totals.items():
-                player_name = PLAYER_NAMES.get(player, player)
-                text = f"{player_name}: {total} puntos"
-                cv2.putText(
-                    summary, text, (20, y_pos),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1
-                )
-                y_pos += 25
+            y_pos += 25
         
         return summary

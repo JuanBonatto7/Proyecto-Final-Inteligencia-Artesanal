@@ -216,8 +216,10 @@ class FieldVisualizer:
                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (100, 100, 100), 1
             )
         else:
-            for player, total in player_totals.items():
-                player_name = PLAYER_NAMES.get(player, player)
+            # Asegurar que mostramos todos los jugadores configurados, incluso con 0 puntos
+            for player_id in ['MEEPLE_1', 'MEEPLE_2']:
+                player_name = PLAYER_NAMES.get(player_id, player_id)
+                total = player_totals.get(player_id, 0)  # Si no tiene puntos, mostrar 0
                 text = f"{player_name}: {total} puntos"
                 cv2.putText(
                     summary, text, (20, y_pos),
