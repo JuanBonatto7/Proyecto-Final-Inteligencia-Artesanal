@@ -509,14 +509,19 @@ if __name__ == "__main__":
     board = Board(tiles=ejemplo_tiles)
     
     # Configurar generador
+    generator2 = BoardImageGenerator(
+        tiles_folder="./tiles_texture_pack",  # Carpeta con archivos PNG/JPG
+        tile_size=200            # Tamaño normalizado
+    )
+    
     generator = BoardImageGenerator(
         tiles_folder="./tiles",  # Carpeta con archivos PNG/JPG
         tile_size=200            # Tamaño normalizado
     )
-    
-    
-    print("\nGenerando imagen del tablero...")
-    generator.generate_board_image(board, "tablero_carcassonne.jpg")
+
+    print("\nGenerando imagen de tableross pa...")
+    generator.generate_board_image(board, "tablero_default_tiles.jpg")
+    generator2.generate_board_image(board,"tablero_texture_pack.jpg")
     
     print("\n" + "=" * 60)
     print("\nCOLORES DE JUGADORES:")
