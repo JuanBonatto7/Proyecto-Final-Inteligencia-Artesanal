@@ -1,0 +1,229 @@
+{
+  "tile_type_errors": [
+    {
+      "index": 2,
+      "predicted": 9,
+      "true": 3,
+      "confidence": 0.9495160579681396
+    },
+    {
+      "index": 7,
+      "predicted": 10,
+      "true": 9,
+      "confidence": 0.9511193037033081
+    },
+    {
+      "index": 8,
+      "predicted": 21,
+      "true": 9,
+      "confidence": 0.29450345039367676
+    },
+    {
+      "index": 9,
+      "predicted": 17,
+      "true": 2,
+      "confidence": 0.5075628757476807
+    },
+    {
+      "index": 10,
+      "predicted": 22,
+      "true": 11,
+      "confidence": 0.4246772527694702
+    },
+    {
+      "index": 11,
+      "predicted": 9,
+      "true": 13,
+      "confidence": 0.7364218831062317
+    },
+    {
+      "index": 12,
+      "predicted": 9,
+      "true": 13,
+      "confidence": 0.34344956278800964
+    },
+    {
+      "index": 13,
+      "predicted": 18,
+      "true": 19,
+      "confidence": 0.5524956583976746
+    },
+    {
+      "index": 16,
+      "predicted": 7,
+      "true": 8,
+      "confidence": 0.9094140529632568
+    },
+    {
+      "index": 19,
+      "predicted": 7,
+      "true": 4,
+      "confidence": 0.38981202244758606
+    },
+    {
+      "index": 20,
+      "predicted": 7,
+      "true": 4,
+      "confidence": 0.5600990653038025
+    },
+    {
+      "index": 23,
+      "predicted": 13,
+      "true": 12,
+      "confidence": 0.6314200758934021
+    },
+    {
+      "index": 24,
+      "predicted": 21,
+      "true": 1,
+      "confidence": 0.33956339955329895
+    },
+    {
+      "index": 25,
+      "predicted": 0,
+      "true": 1,
+      "confidence": 0.9590550661087036
+    },
+    {
+      "index": 29,
+      "predicted": 0,
+      "true": 5,
+      "confidence": 0.23259353637695312
+    },
+    {
+      "index": 30,
+      "predicted": 10,
+      "true": 6,
+      "confidence": 0.28702858090400696
+    },
+    {
+      "index": 32,
+      "predicted": 17,
+      "true": 16,
+      "confidence": 0.9963654279708862
+    },
+    {
+      "index": 33,
+      "predicted": 22,
+      "true": 23,
+      "confidence": 0.5467533469200134
+    },
+    {
+      "index": 34,
+      "predicted": 10,
+      "true": 15,
+      "confidence": 0.3144538998603821
+    }
+  ],
+  "rotation_errors": [
+    {
+      "index": 0,
+      "predicted": 90,
+      "true": 180,
+      "confidence": 0.4349735677242279
+    },
+    {
+      "index": 1,
+      "predicted": 270,
+      "true": 180,
+      "confidence": 0.6603876948356628
+    },
+    {
+      "index": 2,
+      "predicted": 180,
+      "true": 90,
+      "confidence": 0.9612858295440674
+    },
+    {
+      "index": 3,
+      "predicted": 0,
+      "true": 180,
+      "confidence": 0.8356878757476807
+    },
+    {
+      "index": 8,
+      "predicted": 0,
+      "true": 180,
+      "confidence": 0.34274011850357056
+    },
+    {
+      "index": 10,
+      "predicted": 270,
+      "true": 0,
+      "confidence": 0.9439918398857117
+    },
+    {
+      "index": 14,
+      "predicted": 90,
+      "true": 270,
+      "confidence": 0.795050323009491
+    },
+    {
+      "index": 15,
+      "predicted": 90,
+      "true": 0,
+      "confidence": 0.9016062617301941
+    },
+    {
+      "index": 16,
+      "predicted": 90,
+      "true": 180,
+      "confidence": 0.9836578965187073
+    },
+    {
+      "index": 19,
+      "predicted": 90,
+      "true": 0,
+      "confidence": 0.4694969058036804
+    },
+    {
+      "index": 20,
+      "predicted": 90,
+      "true": 0,
+      "confidence": 0.9879994988441467
+    },
+    {
+      "index": 23,
+      "predicted": 180,
+      "true": 90,
+      "confidence": 0.735539972782135
+    },
+    {
+      "index": 24,
+      "predicted": 90,
+      "true": 0,
+      "confidence": 0.7732964754104614
+    },
+    {
+      "index": 26,
+      "predicted": 90,
+      "true": 0,
+      "confidence": 0.9519020318984985
+    },
+    {
+      "index": 28,
+      "predicted": 90,
+      "true": 0,
+      "confidence": 0.9734408259391785
+    },
+    {
+      "index": 29,
+      "predicted": 90,
+      "true": 180,
+      "confidence": 0.7164760828018188
+    },
+    {
+      "index": 33,
+      "predicted": 270,
+      "true": 180,
+      "confidence": 0.9466270208358765
+    }
+  ],
+  "meeple_errors": [
+    {
+      "index": 13,
+      "predicted": false,
+      "true": true
+    }
+  ]
+}

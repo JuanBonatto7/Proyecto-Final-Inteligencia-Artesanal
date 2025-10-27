@@ -1,0 +1,29 @@
+[
+  {
+    "image_path": "tiles\\tile_069_r6_c7.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 0,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none"
+  },
+  {
+    "image_path": "tiles\\tile_017_r1_c4.png",
+    "tile_letter": "V",
+    "tile_type": 21,
+    "rotation": 0,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none"
+  },
+  {
+    "image_path": "tiles\\tile_024_r2_c3.png",
+    "tile_letter": "U",
+    "tile_type": 20,
+    "rotation": 1,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none"
+  }
+]
