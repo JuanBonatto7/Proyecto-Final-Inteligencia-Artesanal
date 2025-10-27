@@ -28,8 +28,8 @@ class BoardImageGenerator:
         self.tiles_folder = tiles_folder
         self.tile_size = tile_size
         self.meeple_colors: Dict[int, Tuple[int, int, int]] = {
-            1: (255, 0, 0),
-            2: (0, 0, 255),
+            1: (163, 73, 164),
+            2: (0, 0, 0),
         }
         self._tile_cache: Dict[str, Image.Image] = {}
 
