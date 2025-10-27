@@ -101,7 +101,9 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     
     print_safe(f"   [OK] {num_fields} campos detectados")
     
-    fields = detector.create_fields(labeled_fields, num_fields, meeple_masks)
+    road_mask = processor.create_mask('ROAD')
+    road_mask = board_detector.filter_mask_by_board(road_mask)
+    fields = detector.create_fields(labeled_fields, num_fields, meeple_masks, road_mask=road_mask)
     
     # Debug: mostrar info de campos
     print_safe("\n   Detalles de campos:")

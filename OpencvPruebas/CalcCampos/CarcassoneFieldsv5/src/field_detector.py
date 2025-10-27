@@ -125,38 +125,39 @@ class FieldDetector:
         self, 
         field_label: int,
         labeled_fields: np.ndarray,
-        meeple_masks: Dict[str, np.ndarray]
+        meeple_masks: Dict[str, np.ndarray],
+        road_mask: np.ndarray = None  # NUEVO parámetro
     ) -> Dict[str, int]:
         """
         Cuenta meeples de cada jugador en un campo.
-        CORREGIDO: Detecta meeples dentro o muy cerca del campo.
-        
-        Args:
-            field_label: ID del campo
-            labeled_fields: Array de campos etiquetados
-            meeple_masks: Diccionario con máscaras de meeples por jugador
-            
-        Returns:
-            Diccionario con conteo de meeples por jugador
+        Excluye meeples que tocan caminos (están en caminos, no en campos).
         """
         field_pixels = (labeled_fields == field_label)
-        
-        # Expandir ligeramente el campo para capturar meeples en el borde
+
+        # Expandir campo
         kernel = np.ones((5, 5), dtype=np.uint8)
         expanded_field = ndimage.binary_dilation(field_pixels, structure=kernel, iterations=2)
-        
+
         counts = {}
-        
+
         for meeple_type, mask in meeple_masks.items():
-            # Contar píxeles de meeple dentro del campo expandido
+            # Meeples en el campo
             meeples_in_field = expanded_field & mask
             pixel_count = np.sum(meeples_in_field)
-            
-            # Contar como meeple si hay suficiente área (>= 10 píxeles)
-            # Esto evita ruido pero detecta meeples reales
+
             if pixel_count >= 10:
-                # Contar cuántos meeples individuales hay
-                # (en caso de que haya varios meeples del mismo jugador)
+                # NUEVO: Verificar si el meeple toca caminos
+                if road_mask is not None:
+                    # Expandir meeple ligeramente para detectar proximidad
+                    expanded_meeple = ndimage.binary_dilation(meeples_in_field, iterations=2)
+                    touches_road = np.any(expanded_meeple & road_mask)
+
+                    # Si toca camino, NO cuenta para campo
+                    if touches_road:
+                        counts[meeple_type] = 0
+                        continue
+                    
+                # Contar meeples individuales
                 labeled_meeples, num_meeples = ndimage.label(
                     meeples_in_field,
                     structure=np.ones((3, 3), dtype=int)
@@ -164,39 +165,32 @@ class FieldDetector:
                 counts[meeple_type] = num_meeples
             else:
                 counts[meeple_type] = 0
-        
+
         return counts
     
     def create_fields(
         self, 
         labeled_fields: np.ndarray,
         num_fields: int,
-        meeple_masks: Dict[str, np.ndarray]
+        meeple_masks: Dict[str, np.ndarray],
+        road_mask: np.ndarray = None  # NUEVO parámetro
     ) -> List[Field]:
-        """
-        Crea objetos Field para cada campo detectado.
-        
-        Args:
-            labeled_fields: Array de campos etiquetados
-            num_fields: Número de campos
-            meeple_masks: Máscaras de meeples
-            
-        Returns:
-            Lista de objetos Field
-        """
+        """Crea objetos Field para cada campo detectado."""
         fields = []
         
         for field_id in range(1, num_fields + 1):
             field_pixels = (labeled_fields == field_id)
             area = np.sum(field_pixels)
             
-            if area == 0:  # Campo vacío, skip
+            if area == 0:
                 continue
             
+            # PASAR road_mask al contador
             meeples = self.count_meeples_in_field(
                 field_id, 
                 labeled_fields, 
-                meeple_masks
+                meeple_masks,
+                road_mask=road_mask  # NUEVO
             )
             
             field = Field(
