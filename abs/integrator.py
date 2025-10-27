@@ -53,6 +53,6 @@ if __name__ == "__main__":
     run_game(
         board_size=12,
         tile_size_px=200,
-        tiles_folder="tiles",
+        tiles_folder="tiles_texture_pack",
         output_folder="output",
     )
