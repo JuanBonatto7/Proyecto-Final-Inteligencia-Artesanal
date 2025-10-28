@@ -110,14 +110,15 @@ class FieldScorer:
             complete_castles = self.count_adjacent_castles(field, only_complete=True)
             score = complete_castles * 3
             total_castles = self.count_adjacent_castles(field, only_complete=False)
+            # 'castles' should represent the total adjacent castles (complete+incomplete)
             results[field.id] = {
                 'owner': owner,
                 'is_tie': is_tie,
                 'score': score,
                 'meeples': field.meeples.copy(),
-                'castles': complete_castles,
+                'castles': total_castles,
                 'castles_complete': complete_castles,
-                'castles_incomplete': total_castles - complete_castles,
+                'castles_incomplete': max(0, total_castles - complete_castles),
                 'area': field.area
             }
         return results
@@ -132,9 +133,10 @@ class FieldScorer:
         Returns:
             Puntos totales por jugador
         """
+        # Use the same meeple key names as the rest of the code (e.g. 'MEEPLE_1', 'MEEPLE_2')
         totals = {
-            'meeple_1': 0,
-            'meeple_2': 0,
+            'MEEPLE_1': 0,
+            'MEEPLE_2': 0,
         }
         for field_data in field_results.values():
             owner = field_data['owner']
