@@ -1,7 +1,11 @@
-"""
-Cálculo de puntuación de campos.
-Solo cuenta castillos completos para puntos.
-Castillos incompletos delimitan pero no puntúan.
+"""Módulo de puntuación de campos.
+
+Reglas:
+- Sólo los castillos completos aportan puntos.
+- Los castillos incompletos delimitan pero no puntúan.
+
+El archivo mantiene la lógica existente; aquí solo se limpian
+los comentarios y se usan nombres en formato apropiado.
 """
 from typing import Dict, List, Tuple
 from src.field_detector import Field
@@ -10,16 +14,10 @@ from scipy import ndimage
 
 
 class FieldScorer:
-    """Calcula puntuación de campos."""
+    """Calculador de puntuación de campos."""
 
     def __init__(self, castle_mask: np.ndarray, castle_analyzer=None):
-        """
-        Inicializa el calculador de puntos.
-
-        Args:
-            castle_mask: Máscara de todos los castillos
-            castle_analyzer: Analizador de castillos (opcional)
-        """
+        """Inicializa con la máscara de castillos y un analizador opcional."""
         self.castle_mask = castle_mask
         self.castle_analyzer = castle_analyzer
         self.labeled_castles, self.num_castles = ndimage.label(
@@ -35,15 +33,10 @@ class FieldScorer:
             self.num_complete_castles = self.num_castles
 
     def count_adjacent_castles(self, field: Field, only_complete: bool = True) -> int:
-        """
-        Cuenta castillos adyacentes o dentro de un campo.
+        """Cuenta castillos únicos adyacentes o dentro de un campo.
 
-        Args:
-            field: Campo a analizar
-            only_complete: Si True, solo cuenta castillos completos
-
-        Returns:
-            Número de castillos adyacentes únicos
+        only_complete: si True considera sólo castillos completos.
+        Devuelve el número de castillos únicos encontrados.
         """
         kernel = np.ones((7, 7), dtype=np.uint8)
         expanded_field = ndimage.binary_dilation(field.pixels, structure=kernel, iterations=3)
@@ -64,14 +57,9 @@ class FieldScorer:
         return len(unique_castle_ids)
 
     def determine_owner(self, field: Field) -> Tuple[str, bool]:
-        """
-        Determina el dueño de un campo.
+        """Determina el dueño del campo y si hay empate.
 
-        Args:
-            field: Campo a analizar
-
-        Returns:
-            (owner, is_tie): Tupla con el dueño y si hay empate
+        Retorna una tupla (owner, is_tie). Si no hay meeples retorna (None, False).
         """
         if not field.meeples or all(count == 0 for count in field.meeples.values()):
             return None, False
@@ -82,27 +70,15 @@ class FieldScorer:
         return owners[0], False
 
     def calculate_field_score(self, field: Field) -> int:
-        """
-        Calcula puntos de un campo.
-
-        Args:
-            field: Campo a puntuar
-
-        Returns:
-            Puntos del campo
-        """
+        """Devuelve la puntuación del campo (3 puntos por castillo completo)."""
         num_castles = self.count_adjacent_castles(field, only_complete=True)
         return num_castles * 3
 
     def calculate_all_scores(self, fields: List[Field]) -> Dict[str, Dict]:
-        """
-        Calcula puntuación para todos los campos.
+        """Calcula y devuelve un diccionario con los resultados de cada campo.
 
-        Args:
-            fields: Lista de campos
-
-        Returns:
-            Diccionario con información de puntuación por campo
+        Cada entrada contiene: owner, is_tie, score, meeples, castles (total),
+        castles_complete, castles_incomplete y area.
         """
         results = {}
         for field in fields:
@@ -110,7 +86,7 @@ class FieldScorer:
             complete_castles = self.count_adjacent_castles(field, only_complete=True)
             score = complete_castles * 3
             total_castles = self.count_adjacent_castles(field, only_complete=False)
-            # 'castles' should represent the total adjacent castles (complete+incomplete)
+
             results[field.id] = {
                 'owner': owner,
                 'is_tie': is_tie,
@@ -124,16 +100,12 @@ class FieldScorer:
         return results
 
     def calculate_player_totals(self, field_results: Dict[str, Dict]) -> Dict[str, int]:
-        """
-        Calcula puntos totales por jugador.
+        """Suma los puntos por jugador a partir de los resultados de campos.
 
-        Args:
-            field_results: Resultados por campo
-
-        Returns:
-            Puntos totales por jugador
+        Maneja empates distribuyendo los puntos a los jugadores que comparten
+        la mayoría de meeples en el campo.
         """
-        # Use the same meeple key names as the rest of the code (e.g. 'MEEPLE_1', 'MEEPLE_2')
+        # Inicializar totales con las claves esperadas por el proyecto
         totals = {
             'MEEPLE_1': 0,
             'MEEPLE_2': 0,
