@@ -1,9 +1,8 @@
 """
 Configuración de colores para el tablero de Carcassonne.
-Modifica estos valores según necesites.
 """
 
-# Colores en formato RGB (valores enteros simples)
+# Colores en formato RGB
 COLORS = {
     'FIELD': (34, 177, 76),           # Verde
     'CASTLE': (255, 127, 39),         # Naranja
@@ -14,10 +13,9 @@ COLORS = {
 }
 
 # Tolerancia para la detección de colores
-# Aumentada para manejar variaciones en la imagen
 COLOR_TOLERANCE = 40
 
-# Nombre de jugadores
+# Nombres de jugadores
 PLAYER_NAMES = {
     'MEEPLE_1': 'Jugador 1',
     'MEEPLE_2': 'Jugador 2',
@@ -25,14 +23,7 @@ PLAYER_NAMES = {
 
 # Configuración avanzada para detección de campos
 FIELD_DETECTION_CONFIG = {
-    # Cuánto expandir las barreras (caminos/castillos) para separar campos
-    # Valores más altos = mejor separación pero campos más pequeños
-    'barrier_expansion': 4,
-    
-    # Área mínima en píxeles para considerar un campo válido
-    # Filtra campos muy pequeños que probablemente son ruido
-    'min_field_area': 100,
-    
-    # Umbral de píxeles de meeple para contar como presente
-    'meeple_detection_threshold': 15,
+    'barrier_expansion': 4,  # Cuánto expandir las barreras para separar campos
+    'min_field_area': 100,   # Área mínima en píxeles para considerar un campo válido
+    'meeple_detection_threshold': 15,  # Umbral de píxeles de meeple para contar como presente
 }
