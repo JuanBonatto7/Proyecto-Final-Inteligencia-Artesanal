@@ -2,17 +2,8 @@ import random
 from dataclasses import dataclass
 from typing import List, Optional, Tuple, Dict, Set
 from collections import defaultdict, deque
+from origin_matrix import Board, Tile
 
-@dataclass
-class Tile:
-    """Represents a Carcassonne board tile"""
-    type: str
-    rotation: int
-    meeple_info: Optional[Tuple[int, int]]
-
-# =============================================================================
-# TILE CONFIGURATION
-# =============================================================================
 
 GRID_SIZE = 3
 ROTATION_STEP = 90
@@ -65,9 +56,7 @@ TILE_INFO: Dict[str, TileConfig] = {
     "X": TileConfig(grid=["F", "R", "F", "R", "T", "R", "F", "R", "F"], feature_connections=[], has_pennant=False, count=1),
 }
 
-# =============================================================================
-# GRID ROTATION UTILITIES
-# =============================================================================
+
 
 class GridRotator:
     @staticmethod
@@ -97,9 +86,7 @@ class GridRotator:
         new_index = (index + (steps % 4)) % len(EDGE_ORDER)
         return EDGE_ORDER[new_index]
 
-# =============================================================================
-# HELPER FUNCTIONS
-# =============================================================================
+
 
 def get_tile_edges(tile_type: str, rotation: int) -> Dict[str, str]:
     """Obtiene los bordes de un tile después de aplicar la rotación."""
@@ -160,24 +147,35 @@ def can_place_tile(board: List[List[Optional[Tile]]], row: int, col: int,
 
 def is_structure_closed(board, row, col, pos):
     """
-    Determina si la estructura (ciudad o camino) a la que pertenece `pos` está cerrada.
-    Considera conexiones internas dentro de la loseta (mismo tipo de feature).
-    Incluye debug detallado.
+    Determina si la estructura a la que pertenece `pos` está cerrada.
+    - Para caminos y ciudades: usa BFS.
+    - Para monasterios: está cerrada si todas las losetas alrededor están ocupadas.
     """
     tile = board[row][col]
     if tile is None:
-        print(f"[DEBUG] ({row},{col}) sin loseta.")
         return False
 
     tile_info = TILE_INFO[tile.type]
     rotated_grid = GridRotator.rotate_grid(tile_info.grid, tile.rotation)
     start_feature = rotated_grid[pos - 1]
 
+    #Monasterios
+    if start_feature == FEATURE_MONASTERY or (pos == 5 and start_feature == FEATURE_FIELD):
+        # El monasterio está cerrado si las 8 casillas alrededor están ocupadas
+        n = len(board)
+        deltas = [(-1, -1), (-1, 0), (-1, 1),
+                  (0, -1),          (0, 1),
+                  (1, -1),  (1, 0), (1, 1)]
+        for dr, dc in deltas:
+            nr, nc = row + dr, col + dc
+            if not (0 <= nr < n and 0 <= nc < n) or board[nr][nc] is None:
+                return False
+        return True  
+
+    #Ciudades y Caminos
     if start_feature not in [FEATURE_CITY, FEATURE_ROAD]:
-        print(f"[DEBUG] ({row},{col}) pos={pos}: feature={start_feature}, no es ciudad ni camino.")
         return False
 
-    # Funciones auxiliares internas (sin dependencias externas)
     def neighbors_of_position(p):
         mapping = {
             1: [2, 4], 2: [1, 3, 5], 3: [2, 6],
@@ -187,12 +185,10 @@ def is_structure_closed(board, row, col, pos):
         return mapping.get(p, [])
 
     def opposite(p):
-        # Puntos cardinales del grid 3x3
         opposites = {1: 9, 2: 8, 3: 7, 4: 6, 6: 4, 7: 3, 8: 2, 9: 1, 5: 5}
         return opposites[p]
 
     def delta(p):
-        # Traduce posición (1–9) a desplazamiento (dr, dc)
         mapping = {
             1: (-1, -1), 2: (-1, 0), 3: (-1, 1),
             4: (0, -1), 5: (0, 0), 6: (0, 1),
@@ -219,29 +215,25 @@ def is_structure_closed(board, row, col, pos):
         t_grid = GridRotator.rotate_grid(t_info.grid, t.rotation)
         feature = t_grid[p - 1]
 
-        # Si el feature no coincide, saltar
         if feature != start_feature:
             continue
 
-        # 1️⃣ Conexiones internas (dentro del mismo tile)
+        # Conexiones internas
         for np in neighbors_of_position(p):
             if t_grid[np - 1] == feature and (r, c, np) not in visited:
                 queue.append((r, c, np))
 
-        # 2️⃣ Conexiones externas (solo en bordes cardinales)
-        if p in [2, 4, 6, 8]:  # arriba, izquierda, derecha, abajo
+        # Conexiones externas
+        if p in [2, 4, 6, 8]:
             dr, dc = delta(p)
             nr, nc = r + dr, c + dc
 
-            # Fuera del tablero = abierto
             if not (0 <= nr < len(board) and 0 <= nc < len(board)):
-                print(f"[DEBUG] ({r},{c}) p={p} → borde sin loseta → ABIERTO ❌")
                 closed = False
                 continue
 
             neighbor_tile = board[nr][nc]
             if neighbor_tile is None:
-                print(f"[DEBUG] ({r},{c}) p={p} → vecino vacío ({nr},{nc}) → ABIERTO ❌")
                 closed = False
                 continue
 
@@ -250,18 +242,13 @@ def is_structure_closed(board, row, col, pos):
             opp = opposite(p)
 
             if neighbor_grid[opp - 1] != feature:
-                print(f"[DEBUG] ({r},{c}) p={p} → vecino ({nr},{nc}) no coincide → ABIERTO ❌")
                 closed = False
                 continue
 
             queue.append((nr, nc, opp))
 
-    if closed:
-        print(f"[DEBUG] ({row},{col}) pos={pos} → ESTRUCTURA CERRADA ✅")
-    else:
-        print(f"[DEBUG] ({row},{col}) pos={pos} → estructura ABIERTA ❌")
-
     return closed
+
 
 
 def get_valid_meeple_positions(board, row, col, tile_type, rotation):
@@ -269,8 +256,7 @@ def get_valid_meeple_positions(board, row, col, tile_type, rotation):
     Devuelve una lista de posiciones (1–9) válidas para colocar meeples en la loseta.
     Reglas:
     - Campos (F): válidos si tocan al menos un tile vacío o no están completamente rodeados
-    - Monasterios (M): siempre válidos
-    - Ciudades (C) y Caminos (R): solo si están abiertos (no cerrados)
+    - Monasterios (M), Ciudades (C) y Caminos (R): solo si están abiertos (no cerrados)
     """
     valid_positions = []
     config = TILE_INFO[tile_type]
@@ -307,10 +293,7 @@ def get_valid_meeple_positions(board, row, col, tile_type, rotation):
     return valid_positions
 
 
-
-# =============================================================================
-# BOARD GENERATION
-# =============================================================================
+#Generacion Random del tablero:
 
 def get_neighbors_with_direction(board: List[List[Optional[Tile]]], row: int, col: int) -> List[Tuple[int, int, str]]:
     """Retorna vecinos existentes con su dirección relativa."""
@@ -339,40 +322,20 @@ def find_valid_rotation(tile_type: str, board: List[List[Optional[Tile]]], row: 
     
     return None
 
-def generate_board(n: int = 5) -> List[List[Optional[Tile]]]:
+def generate_board(n) -> List[List[Optional[Tile]]]:
     """
-    Genera un tablero cuadrado n x n válido de Carcassonne (versión debug).
-    
-    Imprime paso a paso:
-      - Tiles colocados
-      - Meeples colocados
-      - Si la estructura está cerrada o no
-      - Resumen final
+    Genera un tablero cuadrado n x n válido de Carcassonne.
     """
-
-    print("\n🔧 [DEBUG] Generando tablero...\n")
-
-    # Inicializar tablero vacío n x n
     grid: List[List[Optional[Tile]]] = [[None for _ in range(n)] for _ in range(n)]
     center = n // 2
-    
-    # Inventario de tiles disponibles
+
     remaining_counts: Dict[str, int] = {tile_type: config.count for tile_type, config in TILE_INFO.items()}
 
-    # ========================================================================
-    # ETAPA A: GENERAR TABLERO COMPLETO (SIN MEEPLES)
-    # ========================================================================
-    print("📦 [DEBUG] Etapa A: Generando tablero sin meeples...\n")
-
-    # Paso 1: Colocar tile inicial en el centro
     initial_type = random.choice([t for t, c in remaining_counts.items() if c > 0])
     initial_rotation = random.choice([0, 90, 180, 270])
     grid[center][center] = Tile(type=initial_type, rotation=initial_rotation, meeple_info=None)
     remaining_counts[initial_type] -= 1
 
-    print(f"🧩 Tile inicial ({center},{center}) = {initial_type} rot={initial_rotation}")
-
-    # Paso 2: Generar orden de llenado (anillos concéntricos desde el centro)
     positions: List[Tuple[int, int, int]] = []
     for i in range(n):
         for j in range(n):
@@ -382,7 +345,6 @@ def generate_board(n: int = 5) -> List[List[Optional[Tile]]]:
             positions.append((distance, i, j))
     positions.sort(key=lambda x: (x[0], random.random()))
 
-    # Paso 3: Colocar tiles sin meeples
     for _, row, col in positions:
         vecinos = get_neighbors_with_direction(grid, row, col)
         if len(vecinos) == 0:
@@ -393,102 +355,54 @@ def generate_board(n: int = 5) -> List[List[Optional[Tile]]]:
             break
 
         random.shuffle(available_types)
-        
+
         for tile_type in available_types:
             valid_rotation = find_valid_rotation(tile_type, grid, row, col)
             if valid_rotation is not None:
                 grid[row][col] = Tile(type=tile_type, rotation=valid_rotation, meeple_info=None)
                 remaining_counts[tile_type] -= 1
-                print(f"  ✔ Tile ({row},{col}) = {tile_type} rot={valid_rotation}")
                 break
 
-    # ========================================================================
-    # ETAPA B: COLOCAR MEEPLES EN EL TABLERO FINAL
-    # ========================================================================
-    print("\n🎯 [DEBUG] Etapa B: Colocando meeples...\n")
-    
     total_meeples: Dict[int, int] = {1: random.randint(3, 5), 2: random.randint(3, 5)}
     used_meeples: Dict[int, int] = {1: 0, 2: 0}
     all_valid_positions: Dict[int, List[Tuple[int, int, int]]] = {1: [], 2: []}
-    
+
     for i in range(n):
         for j in range(n):
             tile = grid[i][j]
             if tile is None:
                 continue
-            
+
             valid_positions = get_valid_meeple_positions(grid, i, j, tile.type, tile.rotation)
             for pos in valid_positions:
                 all_valid_positions[1].append((i, j, pos))
                 all_valid_positions[2].append((i, j, pos))
-    
-    # Colocar meeples
+
     for player in [1, 2]:
         random.shuffle(all_valid_positions[player])
         placed = 0
-        print(f"🎲 Jugador {player} (debe colocar {total_meeples[player]} meeples):")
 
         for i, j, pos in all_valid_positions[player]:
             if placed >= total_meeples[player]:
                 break
-            
+
             tile = grid[i][j]
             if tile.meeple_info is not None:
                 continue
 
-            # DEBUG: Verificar si la estructura está cerrada antes de poner el meeple
             cerrado = is_structure_closed(grid, i, j, pos)
-            config = TILE_INFO[tile.type]
-            rotated = GridRotator.rotate_grid(config.grid, tile.rotation)
-            feature = rotated[pos - 1]
-
-            estado = "❌ CERRADA" if cerrado else "✅ ABIERTA"
-            print(f"   -> ({i},{j}) tile={tile.type}, rot={tile.rotation}, pos={pos}, "
-                  f"feature={feature}, {estado}")
-
             if cerrado:
-                continue  # No colocar si está cerrada
+                continue
 
             grid[i][j] = Tile(type=tile.type, rotation=tile.rotation, meeple_info=(player, pos))
             placed += 1
             used_meeples[player] += 1
 
-            # Eliminar esa posición del otro jugador
             other_player = 2 if player == 1 else 1
             all_valid_positions[other_player] = [
-                (r, c, p) for r, c, p in all_valid_positions[other_player] 
+                (r, c, p) for r, c, p in all_valid_positions[other_player]
                 if not (r == i and c == j)
             ]
-
-        print(f"   → Meeples colocados: {placed}/{total_meeples[player]}\n")
-
-    # ========================================================================
-    # ETAPA C: VERIFICAR MEEPLES MAL COLOCADOS
-    # ========================================================================
-    print("\n🔍 [DEBUG] Verificando meeples colocados en estructuras cerradas...\n")
-    errores = 0
-    for i in range(n):
-        for j in range(n):
-            tile = grid[i][j]
-            if tile is None or tile.meeple_info is None:
-                continue
-            player, pos = tile.meeple_info
-            if is_structure_closed(grid, i, j, pos):
-                print(f"🚫 ERROR: Meeple jugador {player} en ({i},{j}) → estructura cerrada")
-                errores += 1
-
-    if errores == 0:
-        print("✅ Todos los meeples están en estructuras abiertas.")
-    else:
-        print(f"⚠ Se detectaron {errores} meeples en estructuras cerradas.\n")
-
-    # ========================================================================
-    # ETAPA D: RESUMEN FINAL
-    # ========================================================================
-    print("\n📊 Resumen final:")
-    for player in [1, 2]:
-        print(f"  Jugador {player}: {used_meeples[player]} meeples (de {total_meeples[player]})")
-    print("✅ Tablero generado correctamente.\n")
 
     return grid
 
