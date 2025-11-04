@@ -1,0 +1,22 @@
+{
+  "tile_type": {
+    "accuracy": 0.6571428571428571,
+    "precision": 0.638095238095238,
+    "recall": 0.6571428571428571,
+    "f1_score": 0.6161904761904762,
+    "avg_confidence": 0.797561526298523
+  },
+  "rotation": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "avg_confidence": 0.9999995827674866
+  },
+  "has_meeple": {
+    "accuracy": 1.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1_score": 0.0
+  }
+}

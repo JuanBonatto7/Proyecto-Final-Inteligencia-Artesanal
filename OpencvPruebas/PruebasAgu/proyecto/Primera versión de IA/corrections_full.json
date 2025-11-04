@@ -1,0 +1,1277 @@
+[
+  {
+    "image_path": "tablero_01\\tiles\\tile_000_r-3_c2.png",
+    "predicted": {
+      "tipo": "D",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 6
+    },
+    "corrected": {
+      "tipo": "I",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 6
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_001_r-3_c3.png",
+    "predicted": {
+      "tipo": "F",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "F",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_002_r-3_c4.png",
+    "predicted": {
+      "tipo": "G",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "G",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_003_r-3_c5.png",
+    "predicted": {
+      "tipo": "W",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    },
+    "corrected": {
+      "tipo": "W",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_004_r-2_c2.png",
+    "predicted": {
+      "tipo": "P",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 7
+    },
+    "corrected": {
+      "tipo": "P",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 7
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_005_r-2_c3.png",
+    "predicted": {
+      "tipo": "B",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "E",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_006_r-2_c4.png",
+    "predicted": {
+      "tipo": "S",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "S",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_007_r-2_c5.png",
+    "predicted": {
+      "tipo": "J",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "J",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_008_r-2_c6.png",
+    "predicted": {
+      "tipo": "F",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 5
+    },
+    "corrected": {
+      "tipo": "F",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 5
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_009_r-2_c8.png",
+    "predicted": {
+      "tipo": "V",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "U",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_010_r-2_c9.png",
+    "predicted": {
+      "tipo": "U",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 5
+    },
+    "corrected": {
+      "tipo": "G",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 5
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_011_r-2_c10.png",
+    "predicted": {
+      "tipo": "D",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "D",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_012_r-1_c2.png",
+    "predicted": {
+      "tipo": "K",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 2
+    },
+    "corrected": {
+      "tipo": "H",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 2
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_013_r-1_c3.png",
+    "predicted": {
+      "tipo": "D",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 7
+    },
+    "corrected": {
+      "tipo": "H",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 7
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_014_r-1_c4.png",
+    "predicted": {
+      "tipo": "X",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 7
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 7
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_015_r-1_c5.png",
+    "predicted": {
+      "tipo": "A",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "P",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_016_r-1_c6.png",
+    "predicted": {
+      "tipo": "E",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 5
+    },
+    "corrected": {
+      "tipo": "P",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 5
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_017_r-1_c7.png",
+    "predicted": {
+      "tipo": "K",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "K",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_018_r-1_c9.png",
+    "predicted": {
+      "tipo": "K",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "O",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_019_r-1_c10.png",
+    "predicted": {
+      "tipo": "E",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 2
+    },
+    "corrected": {
+      "tipo": "Q",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 2
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_020_r-1_c11.png",
+    "predicted": {
+      "tipo": "D",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 6
+    },
+    "corrected": {
+      "tipo": "K",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 6
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_021_r0_c0.png",
+    "predicted": {
+      "tipo": "X",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "J",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_022_r0_c1.png",
+    "predicted": {
+      "tipo": "O",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    },
+    "corrected": {
+      "tipo": "L",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_023_r0_c2.png",
+    "predicted": {
+      "tipo": "F",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "S",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_024_r0_c3.png",
+    "predicted": {
+      "tipo": "C",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    },
+    "corrected": {
+      "tipo": "P",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_025_r0_c4.png",
+    "predicted": {
+      "tipo": "S",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    },
+    "corrected": {
+      "tipo": "J",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_026_r0_c5.png",
+    "predicted": {
+      "tipo": "R",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "C",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_027_r0_c6.png",
+    "predicted": {
+      "tipo": "W",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "R",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_028_r0_c7.png",
+    "predicted": {
+      "tipo": " ",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    },
+    "corrected": {
+      "tipo": "A",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_029_r0_c8.png",
+    "predicted": {
+      "tipo": "M",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "D",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_030_r0_c9.png",
+    "predicted": {
+      "tipo": "H",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_031_r0_c10.png",
+    "predicted": {
+      "tipo": "S",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "H",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_032_r0_c11.png",
+    "predicted": {
+      "tipo": "I",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "I",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_033_r1_c2.png",
+    "predicted": {
+      "tipo": "E",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    },
+    "corrected": {
+      "tipo": "E",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_034_r1_c3.png",
+    "predicted": {
+      "tipo": "I",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "K",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_035_r1_c4.png",
+    "predicted": {
+      "tipo": "U",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "O",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_036_r1_c5.png",
+    "predicted": {
+      "tipo": "E",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "M",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_037_r1_c6.png",
+    "predicted": {
+      "tipo": "N",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "M",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_038_r1_c7.png",
+    "predicted": {
+      "tipo": "I",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    },
+    "corrected": {
+      "tipo": "N",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_039_r1_c8.png",
+    "predicted": {
+      "tipo": "R",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "I",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_040_r1_c9.png",
+    "predicted": {
+      "tipo": "V",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_041_r1_c10.png",
+    "predicted": {
+      "tipo": "G",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 8
+    },
+    "corrected": {
+      "tipo": "R",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 8
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_042_r1_c11.png",
+    "predicted": {
+      "tipo": "J",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "R",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_043_r2_c3.png",
+    "predicted": {
+      "tipo": "R",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 1
+    },
+    "corrected": {
+      "tipo": "N",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 1
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_044_r2_c4.png",
+    "predicted": {
+      "tipo": "X",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 1
+    },
+    "corrected": {
+      "tipo": "S",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 1
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_045_r2_c5.png",
+    "predicted": {
+      "tipo": "T",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "U",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_046_r2_c6.png",
+    "predicted": {
+      "tipo": "G",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    },
+    "corrected": {
+      "tipo": "U",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_047_r2_c7.png",
+    "predicted": {
+      "tipo": "A",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 6
+    },
+    "corrected": {
+      "tipo": "D",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 6
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_048_r2_c8.png",
+    "predicted": {
+      "tipo": "J",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 6
+    },
+    "corrected": {
+      "tipo": "U",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 6
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_049_r2_c9.png",
+    "predicted": {
+      "tipo": "I",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_050_r2_c10.png",
+    "predicted": {
+      "tipo": "M",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 8
+    },
+    "corrected": {
+      "tipo": "M",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 8
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_051_r2_c11.png",
+    "predicted": {
+      "tipo": "J",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    },
+    "corrected": {
+      "tipo": "N",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_052_r3_c3.png",
+    "predicted": {
+      "tipo": "W",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "W",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_053_r3_c4.png",
+    "predicted": {
+      "tipo": "D",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "K",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_054_r3_c5.png",
+    "predicted": {
+      "tipo": "K",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "B",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_055_r3_c6.png",
+    "predicted": {
+      "tipo": "L",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "B",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_056_r3_c7.png",
+    "predicted": {
+      "tipo": "V",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 8
+    },
+    "corrected": {
+      "tipo": "A",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 8
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_057_r3_c8.png",
+    "predicted": {
+      "tipo": "T",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "A",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_058_r3_c9.png",
+    "predicted": {
+      "tipo": "A",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "D",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_059_r3_c10.png",
+    "predicted": {
+      "tipo": "C",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "U",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_060_r4_c4.png",
+    "predicted": {
+      "tipo": "B",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "U",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_061_r4_c5.png",
+    "predicted": {
+      "tipo": "G",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "G",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_062_r4_c6.png",
+    "predicted": {
+      "tipo": "G",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    },
+    "corrected": {
+      "tipo": "E",
+      "rotacion": 3,
+      "tiene_ficha": true,
+      "pos_ficha": 3
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_063_r4_c7.png",
+    "predicted": {
+      "tipo": "F",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 7
+    },
+    "corrected": {
+      "tipo": "U",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 7
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_064_r4_c8.png",
+    "predicted": {
+      "tipo": "U",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_065_r4_c9.png",
+    "predicted": {
+      "tipo": "U",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_066_r4_c10.png",
+    "predicted": {
+      "tipo": "X",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 5
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 1,
+      "tiene_ficha": true,
+      "pos_ficha": 5
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_067_r5_c4.png",
+    "predicted": {
+      "tipo": "T",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "U",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_068_r5_c5.png",
+    "predicted": {
+      "tipo": "L",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "E",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_069_r5_c6.png",
+    "predicted": {
+      "tipo": "N",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "T",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_070_r5_c7.png",
+    "predicted": {
+      "tipo": "F",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "F",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_071_r5_c8.png",
+    "predicted": {
+      "tipo": "V",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "W",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_072_r5_c9.png",
+    "predicted": {
+      "tipo": "O",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "O",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_073_r6_c4.png",
+    "predicted": {
+      "tipo": "B",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "W",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_074_r6_c5.png",
+    "predicted": {
+      "tipo": "V",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "U",
+      "rotacion": 2,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_075_r6_c6.png",
+    "predicted": {
+      "tipo": "A",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "X",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_076_r6_c7.png",
+    "predicted": {
+      "tipo": "H",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "L",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_077_r6_c8.png",
+    "predicted": {
+      "tipo": " ",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_078_r6_c9.png",
+    "predicted": {
+      "tipo": "H",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    },
+    "corrected": {
+      "tipo": "H",
+      "rotacion": 0,
+      "tiene_ficha": true,
+      "pos_ficha": 4
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_079_r7_c6.png",
+    "predicted": {
+      "tipo": "T",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 1,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_080_r7_c7.png",
+    "predicted": {
+      "tipo": "K",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "L",
+      "rotacion": 3,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_081_r7_c8.png",
+    "predicted": {
+      "tipo": "Q",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "W",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_082_r7_c9.png",
+    "predicted": {
+      "tipo": "N",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "W",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_083_r8_c8.png",
+    "predicted": {
+      "tipo": "R",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    },
+    "corrected": {
+      "tipo": "V",
+      "rotacion": 0,
+      "tiene_ficha": false,
+      "pos_ficha": null
+    }
+  },
+  {
+    "image_path": "tablero_01\\tiles\\tile_084_r8_c9.png",
+    "predicted": {
+      "tipo": "R",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    },
+    "corrected": {
+      "tipo": "R",
+      "rotacion": 2,
+      "tiene_ficha": true,
+      "pos_ficha": 0
+    }
+  }
+]

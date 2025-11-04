@@ -1,0 +1,325 @@
+[
+  {
+    "image_path": "tiles\\tile_000_r-1_c2.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 0,
+    "confidence": 0.688384310496007,
+    "method_scores": {
+      "ssim": 0.8505750296041242,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.9068305013456363
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_003_r-1_c5.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 1,
+    "confidence": 0.6947340372716724,
+    "method_scores": {
+      "ssim": 0.8663253329418571,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.915201707420223
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_006_r0_c2.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 3,
+    "confidence": 0.6896501746686554,
+    "method_scores": {
+      "ssim": 0.8534419075225713,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.9094550703575548
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_014_r1_c-1.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 2,
+    "confidence": 0.6769893851541835,
+    "method_scores": {
+      "ssim": 0.826200422569376,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8781923725490196
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_017_r1_c2.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 0,
+    "confidence": 0.6746959721409403,
+    "method_scores": {
+      "ssim": 0.8165794169699412,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8889317620146098
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_020_r1_c5.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 1,
+    "confidence": 0.6848258060818455,
+    "method_scores": {
+      "ssim": 0.8417742995758558,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.9020480123029604
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_022_r1_c7.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 2,
+    "confidence": 0.6885881098832626,
+    "method_scores": {
+      "ssim": 0.8524657442811733,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.9022509938485198
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_024_r1_c9.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 0,
+    "confidence": 0.6883137962882576,
+    "method_scores": {
+      "ssim": 0.8575539345809391,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8816991918492887
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_025_r2_c0.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 1,
+    "confidence": 0.6720787829687561,
+    "method_scores": {
+      "ssim": 0.8159633012596634,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8649162752787389
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_031_r2_c6.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 0,
+    "confidence": 0.668484529680391,
+    "method_scores": {
+      "ssim": 0.800586428844617,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8827927958477508
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_034_r3_c-1.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 1,
+    "confidence": 0.6737511552525941,
+    "method_scores": {
+      "ssim": 0.822894488616463,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8573808423683199
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_035_r3_c0.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 2,
+    "confidence": 0.6714538121111195,
+    "method_scores": {
+      "ssim": 0.8152488439622364,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.861167167243368
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_047_r4_c0.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 3,
+    "confidence": 0.6634334309436689,
+    "method_scores": {
+      "ssim": 0.7945479180364506,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8534165963091118
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_056_r4_c9.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 0,
+    "confidence": 0.671468858037728,
+    "method_scores": {
+      "ssim": 0.8167095612194547,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8562051161091888
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_061_r5_c3.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 0,
+    "confidence": 0.6736401456946748,
+    "method_scores": {
+      "ssim": 0.81755054465648,
+      "histogram": 0.0002103382142600569,
+      "template": 1.0,
+      "mse": 0.8744487051134179
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_062_r5_c4.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 2,
+    "confidence": 0.6798069837038112,
+    "method_scores": {
+      "ssim": 0.8316746360128418,
+      "histogram": 8.123555451393743e-05,
+      "template": 1.0,
+      "mse": 0.887005522106882
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_069_r6_c-1.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 0,
+    "confidence": 0.6535919135778142,
+    "method_scores": {
+      "ssim": 0.7754341934595427,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8218994586697423
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_081_r7_c4.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 3,
+    "confidence": 0.6515194822097435,
+    "method_scores": {
+      "ssim": 0.7661615725023815,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8336293183391004
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  },
+  {
+    "image_path": "tiles\\tile_083_r7_c7.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 2,
+    "confidence": 0.6440953304829101,
+    "method_scores": {
+      "ssim": 0.7508804754062168,
+      "histogram": 0.0,
+      "template": 1.0,
+      "mse": 0.8128716409073433
+    },
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": "none",
+    "auto_annotated": true
+  }
+]
