@@ -1,97 +1,164 @@
-# Detector de Meeples Azules/Negros en Carcassonne
+# Detector de Meeples - Approach OpenCV
 
-Este proyecto implementa una Inteligencia Artificial basada en CNN para detectar si una loseta de Carcassonne tiene un meeple azul o negro, y en qué posición se encuentra.
+Este proyecto detecta meeples azules y negros en losetas de Carcassonne usando visión computacional con OpenCV. **No requiere anotaciones manuales ni entrenamiento de IA**.
 
-## Estructura del Proyecto
+> **⚠️ Importante**: Este sistema usa algoritmos clásicos de visión computacional (Hough Transform, análisis de color HSV), NO machine learning. No hay "entrenamiento" - solo ajuste de parámetros según tus imágenes.
+
+## 🚀 Características
+
+- ✅ **Detección automática** de meeples circulares
+- ✅ **Clasificación de colores** (azul/negro)
+- ✅ **Detección de borde** de losetas
+- ✅ **División en 9 posiciones** según cuadrícula 3x3
+- ✅ **Sin anotaciones** - funciona out-of-the-box
+- ✅ **Visualización** de resultados
+
+## 📋 Requisitos
+
+```bash
+pip install opencv-python numpy matplotlib
+```
+
+## 🏗️ Estructura del Proyecto
 
 ```
 Primera_Version_IA_Meeples/
-├── data/
-│   ├── tiles/                 # Imágenes de losetas
-│   ├── train_annotations.json # Anotaciones de entrenamiento
-│   ├── val_annotations.json   # Anotaciones de validación
-│   └── annotations_template.json # Plantilla para anotaciones
-├── models/                    # Modelos entrenados
-├── output/                    # Resultados y gráficos
-├── src/                       # Código fuente
-│   ├── meeple_detector.py     # Modelo y clases principales
-│   ├── train_meeple_detector.py # Script de entrenamiento
-│   └── predict_meeple.py      # Script de predicción
-├── utils/                     # Utilidades
-├── requirements.txt           # Dependencias
-└── README.md                  # Este archivo
+├── src/
+│   └── meeple_detector_cv.py    # Detector principal
+├── tiles/                       # Imágenes de losetas base
+├── real_test_images/            # Tus fotos reales de Carcassonne ⭐
+├── test_images/                 # Imágenes de prueba simuladas
+├── test_detector.py             # Probar con una imagen
+├── test_real_images.py          # Probar con tus imágenes reales ⭐
+├── process_all.py               # Procesar todas las imágenes
+├── tune_params.py               # Ajustar parámetros
+└── README.md
 ```
 
-## Instalación
+## 🎯 Cómo Usar
 
-1. Instala las dependencias:
-```bash
-pip install -r requirements.txt
-```
+### ⭐ 1. Colocar Tus Imágenes Reales
 
-## Uso
+**Pon tus fotos de Carcassonne en la carpeta `real_test_images/`:**
+- Formatos soportados: JPG, PNG, BMP
+- Incluye losetas con meeples azules y negros
+- Fotos tomadas con buena iluminación
+- Loseta centrada en la imagen
 
-### 1. Preparar Datos
-
-- Coloca las imágenes de las losetas en `data/tiles/`
-- Usa la plantilla `data/annotations_template.json` para crear anotaciones
-- Crea `data/train_annotations.json` y `data/val_annotations.json`
-
-### 2. Entrenar el Modelo
+### ⭐ 2. Probar con Tus Imágenes
 
 ```bash
-python src/train_meeple_detector.py
+# Probar todas tus imágenes reales
+python test_real_images.py
 ```
 
-### 3. Hacer Predicciones
+Esto procesará todas las imágenes en `real_test_images/` y:
+- Mostrará resultados de detección
+- Generará visualizaciones en `visualizations/`
+- Guardará resultados en `real_test_results.json`
 
-Para una imagen individual:
+### 3. Probar con una Imagen Específica
+
 ```bash
-python src/predict_meeple.py ruta/a/la/imagen.png
+python test_detector.py real_test_images/tu_foto.jpg
 ```
 
-Para un directorio con múltiples imágenes:
+Esto mostrará:
+- Si se detectó la loseta
+- Cantidad de meeples encontrados
+- Color y posición de cada meeple
+- Visualización gráfica
+
+### 3. Procesar Todas las Imágenes
+
 ```bash
-python src/predict_meeple.py data/tiles/
+python process_all.py
 ```
 
-## Formato de Anotaciones
+Esto procesará todas las imágenes en `tiles/` y generará:
+- `detection_results.json`: Resultados detallados
+- `visualizations/`: Imágenes con detecciones visualizadas
+- Estadísticas completas
 
-Cada anotación en el JSON debe tener:
+### ⭐ 4. Ajustar el Detector (Si es Necesario)
 
-```json
-{
-  "image_path": "data/tiles/tile_001.png",
-  "has_blue_or_black_meeple": true,
-  "meeple_position": 4,
-  "meeple_color": "blue"
-}
+**Este NO es entrenamiento de IA - son ajustes de parámetros de visión computacional:**
+
+```bash
+# Ajustar parámetros de detección de círculos
+python tune_params.py real_test_images/tu_foto.jpg --mode circles
+
+# Ver y ajustar rangos de color
+python tune_params.py real_test_images/tu_foto.jpg --mode colors
 ```
 
-- `has_blue_or_black_meeple`: `true` si tiene meeple azul o negro
-- `meeple_position`: posición 0-8 según la cuadrícula 3x3, -1 si no hay meeple
-- `meeple_color`: `"blue"` o `"black"` (opcional)
+Los parámetros que puedes ajustar:
+- **Detección de círculos**: Tamaño mínimo/máximo, sensibilidad
+- **Colores**: Rangos HSV para azul y negro
+- **Umbrales**: Sensibilidad de detección de bordes
 
-### Numeración de Posiciones
+## 🔧 Cómo Funciona
 
-La loseta se divide en 9 subespacios numerados así:
+### 1. Detección de Bordes
+- Usa Canny edge detection para encontrar contornos
+- Identifica el contorno rectangular principal (la loseta)
 
+### 2. División en 9 Zonas
 ```
 0 1 2
 3 4 5
 6 7 8
 ```
 
-## Arquitectura del Modelo
+### 3. Detección de Círculos
+- Hough Circle Transform para encontrar formas circulares
+- Parámetros ajustables para diferentes condiciones de iluminación
 
-- **Backbone**: ResNet18 pre-entrenado
-- **Tareas**:
-  - Detección de presencia de meeple (binaria)
-  - Clasificación de posición (9 clases + no meeple)
+### 4. Clasificación de Color
+- Conversión a espacio HSV
+- Rangos predefinidos para azul y negro
+- Análisis de histograma en la región del círculo
 
-## Resultados
+## 📊 Resultados
 
-Los resultados se guardan en `output/`:
-- `best_meeple_model.pth`: Mejor modelo entrenado
-- `training_history.png`: Gráfico del entrenamiento
-- `prediction_results.json`: Resultados de predicción
+El sistema genera:
+- **JSON con resultados**: Posición y color de cada meeple
+- **Estadísticas**: Distribución por color y posición
+- **Visualizaciones**: Imágenes marcadas con detecciones
+
+## 🎮 Ejemplo de Salida
+
+```
+📊 RESULTADOS:
+Loseta detectada: Sí
+Meeples encontrados: 2
+
+1. Meeple blue en posición 4
+   Centro: (150, 200), Radio: 25
+
+2. Meeple black en posición 7
+   Centro: (300, 350), Radio: 22
+```
+
+## 🔍 Parámetros Ajustables
+
+### Detección de Círculos
+- `dp`: Resolución del acumulador
+- `minDist`: Distancia mínima entre círculos
+- `param1`, `param2`: Parámetros de Canny
+- `minRadius`, `maxRadius`: Tamaño de círculos
+
+### Rangos de Color (HSV)
+```python
+'blue': {'lower': [90, 50, 50], 'upper': [130, 255, 255]}
+'black': {'lower': [0, 0, 0], 'upper': [180, 255, 30]}
+```
+
+## 🚀 Próximos Pasos
+
+1. **Probar** con tus imágenes
+2. **Ajustar parámetros** si es necesario
+3. **Integrar** con tu sistema de juego de Carcassonne
+4. **Optimizar** para diferentes condiciones de iluminación
+
+¡El sistema está listo para usar sin necesidad de entrenamiento!
