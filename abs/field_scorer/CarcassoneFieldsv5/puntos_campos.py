@@ -30,7 +30,7 @@ def print_safe(text):
         print(text.encode('ascii', 'replace').decode('ascii'))
 
 
-def main(image_path: str, output_path: str = None, white_threshold: int = 200):
+def main(image_path: str, output_path: str = None, white_threshold: int = 200, show_images: bool = True):
     """
     Ejecuta el análisis completo de campos.
     
@@ -164,32 +164,33 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
             total = player_totals.get(player, 0)
             print_safe(f"{player_name}: {total} puntos")
     
-    # Guardar y mostrar imágenes
+    # Guardar imágenes si se pidió
     if output_path:
         cv2.imwrite(output_path, cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
         summary_path = output_path.replace('.', '_summary.')
         cv2.imwrite(summary_path, cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
         print_safe(f"\n[OK] Resultados guardados en: {output_path}")
         print_safe(f"[OK] Resumen guardado en: {summary_path}")
-    
-    # Mostrar imágenes
-    cv2.imshow('Campos Detectados', cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
-    cv2.imshow('Resumen', cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
-    
-    # Debug: Mostrar máscara del tablero
-    debug_board = processor.image.copy()
-    debug_board[white_areas] = [255, 0, 0]  # Blanco en rojo
-    cv2.imshow('Debug: Limites del Tablero (rojo=fuera)', cv2.cvtColor(debug_board, cv2.COLOR_RGB2BGR))
-    
-    # Debug: Campos limpios
-    debug_image = processor.image.copy()
-    for field in fields:
-        debug_image[field.pixels] = [255, 255, 0]  # Amarillo
-    cv2.imshow('Debug: Campos Limpios', cv2.cvtColor(debug_image, cv2.COLOR_RGB2BGR))
-    
-    print_safe("\nPresiona cualquier tecla en la ventana de imagen para cerrar...")
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+
+    # Mostrar imágenes solo si se solicitó (modo interactivo)
+    if show_images:
+        cv2.imshow('Campos Detectados', cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
+        cv2.imshow('Resumen', cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
+
+        # Debug: Mostrar máscara del tablero
+        debug_board = processor.image.copy()
+        debug_board[white_areas] = [255, 0, 0]  # Blanco en rojo
+        cv2.imshow('Debug: Limites del Tablero (rojo=fuera)', cv2.cvtColor(debug_board, cv2.COLOR_RGB2BGR))
+
+        # Debug: Campos limpios
+        debug_image = processor.image.copy()
+        for field in fields:
+            debug_image[field.pixels] = [255, 255, 0]  # Amarillo
+        cv2.imshow('Debug: Campos Limpios', cv2.cvtColor(debug_image, cv2.COLOR_RGB2BGR))
+
+        print_safe("\nPresiona cualquier tecla en la ventana de imagen para cerrar...")
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
     
     return field_results, player_totals
 

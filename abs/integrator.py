@@ -6,7 +6,15 @@ from origin_matrix import Board, Tile
 from random_board_generator import generate_board
 from board_image_generator import BoardImageGenerator
 from incomplete_features_scorer import GameScorer, set_debug
-from carcassone_field_scorer_v5 import fields_scorer
+# Intento preferente: usar la copia incluida en `field_scorer/CarcassoneFieldsv5`
+try:
+    from field_scorer.CarcassoneFieldsv5 import puntos_campos as fields_scorer
+except Exception:
+    # Fallback a la versión alternativa si existe
+    try:
+        from carcassone_field_scorer_v5 import fields_scorer
+    except Exception:
+        fields_scorer = None
 
 def _add_field_points_from_image(scores: dict, image_path: str, white_threshold: int = 200) -> dict:
     """Helper mínimo: intenta importar y ejecutar `puntos_campos.main` en modo headless.
@@ -17,8 +25,27 @@ def _add_field_points_from_image(scores: dict, image_path: str, white_threshold:
         return scores
 
     try:
-        # Llamada al main del scorer de campos (puede abrir ventanas si el módulo las muestra)
-        field_results, player_totals = fields_scorer.main(image_path, output_path=None, white_threshold=white_threshold)
+        # Preferir ejecutar en modo headless si el scorer soporta `show_images`
+        # Guardar las imágenes de salida del analizador de campos junto a la imagen generada
+        output_fields_path = image_path.replace('.jpg', '_fields.jpg')
+        try:
+            field_results, player_totals = fields_scorer.main(
+                image_path, output_path=output_fields_path, white_threshold=white_threshold, show_images=False
+            )
+        except TypeError:
+            # Versión antigua no soporta show_images
+            field_results, player_totals = fields_scorer.main(
+                image_path, output_path=None, white_threshold=white_threshold
+            )
+
+        # Si el scorer guardó imágenes, mostrar rutas en consola
+        try:
+            summary_path = output_fields_path.replace('.jpg', '_summary.jpg')
+            print(f"[Field Scorer] Resultado guardado en: {output_fields_path}")
+            print(f"[Field Scorer] Resumen guardado en: {summary_path}")
+        except Exception:
+            pass
+
         return _sum_field_points(scores, player_totals)
     except Exception:
         return scores
