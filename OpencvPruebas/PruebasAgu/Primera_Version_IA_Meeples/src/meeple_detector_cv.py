@@ -14,29 +14,27 @@ class MeepleDetector:
     """Detector de meeples usando visión computacional"""
 
     def __init__(self):
-        # Parámetros para detección de círculos
+        # Parámetros para detección de círculos - ajustados para meeples perfectamente circulares
         self.circle_params = {
             'dp': 1.2,
-            'minDist': 50,  # Mayor distancia mínima entre círculos
-            'param1': 100,  # Umbral de Canny más alto
-            'param2': 40,   # Umbral de acumulador más alto (más selectivo)
-            'minRadius': 20, # Radio mínimo mayor
-            'maxRadius': 80  # Radio máximo
+            'minDist': 100,  # Mayor distancia - solo 1 meeple por imagen
+            'param1': 100,   # Umbral de Canny - menos restrictivo
+            'param2': 30,    # Umbral de acumulador - menos restrictivo
+            'minRadius': 10, # Radio mínimo más pequeño
+            'maxRadius': 80  # Radio máximo más grande
         }
 
-        # Rangos de color para meeples (ajustados para imágenes reales)
+        # Rangos de color para meeples azules y negros (valores exactos proporcionados)
+        # Azul: HSV(212, 64%, 62%) -> H:106, S:163, V:158
+        # Negro: HSV(240, 10%, 8%) -> H:120, S:26, V:20
         self.color_ranges = {
             'blue': {
-                'lower': np.array([80, 30, 30]),   # Azul original (para imágenes simuladas)
-                'upper': np.array([140, 255, 255])
-            },
-            'red_orange': {  # Nuevo rango para meeples rojizos/anaranjados en fotos reales
-                'lower': np.array([0, 50, 100]),   # Hue bajo (rojo-anaranjado), saturación media, valor alto
-                'upper': np.array([25, 255, 255])
+                'lower': np.array([95, 140, 120]),   # Rango estrecho alrededor del azul exacto
+                'upper': np.array([115, 180, 190])
             },
             'black': {
-                'lower': np.array([0, 0, 0]),
-                'upper': np.array([180, 255, 80])  # Más permisivo para negro
+                'lower': np.array([0, 0, 0]),        # Negro - rango amplio pero con umbral bajo
+                'upper': np.array([179, 50, 50])     # Valor máximo bajo para negro
             }
         }
 
@@ -167,18 +165,50 @@ class MeepleDetector:
 
         mean_bgr = np.mean(bgr_region, axis=0)
 
-        # Lógica de clasificación mejorada
-        # Azul: Hue entre 80-140, buena saturación, buen valor
-        if (80 <= mean_hue <= 140 and mean_sat > 30 and mean_val > 40):
+        # Lógica de clasificación usando rangos precisos basados en valores reales
+        # Azul: HSV(212, 64%, 62%) - rangos estrechos para mayor precisión
+        blue_lower = self.color_ranges['blue']['lower']
+        blue_upper = self.color_ranges['blue']['upper']
+
+        # Negro: HSV(240, 10%, 8%) - rangos para negro oscuro
+        black_lower = self.color_ranges['black']['lower']
+        black_upper = self.color_ranges['black']['upper']
+
+        # Crear máscaras para cada color
+        blue_mask = cv2.inRange(hsv, blue_lower, blue_upper)
+        black_mask = cv2.inRange(hsv, black_lower, black_upper)
+
+        # Contar píxeles de cada color
+        blue_pixels = cv2.countNonZero(blue_mask)
+        black_pixels = cv2.countNonZero(black_mask)
+
+        # Si hay suficientes píxeles azules, clasificar como azul
+        if blue_pixels > len(mask[mask > 0]) * 0.3:  # Al menos 30% de píxeles azules
             return 'blue'
 
-        # Rojo/Anaranjado: Hue bajo (0-25), buena saturación, buen valor (para fotos reales)
-        if (0 <= mean_hue <= 25 and mean_sat > 50 and mean_val > 100):
-            return 'red_orange'
-
-        # Negro: Bajo valor, baja saturación
-        if mean_val < 80 and mean_sat < 50:
+        # Si hay suficientes píxeles negros, clasificar como negro
+        if black_pixels > len(mask[mask > 0]) * 0.3:  # Al menos 30% de píxeles negros
             return 'black'
+
+        # Fallback: usar estadísticas de color si la máscara no funciona
+        if ((95 <= mean_hue <= 115) and (140 <= mean_sat <= 180) and (120 <= mean_val <= 190)):
+            return 'blue'
+
+        if mean_val < 50 and mean_sat < 50:
+            return 'black'
+
+        # Si no cumple criterios claros, usar análisis BGR mejorado
+        b, g, r = mean_bgr
+
+        # Azul: componente azul dominante, con cierto brillo
+        if b > g + 20 and b > r + 20 and b > 60:
+            return 'blue'
+
+        # Negro: todos los componentes bajos (oscuro)
+        if b < 70 and g < 70 and r < 70:
+            return 'black'
+
+        return 'unknown'
 
         # Si no cumple criterios claros, usar análisis BGR
         b, g, r = mean_bgr
@@ -207,15 +237,29 @@ class MeepleDetector:
 
         b, g, r = mean_color
 
-        # Lógica simple: si azul es el componente dominante = azul, si rojo es dominante = rojo, si todo es oscuro = negro
-        if b > g + 30 and b > r + 30:
+        # Convertir a HSV para usar rangos precisos
+        hsv_masked = cv2.cvtColor(masked, cv2.COLOR_BGR2HSV)
+
+        # Usar los mismos rangos que en get_circle_color
+        blue_mask = cv2.inRange(hsv_masked, self.color_ranges['blue']['lower'], self.color_ranges['blue']['upper'])
+        black_mask = cv2.inRange(hsv_masked, self.color_ranges['black']['lower'], self.color_ranges['black']['upper'])
+
+        blue_pixels = cv2.countNonZero(blue_mask)
+        black_pixels = cv2.countNonZero(black_mask)
+
+        total_pixels = cv2.countNonZero(mask)
+
+        if blue_pixels > total_pixels * 0.2:  # 20% threshold para clasificación forzada
             return 'blue'
-        elif r > b + 30 and r > g + 30:
-            return 'red_orange'
-        elif b < 80 and g < 80 and r < 80:
+        elif black_pixels > total_pixels * 0.2:
             return 'black'
-        else:
-            return 'unknown'
+
+        # Fallback BGR si HSV no funciona
+        b, g, r = mean_color
+        if b > g + 15 and b > r + 15 and b > 80:  # Azul en BGR
+            return 'blue'
+        elif b < 60 and g < 60 and r < 60:  # Negro en BGR
+            return 'black'
 
     def determine_position(self, circle: Tuple[int, int, int], regions: List[np.ndarray]) -> int:
         """
@@ -250,34 +294,58 @@ class MeepleDetector:
         # Detectar círculos
         circles = self.detect_circles(image)
 
-        # Procesar cada círculo detectado
+        # Procesar cada círculo detectado - cada imagen tiene máximo 1 meeple
         meeples = []
 
-        # Agrupar círculos por posición aproximada
-        position_candidates = {i: [] for i in range(9)}
-
+        # Filtrar círculos por tamaño (meeples son perfectamente circulares y de tamaño consistente)
+        valid_circles = []
         for circle in circles:
             x, y, r = circle
-            position = self.determine_position(circle, regions)
-            if position != -1 and 10 <= r <= 100:  # Radio razonable
-                position_candidates[position].append(circle)
+            # Meeples tienen radio entre 10-80 píxeles aproximadamente
+            if 10 <= r <= 80:
+                valid_circles.append(circle)
 
-        # Para cada posición, tomar el mejor círculo candidato
-        for position, candidates in position_candidates.items():
-            if candidates:
-                # Tomar el círculo más grande (más probable de ser un meeple)
-                best_circle = max(candidates, key=lambda c: c[2])
+        # Si hay múltiples círculos, elegir el mejor candidato (más circular, mejor color)
+        if valid_circles:
+            # Calcular "calidad" de cada círculo basado en circularidad y color
+            best_circle = None
+            best_score = -1
 
-                # Intentar clasificar color
+            for circle in valid_circles:
+                x, y, r = circle
+
+                # Clasificar color
+                color = self.get_circle_color(image, circle)
+                if color == 'unknown':
+                    color = self._force_color_classification(image, circle)
+
+                # Puntaje basado en color (azul o negro son mejores que unknown)
+                color_score = 2 if color in ['blue', 'black'] else 0
+
+                # Puntaje basado en tamaño (meeples de tamaño mediano son mejores)
+                size_score = 1 if 20 <= r <= 45 else 0
+
+                total_score = color_score + size_score
+
+                if total_score > best_score:
+                    best_score = total_score
+                    best_circle = circle
+
+            # Usar el mejor círculo encontrado
+            if best_circle:
+                x, y, r = best_circle
+                position = self.determine_position(best_circle, regions)
+
+                # Clasificar color final
                 color = self.get_circle_color(image, best_circle)
                 if color == 'unknown':
                     color = self._force_color_classification(image, best_circle)
 
-                # DEBUG: Ser más permisivo - incluir también unknown por ahora
-                if color in ['blue', 'black', 'red_orange', 'unknown']:
+                # Solo aceptar azules y negros
+                if color in ['blue', 'black']:
                     meeples.append({
-                        'color': color if color != 'unknown' else 'unknown_test',
-                        'position': position,
+                        'color': color,
+                        'position': position if position != -1 else 4,  # Centro por defecto
                         'circle': best_circle
                     })
 
@@ -323,10 +391,10 @@ class MeepleDetector:
             # Color para dibujar
             if color == 'blue':
                 draw_color = (255, 0, 0)  # Azul
-            elif color == 'red_orange':
-                draw_color = (0, 0, 255)  # Rojo
-            else:  # black
+            elif color == 'black':
                 draw_color = (0, 0, 0)   # Negro
+            else:
+                draw_color = (128, 128, 128)  # Gris para unknown
 
             # Dibujar círculo
             cv2.circle(vis_image, (x, y), r, draw_color, 2)

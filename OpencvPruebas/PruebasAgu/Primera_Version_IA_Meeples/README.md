@@ -1,13 +1,200 @@
 # Detector de Meeples - Approach OpenCV
 
-Este proyecto detecta meeples azules y negros en losetas de Carcassonne usando visión computacional con OpenCV. **No requiere anotaciones manuales ni entrenamiento de IA**.
+Este proyecto detecta **meeples azules y negros** en losetas de Carcassonne usando visión computacional con OpenCV. **No requiere anotaciones manuales ni entrenamiento de IA**.
 
-> **⚠️ Importante**: Este sistema usa algoritmos clásicos de visión computacional (Hough Transform, análisis de color HSV), NO machine learning. No hay "entrenamiento" - solo ajuste de parámetros según tus imágenes.
+> **✅ CORREGIDO**: El detector ahora funciona correctamente con meeples reales de Carcassonne (solo azul y negro, 1 por imagen).
+
+# 🧠 Sistema Integrado de Detección de Meeples
+
+Este proyecto combina **visión computacional clásica (OpenCV)** y **redes convolucionales (CNN)** para detectar meeples azules y negros en losetas de Carcassonne. Incluye herramientas para **anotación manual**, **evaluación automática** y **mejora iterativa** del detector.
+
+> **🎯 NUEVO**: Sistema integrado con anotación manual, evaluación automática y opción de CNN
+> **✅ ACTUALIZADO**: Rangos HSV precisos basados en valores reales (Azul: HSV(212,64%,62%), Negro: HSV(240,10%,8%))
 
 ## 🚀 Características
 
-- ✅ **Detección automática** de meeples circulares
-- ✅ **Clasificación de colores** (azul/negro)
+- ✅ **Anotación Manual Interactiva** - Marca meeples manualmente para crear ground truth
+- ✅ **Evaluación Automática** - Compara detector vs anotaciones manuales
+- ✅ **Detector OpenCV Mejorado** - Rangos HSV precisos, lógica optimizada
+- ✅ **Opción CNN** - Entrenamiento de red convolucional con PyTorch
+- ✅ **Sistema Integrado** - Interfaz unificada para todas las herramientas
+- ✅ **Visualizaciones** - Comparaciones lado a lado
+- ✅ **Métricas de Rendimiento** - Precisión, Recall, F1-Score
+
+## 📋 Requisitos
+
+```bash
+pip install opencv-python numpy matplotlib torch torchvision scikit-learn seaborn
+```
+
+## 🏗️ Estructura del Proyecto
+
+```
+Primera_Version_IA_Meeples/
+├── src/
+│   └── meeple_detector_cv.py        # Detector OpenCV mejorado
+├── real_test_images/                # Tus fotos reales ⭐
+├── meeple_system.py                 # 🆕 Sistema integrado principal
+├── meeple_annotator.py              # 🆕 Anotación manual interactiva
+├── evaluate_detector.py             # 🆕 Evaluación automática
+├── cnn_meeple_detector.py           # 🆕 Detector CNN con PyTorch
+├── test_real_images.py              # Prueba batch con imágenes reales
+├── manual_annotations.json          # 🆕 Anotaciones ground truth
+├── evaluation_results.json          # 🆕 Resultados de evaluación
+└── best_meeple_cnn.pth              # 🆕 Modelo CNN entrenado
+```
+
+## 🎯 Flujo de Trabajo Recomendado
+
+### ⭐ Paso 1: Sistema Integrado
+
+```bash
+# Iniciar el sistema completo
+python meeple_system.py
+```
+
+Esto te da acceso a todas las herramientas:
+1. **Anotación Manual** - Crear ground truth
+2. **Evaluación** - Medir rendimiento del detector
+3. **CNN** - Entrenar modelo de deep learning
+4. **Configuración** - Ajustar parámetros
+5. **Resultados** - Ver métricas y visualizaciones
+
+### ⭐ Paso 2: Anotación Manual (Ground Truth)
+
+Si el detector no funciona bien, crea datos ground truth:
+
+```bash
+# Opción 1 del sistema integrado, o:
+python meeple_annotator.py
+```
+
+**Cómo usar:**
+- Click izquierdo: marca posición de meeple (alternará azul/negro)
+- ESPACIO: guardar y siguiente imagen
+- Q: salir
+
+Esto crea `manual_annotations.json` con las posiciones reales de los meeples.
+
+### ⭐ Paso 3: Evaluar Rendimiento
+
+```bash
+# Opción 2 del sistema integrado, o:
+python evaluate_detector.py
+```
+
+Compara el detector OpenCV vs tus anotaciones manuales:
+- **Precisión**: ¿Qué porcentaje de detecciones son correctas?
+- **Recall**: ¿Qué porcentaje de meeples reales detectó?
+- **F1-Score**: Métrica balanceada
+- **Visualizaciones**: Comparaciones lado a lado
+
+### ⭐ Paso 4: Mejorar con CNN (Opcional)
+
+Si quieres usar deep learning:
+
+```bash
+# Opción 3 del sistema integrado, o:
+python cnn_meeple_detector.py
+```
+
+**Entrenamiento:**
+- Usa tus anotaciones manuales como datos de entrenamiento
+- Entrena una CNN para clasificar patches de meeples
+- Evalúa rendimiento en datos no vistos
+
+## 🔧 Detector OpenCV Mejorado
+
+### Rangos HSV Actualizados
+
+Basados en tus valores exactos:
+```python
+# Azul: HSV(212, 64%, 62%) ≈ H:106, S:163, V:158
+'blue': {
+    'lower': np.array([95, 140, 120]),
+    'upper': np.array([115, 180, 190])
+}
+
+# Negro: HSV(240, 10%, 8%) ≈ H:120, S:26, V:20
+'black': {
+    'lower': np.array([0, 0, 0]),
+    'upper': np.array([179, 50, 50])
+}
+```
+
+### Cómo Probar Rápido
+
+```bash
+# Probar detector actualizado
+python test_real_images.py
+```
+
+## 📊 Métricas de Evaluación
+
+Después de crear anotaciones manuales, obtendrás:
+
+```
+📈 RESULTADOS GLOBALES:
+Imágenes evaluadas: 12
+Meeples ground truth: 12
+Meeples detectados: 10
+Correctos (posición): 8
+False positives: 2
+False negatives: 4
+Precisión: 0.800
+Recall: 0.667
+F1-Score: 0.727
+```
+
+## 🎮 Ejemplos de Uso
+
+### Anotación Interactiva
+```bash
+python meeple_annotator.py
+# Click en imágenes -> crea manual_annotations.json
+```
+
+### Evaluación Completa
+```bash
+python evaluate_detector.py
+# Compara detector vs ground truth -> evaluation_results.json
+```
+
+### Entrenamiento CNN
+```bash
+python cnn_meeple_detector.py
+# Entrena modelo -> best_meeple_cnn.pth
+```
+
+## 🔍 Visualizaciones
+
+El sistema genera:
+- **Comparaciones lado a lado**: Ground truth vs Detección automática
+- **Heatmaps de error**: Dónde falla el detector
+- **Curvas de aprendizaje**: Para modelos CNN
+- **Matrices de confusión**: Análisis detallado
+
+## 🚀 Próximos Pasos
+
+1. **Ejecuta** `python meeple_system.py`
+2. **Crea anotaciones** para algunas imágenes problemáticas
+3. **Evalúa** el rendimiento actual
+4. **Decide** si usar CNN o mejorar OpenCV
+5. **Itera** hasta obtener precisión satisfactoria
+
+## 💡 Consejos
+
+- **Empieza pequeño**: Anota 5-10 imágenes primero
+- **CNN vs OpenCV**: CNN es más precisa pero requiere más datos
+- **Iluminación**: El detector funciona mejor con iluminación consistente
+- **Calidad**: Usa fotos nítidas con la loseta bien centrada
+
+¡El sistema está diseñado para mejorar iterativamente con tus datos reales!
+
+## 🚀 Características
+
+- ✅ **Detección automática** de meeples circulares (1 por imagen)
+- ✅ **Clasificación de colores** precisa (azul/negro únicamente)
 - ✅ **Detección de borde** de losetas
 - ✅ **División en 9 posiciones** según cuadrícula 3x3
 - ✅ **Sin anotaciones** - funciona out-of-the-box

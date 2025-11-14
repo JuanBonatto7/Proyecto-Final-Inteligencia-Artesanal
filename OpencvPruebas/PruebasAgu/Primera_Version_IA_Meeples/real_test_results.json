@@ -2,8 +2,18 @@
   {
     "image_path": "real_test_images\\A20251113_185222.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          656,
+          617,
+          34
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -67,12 +77,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 5,
         "circle": [
-          647,
-          617,
-          41
+          680,
+          469,
+          39
         ]
       }
     ],
@@ -139,12 +149,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          670,
-          464,
-          32
+          643,
+          623,
+          37
         ]
       }
     ],
@@ -208,8 +218,18 @@
   {
     "image_path": "real_test_images\\A20251113_185301.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          344,
+          479,
+          24
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -270,8 +290,18 @@
   {
     "image_path": "real_test_images\\A20251113_185317.jpg",
     "tile_detected": true,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 5,
+        "circle": [
+          671,
+          467,
+          30
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -335,12 +365,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          651,
-          590,
-          35
+          661,
+          596,
+          43
         ]
       }
     ],
@@ -407,12 +437,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          631,
-          626,
-          45
+          649,
+          601,
+          46
         ]
       }
     ],
@@ -476,24 +506,15 @@
   {
     "image_path": "real_test_images\\B20251113_185604.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 5,
         "circle": [
-          494,
-          413,
-          24
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          608,
-          673,
-          77
+          704,
+          633,
+          44
         ]
       }
     ],
@@ -557,24 +578,15 @@
   {
     "image_path": "real_test_images\\B20251113_185623.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          595,
-          641,
-          59
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          485,
-          692,
-          63
+          518,
+          389,
+          20
         ]
       }
     ],
@@ -641,12 +653,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 7,
+        "color": "blue",
+        "position": 4,
         "circle": [
-          517,
-          715,
-          50
+          494,
+          411,
+          42
         ]
       }
     ],
@@ -710,24 +722,15 @@
   {
     "image_path": "real_test_images\\B20251113_185641.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          559,
-          655,
-          41
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 7,
         "circle": [
-          495,
-          674,
-          63
+          379,
+          671,
+          34
         ]
       }
     ],
@@ -791,8 +794,18 @@
   {
     "image_path": "real_test_images\\B20251113_185710.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 7,
+        "circle": [
+          517,
+          722,
+          43
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -853,24 +866,15 @@
   {
     "image_path": "real_test_images\\B20251113_185722.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          607,
-          644,
-          75
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          485,
-          681,
-          59
+          484,
+          423,
+          35
         ]
       }
     ],
@@ -934,24 +938,15 @@
   {
     "image_path": "real_test_images\\B20251113_185729.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          613,
-          646,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 7,
         "circle": [
-          515,
-          692,
-          42
+          391,
+          697,
+          45
         ]
       }
     ],
@@ -1015,24 +1010,15 @@
   {
     "image_path": "real_test_images\\B20251113_185803.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          602,
-          658,
-          75
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          485,
-          693,
-          52
+          350,
+          665,
+          35
         ]
       }
     ],
@@ -1096,24 +1082,15 @@
   {
     "image_path": "real_test_images\\B20251113_185820.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          593,
-          644,
-          41
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          502,
-          680,
-          54
+          424,
+          425,
+          45
         ]
       }
     ],
@@ -1180,12 +1157,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 7,
+        "color": "blue",
+        "position": 3,
         "circle": [
-          373,
-          683,
-          66
+          289,
+          487,
+          79
         ]
       }
     ],
@@ -1249,69 +1226,15 @@
   {
     "image_path": "real_test_images\\C20251113_190148.jpg",
     "tile_detected": false,
-    "meeples_found": 7,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          548,
-          95,
-          54
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          749,
-          271,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          110,
-          473,
-          57
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          773,
-          358,
-          56
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          305,
-          724,
-          54
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 7,
         "circle": [
-          398,
-          866,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          734,
-          907,
-          70
+          363,
+          841,
+          38
         ]
       }
     ],
@@ -1375,51 +1298,15 @@
   {
     "image_path": "real_test_images\\C20251113_190206.jpg",
     "tile_detected": true,
-    "meeples_found": 5,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          238,
-          116,
-          58
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          551,
-          122,
-          51
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          725,
-          124,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 3,
         "circle": [
-          109,
-          489,
-          71
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          731,
-          909,
-          67
+          121,
+          567,
+          37
         ]
       }
     ],
@@ -1483,69 +1370,15 @@
   {
     "image_path": "real_test_images\\C20251113_190908.jpg",
     "tile_detected": false,
-    "meeples_found": 7,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          215,
-          146,
-          62
-        ]
-      },
-      {
         "color": "blue",
-        "position": 1,
-        "circle": [
-          398,
-          199,
-          44
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          259,
-          471,
-          47
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          404,
-          347,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          712,
-          623,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 7,
         "circle": [
-          455,
-          803,
-          39
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          711,
-          874,
-          79
+          381,
+          956,
+          45
         ]
       }
     ],
@@ -1609,33 +1442,15 @@
   {
     "image_path": "real_test_images\\D20251113_190314.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          869,
-          301,
-          58
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "black",
         "position": 5,
         "circle": [
-          818,
-          487,
-          42
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          862,
-          800,
-          66
+          941,
+          400,
+          40
         ]
       }
     ],
@@ -1699,24 +1514,15 @@
   {
     "image_path": "real_test_images\\D20251113_190332.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 5,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          848,
-          399,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          899,
-          723,
-          49
+          980,
+          103,
+          24
         ]
       }
     ],
@@ -1780,24 +1586,15 @@
   {
     "image_path": "real_test_images\\D20251113_190343.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          905,
-          295,
-          58
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          808,
-          482,
-          63
+          964,
+          293,
+          35
         ]
       }
     ],
@@ -1861,24 +1658,15 @@
   {
     "image_path": "real_test_images\\D20251113_190410.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
+        "color": "blue",
+        "position": 5,
         "circle": [
-          895,
-          253,
-          52
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          801,
-          729,
-          56
+          908,
+          371,
+          41
         ]
       }
     ],
@@ -1942,33 +1730,15 @@
   {
     "image_path": "real_test_images\\D20251113_190417.jpg",
     "tile_detected": true,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          857,
-          335,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          820,
-          476,
-          45
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 8,
         "circle": [
-          833,
-          799,
-          74
+          843,
+          793,
+          77
         ]
       }
     ],
@@ -2032,33 +1802,15 @@
   {
     "image_path": "real_test_images\\D20251113_190430.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          860,
-          295,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          815,
-          653,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 8,
         "circle": [
-          893,
-          695,
-          52
+          809,
+          880,
+          22
         ]
       }
     ],
@@ -2122,24 +1874,15 @@
   {
     "image_path": "real_test_images\\D20251113_190441.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 5,
         "circle": [
-          875,
-          371,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          838,
-          871,
-          52
+          754,
+          376,
+          24
         ]
       }
     ],
@@ -2203,24 +1946,15 @@
   {
     "image_path": "real_test_images\\D20251113_190504.jpg",
     "tile_detected": true,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
+        "color": "blue",
+        "position": 8,
         "circle": [
-          937,
-          165,
-          51
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          837,
-          379,
-          73
+          939,
+          932,
+          40
         ]
       }
     ],
@@ -2287,12 +2021,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 8,
         "circle": [
-          821,
-          776,
-          63
+          805,
+          695,
+          34
         ]
       }
     ],
@@ -2356,33 +2090,15 @@
   {
     "image_path": "real_test_images\\D20251113_190546.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          892,
-          256,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          865,
-          355,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 8,
         "circle": [
-          839,
-          785,
-          74
+          855,
+          783,
+          78
         ]
       }
     ],
@@ -2446,33 +2162,15 @@
   {
     "image_path": "real_test_images\\D20251113_190920.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          934,
-          298,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 5,
         "circle": [
-          779,
-          382,
-          77
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          820,
-          867,
-          45
+          794,
+          485,
+          78
         ]
       }
     ],
@@ -2536,33 +2234,15 @@
   {
     "image_path": "real_test_images\\E20251113_190620.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "unknown_test",
+        "color": "blue",
         "position": 0,
         "circle": [
-          315,
-          171,
-          54
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          555,
-          235,
-          67
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 2,
-        "circle": [
-          710,
-          201,
-          59
+          291,
+          122,
+          25
         ]
       }
     ],
@@ -2626,24 +2306,15 @@
   {
     "image_path": "real_test_images\\E20251113_190635.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
+        "color": "blue",
+        "position": 0,
         "circle": [
-          553,
-          238,
-          69
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          697,
-          190,
-          75
+          302,
+          265,
+          30
         ]
       }
     ],
@@ -2707,33 +2378,15 @@
   {
     "image_path": "real_test_images\\E20251113_190639.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "unknown_test",
+        "color": "blue",
         "position": 0,
         "circle": [
-          320,
-          167,
-          57
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          569,
-          226,
-          78
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 2,
-        "circle": [
-          752,
-          247,
-          66
+          99,
+          46,
+          41
         ]
       }
     ],
@@ -2797,24 +2450,15 @@
   {
     "image_path": "real_test_images\\E20251113_190657.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 0,
         "circle": [
-          212,
-          112,
-          50
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          788,
-          187,
-          74
+          100,
+          46,
+          39
         ]
       }
     ],
@@ -2878,33 +2522,15 @@
   {
     "image_path": "real_test_images\\E20251113_190801.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 0,
         "circle": [
-          205,
-          100,
-          45
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          661,
-          313,
-          48
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          787,
-          176,
-          71
+          92,
+          47,
+          41
         ]
       }
     ],
@@ -2968,33 +2594,15 @@
   {
     "image_path": "real_test_images\\E20251113_190814.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "unknown_test",
-        "position": 0,
-        "circle": [
-          311,
-          178,
-          49
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          565,
-          226,
-          78
-        ]
-      },
-      {
-        "color": "unknown_test",
+        "color": "blue",
         "position": 2,
         "circle": [
-          710,
-          206,
-          58
+          896,
+          55,
+          30
         ]
       }
     ],
@@ -3058,33 +2666,15 @@
   {
     "image_path": "real_test_images\\E20251113_190819.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 0,
         "circle": [
-          223,
-          139,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          447,
-          238,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          722,
-          197,
-          73
+          295,
+          127,
+          33
         ]
       }
     ],
@@ -3148,78 +2738,15 @@
   {
     "image_path": "real_test_images\\F20251113_191022.jpg",
     "tile_detected": false,
-    "meeples_found": 8,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "unknown_test",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          200,
-          302,
-          49
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          717,
-          323,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          179,
-          399,
-          52
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          364,
-          350,
-          73
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 5,
-        "circle": [
-          725,
-          376,
-          46
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          155,
-          673,
-          69
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          601,
-          785,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          691,
-          778,
-          54
+          535,
+          331,
+          45
         ]
       }
     ],
@@ -3283,78 +2810,15 @@
   {
     "image_path": "real_test_images\\F20251113_191052.jpg",
     "tile_detected": false,
-    "meeples_found": 8,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 8,
         "circle": [
-          219,
-          299,
-          44
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          641,
-          320,
+          703,
+          777,
           45
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          814,
-          273,
-          32
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          271,
-          375,
-          61
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          357,
-          351,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          729,
-          356,
-          75
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          289,
-          719,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          580,
-          735,
-          74
         ]
       }
     ],
@@ -3418,60 +2882,15 @@
   {
     "image_path": "real_test_images\\F20251113_191102.jpg",
     "tile_detected": false,
-    "meeples_found": 6,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          200,
-          247,
-          40
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          733,
-          333,
-          75
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          176,
-          356,
-          73
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 4,
-        "circle": [
-          608,
-          430,
-          52
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          284,
-          764,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          371,
-          736,
-          70
+          963,
+          76,
+          31
         ]
       }
     ],
@@ -3535,60 +2954,15 @@
   {
     "image_path": "real_test_images\\F20251113_191115.jpg",
     "tile_detected": false,
-    "meeples_found": 6,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          229,
-          313,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          710,
-          328,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          205,
-          398,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          634,
-          376,
-          71
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          189,
-          801,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          340,
-          700,
-          61
+          343,
+          441,
+          41
         ]
       }
     ],
@@ -3652,77 +3026,14 @@
   {
     "image_path": "real_test_images\\F20251113_191130.jpg",
     "tile_detected": false,
-    "meeples_found": 8,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          235,
-          320,
-          67
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          363,
-          335,
-          70
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          707,
-          332,
-          75
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          316,
-          368,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          613,
-          392,
-          67
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          110,
-          689,
-          61
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 7,
         "circle": [
-          345,
-          725,
-          56
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          687,
-          770,
+          485,
+          777,
           37
         ]
       }
@@ -3787,78 +3098,15 @@
   {
     "image_path": "real_test_images\\F20251113_191140.jpg",
     "tile_detected": false,
-    "meeples_found": 8,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 0,
         "circle": [
-          237,
-          325,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          657,
-          316,
-          40
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          719,
-          325,
-          75
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          201,
-          376,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          613,
-          397,
-          70
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          685,
-          377,
-          24
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          185,
-          793,
-          66
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          356,
-          699,
-          67
+          76,
+          87,
+          37
         ]
       }
     ],
@@ -3922,78 +3170,15 @@
   {
     "image_path": "real_test_images\\F20251113_191147.jpg",
     "tile_detected": false,
-    "meeples_found": 8,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 0,
         "circle": [
-          280,
-          327,
-          36
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          592,
-          334,
-          50
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          705,
-          328,
-          75
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          170,
-          387,
-          57
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          355,
-          357,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          149,
-          806,
-          67
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          340,
-          736,
-          67
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          841,
-          843,
-          57
+          181,
+          227,
+          42
         ]
       }
     ],
@@ -4057,69 +3242,15 @@
   {
     "image_path": "real_test_images\\G20251113_191220.jpg",
     "tile_detected": false,
-    "meeples_found": 7,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          621,
-          301,
-          52
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 2,
-        "circle": [
-          711,
-          281,
-          58
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          255,
-          655,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          352,
-          614,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          711,
-          617,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          112,
-          777,
-          61
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          733,
-          713,
-          35
+          593,
+          229,
+          34
         ]
       }
     ],
@@ -4183,60 +3314,15 @@
   {
     "image_path": "real_test_images\\G20251113_191227.jpg",
     "tile_detected": false,
-    "meeples_found": 6,
+    "meeples_found": 1,
     "meeples": [
-      {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          133,
-          155,
-          34
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 1,
-        "circle": [
-          381,
-          298,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          725,
-          272,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          622,
-          659,
-          79
-        ]
-      },
       {
         "color": "blue",
         "position": 5,
         "circle": [
-          917,
-          412,
-          37
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          320,
-          691,
-          46
+          821,
+          577,
+          45
         ]
       }
     ],
@@ -4300,69 +3386,15 @@
   {
     "image_path": "real_test_images\\G20251113_191236.jpg",
     "tile_detected": false,
-    "meeples_found": 7,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          133,
-          161,
-          45
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 1,
-        "circle": [
-          381,
-          301,
-          52
-        ]
-      },
-      {
         "color": "blue",
-        "position": 2,
-        "circle": [
-          712,
-          289,
-          52
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          251,
-          668,
-          67
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          623,
-          651,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          799,
-          609,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 6,
         "circle": [
-          322,
-          683,
-          40
+          260,
+          760,
+          38
         ]
       }
     ],
@@ -4426,60 +3458,15 @@
   {
     "image_path": "real_test_images\\G20251113_191241.jpg",
     "tile_detected": false,
-    "meeples_found": 6,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          117,
-          153,
-          25
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          629,
-          277,
-          59
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 2,
-        "circle": [
-          711,
-          273,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          387,
-          589,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 5,
         "circle": [
-          805,
-          639,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          142,
-          807,
-          36
+          727,
+          548,
+          37
         ]
       }
     ],
@@ -4543,78 +3530,15 @@
   {
     "image_path": "real_test_images\\G20251113_191249.jpg",
     "tile_detected": false,
-    "meeples_found": 8,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          134,
-          142,
-          38
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          629,
-          271,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          812,
-          241,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          251,
-          657,
-          66
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          375,
-          641,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          791,
-          609,
-          66
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          317,
-          688,
-          40
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          604,
-          687,
-          37
+          875,
+          146,
+          44
         ]
       }
     ],
@@ -4678,78 +3602,15 @@
   {
     "image_path": "real_test_images\\G20251113_191253.jpg",
     "tile_detected": false,
-    "meeples_found": 8,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          130,
-          124,
-          50
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 1,
-        "circle": [
-          385,
-          280,
-          33
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          800,
-          230,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          254,
-          659,
-          67
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          619,
-          661,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          797,
-          611,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          122,
-          773,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          709,
-          701,
-          29
+          553,
+          513,
+          41
         ]
       }
     ],
@@ -4813,78 +3674,15 @@
   {
     "image_path": "real_test_images\\G20251113_191259.jpg",
     "tile_detected": false,
-    "meeples_found": 8,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          137,
-          172,
-          69
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          628,
-          274,
-          58
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 2,
-        "circle": [
-          724,
-          278,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          269,
-          665,
-          67
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          361,
-          590,
-          61
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          919,
-          337,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          131,
-          751,
-          70
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 8,
         "circle": [
-          686,
-          674,
-          75
+          725,
+          711,
+          45
         ]
       }
     ],
@@ -4948,60 +3746,15 @@
   {
     "image_path": "real_test_images\\H20251113_191327.jpg",
     "tile_detected": false,
-    "meeples_found": 6,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 0,
         "circle": [
-          207,
-          326,
-          49
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          791,
-          329,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          145,
-          374,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          791,
-          587,
-          74
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 6,
-        "circle": [
-          212,
-          706,
-          54
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          787,
-          801,
-          47
+          37,
+          265,
+          42
         ]
       }
     ],
@@ -5065,60 +3818,15 @@
   {
     "image_path": "real_test_images\\H20251113_191523.jpg",
     "tile_detected": false,
-    "meeples_found": 6,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 0,
         "circle": [
-          206,
-          215,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          925,
-          149,
-          75
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          200,
-          364,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          803,
-          361,
-          70
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          121,
-          734,
-          71
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          796,
-          759,
-          65
+          20,
+          91,
+          39
         ]
       }
     ],
@@ -5182,60 +3890,15 @@
   {
     "image_path": "real_test_images\\H20251113_191529.jpg",
     "tile_detected": false,
-    "meeples_found": 6,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          85,
-          118,
-          50
-        ]
-      },
-      {
-        "color": "unknown_test",
+        "color": "blue",
         "position": 2,
         "circle": [
-          826,
-          315,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          167,
-          493,
-          44
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 5,
-        "circle": [
-          805,
-          364,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          153,
-          687,
-          40
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          830,
-          773,
-          59
+          748,
+          332,
+          35
         ]
       }
     ],
@@ -5299,42 +3962,15 @@
   {
     "image_path": "real_test_images\\H20251113_191534.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          931,
-          266,
-          67
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 5,
         "circle": [
-          832,
-          370,
-          59
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 6,
-        "circle": [
-          232,
-          737,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          868,
-          676,
-          52
+          805,
+          460,
+          78
         ]
       }
     ],
@@ -5398,51 +4034,15 @@
   {
     "image_path": "real_test_images\\H20251113_191557.jpg",
     "tile_detected": false,
-    "meeples_found": 5,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          931,
-          135,
-          61
-        ]
-      },
-      {
-        "color": "blue",
-        "position": 3,
-        "circle": [
-          187,
-          632,
-          70
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          815,
-          363,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          139,
-          697,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          884,
-          679,
-          41
+          742,
+          332,
+          39
         ]
       }
     ],
@@ -5506,42 +4106,15 @@
   {
     "image_path": "real_test_images\\H20251113_191601.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          925,
-          161,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          212,
-          370,
-          79
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 6,
-        "circle": [
-          232,
-          735,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          803,
-          753,
-          56
+          809,
+          317,
+          37
         ]
       }
     ],
@@ -5605,51 +4178,15 @@
   {
     "image_path": "real_test_images\\H20251113_191609.jpg",
     "tile_detected": false,
-    "meeples_found": 5,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          85,
-          118,
-          40
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          922,
-          151,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          808,
-          625,
-          77
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 6,
         "circle": [
-          105,
-          718,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          815,
-          757,
-          73
+          73,
+          869,
+          36
         ]
       }
     ],
@@ -5717,11 +4254,11 @@
     "meeples": [
       {
         "color": "blue",
-        "position": 6,
+        "position": 5,
         "circle": [
-          335,
-          925,
-          31
+          917,
+          572,
+          39
         ]
       }
     ],
@@ -5785,24 +4322,15 @@
   {
     "image_path": "real_test_images\\I20251113_191644.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 5,
         "circle": [
           887,
           595,
           26
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          823,
-          747,
-          70
         ]
       }
     ],
@@ -5869,11 +4397,11 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "unknown_test",
-        "position": 6,
+        "color": "blue",
+        "position": 8,
         "circle": [
-          331,
-          931,
+          751,
+          943,
           38
         ]
       }
@@ -5941,12 +4469,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 5,
         "circle": [
-          887,
-          596,
-          26
+          883,
+          355,
+          43
         ]
       }
     ],
@@ -6010,8 +4538,18 @@
   {
     "image_path": "real_test_images\\I20251113_191702.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 7,
+        "circle": [
+          412,
+          869,
+          69
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -6072,8 +4610,18 @@
   {
     "image_path": "real_test_images\\I20251113_191707.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 5,
+        "circle": [
+          946,
+          353,
+          32
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -6137,12 +4685,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "unknown_test",
-        "position": 7,
+        "color": "blue",
+        "position": 5,
         "circle": [
-          655,
-          940,
-          66
+          865,
+          643,
+          43
         ]
       }
     ],
@@ -6206,24 +4754,15 @@
   {
     "image_path": "real_test_images\\J20251113_191759.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          284,
-          167,
-          22
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          641,
-          271,
-          57
+          844,
+          53,
+          25
         ]
       }
     ],
@@ -6287,8 +4826,18 @@
   {
     "image_path": "real_test_images\\J20251113_191807.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 6,
+        "circle": [
+          229,
+          791,
+          22
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -6349,8 +4898,18 @@
   {
     "image_path": "real_test_images\\J20251113_191812.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 2,
+        "circle": [
+          848,
+          129,
+          41
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -6414,12 +4973,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          487,
-          202,
-          31
+          489,
+          211,
+          40
         ]
       }
     ],
@@ -6483,8 +5042,18 @@
   {
     "image_path": "real_test_images\\J20251113_191823.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 0,
+        "circle": [
+          311,
+          129,
+          21
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -6548,12 +5117,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          580,
-          218,
-          38
+          507,
+          226,
+          40
         ]
       }
     ],
@@ -6617,8 +5186,18 @@
   {
     "image_path": "real_test_images\\J20251113_191837.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 1,
+        "circle": [
+          653,
+          87,
+          37
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -6679,8 +5258,18 @@
   {
     "image_path": "real_test_images\\J20251113_191846.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 6,
+        "circle": [
+          226,
+          784,
+          25
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -6744,12 +5333,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
+        "color": "blue",
+        "position": 0,
         "circle": [
-          641,
-          251,
-          65
+          109,
+          98,
+          38
         ]
       }
     ],
@@ -6813,24 +5402,15 @@
   {
     "image_path": "real_test_images\\J20251113_191903.jpg",
     "tile_detected": true,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          469,
-          205,
-          32
-        ]
-      },
-      {
         "color": "blue",
-        "position": 6,
+        "position": 2,
         "circle": [
-          226,
-          781,
-          30
+          868,
+          95,
+          37
         ]
       }
     ],
@@ -6894,8 +5474,18 @@
   {
     "image_path": "real_test_images\\J20251113_191909.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 2,
+        "circle": [
+          713,
+          137,
+          45
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -6956,24 +5546,15 @@
   {
     "image_path": "real_test_images\\K20251113_192003.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 5,
         "circle": [
-          838,
-          524,
-          40
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 8,
-        "circle": [
-          843,
-          825,
-          38
+          884,
+          631,
+          24
         ]
       }
     ],
@@ -7040,12 +5621,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 5,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          729,
-          568,
-          53
+          851,
+          286,
+          38
         ]
       }
     ],
@@ -7109,8 +5690,18 @@
   {
     "image_path": "real_test_images\\K20251113_192016.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "black",
+        "position": 6,
+        "circle": [
+          208,
+          817,
+          38
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -7174,12 +5765,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 5,
+        "color": "blue",
+        "position": 6,
         "circle": [
-          836,
-          513,
-          50
+          183,
+          760,
+          27
         ]
       }
     ],
@@ -7246,12 +5837,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 5,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          829,
-          506,
-          50
+          861,
+          215,
+          34
         ]
       }
     ],
@@ -7318,12 +5909,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 5,
+        "color": "blue",
+        "position": 6,
         "circle": [
-          745,
-          416,
-          79
+          199,
+          760,
+          27
         ]
       }
     ],
@@ -7387,24 +5978,15 @@
   {
     "image_path": "real_test_images\\K20251113_192106.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          829,
-          502,
-          50
-        ]
-      },
-      {
         "color": "blue",
-        "position": 6,
+        "position": 4,
         "circle": [
-          195,
-          760,
-          27
+          647,
+          487,
+          43
         ]
       }
     ],
@@ -7472,11 +6054,11 @@
     "meeples": [
       {
         "color": "blue",
-        "position": 6,
+        "position": 2,
         "circle": [
-          195,
-          757,
-          24
+          868,
+          275,
+          38
         ]
       }
     ],
@@ -7543,12 +6125,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 5,
+        "color": "blue",
+        "position": 6,
         "circle": [
-          745,
-          416,
-          71
+          197,
+          760,
+          29
         ]
       }
     ],
@@ -7612,24 +6194,15 @@
   {
     "image_path": "real_test_images\\K20251113_192130.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 5,
         "circle": [
-          749,
-          538,
-          59
-        ]
-      },
-      {
-        "color": "blue",
-        "position": 6,
-        "circle": [
-          200,
-          759,
-          27
+          791,
+          661,
+          23
         ]
       }
     ],
@@ -7696,12 +6269,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 5,
+        "color": "blue",
+        "position": 8,
         "circle": [
-          855,
-          643,
-          69
+          865,
+          811,
+          26
         ]
       }
     ],
@@ -7768,12 +6341,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          601,
-          464,
-          50
+          901,
+          317,
+          35
         ]
       }
     ],
@@ -7840,12 +6413,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          589,
-          459,
-          46
+          357,
+          326,
+          39
         ]
       }
     ],
@@ -7909,8 +6482,18 @@
   {
     "image_path": "real_test_images\\L20251113_192343.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 2,
+        "circle": [
+          915,
+          316,
+          17
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -7971,24 +6554,15 @@
   {
     "image_path": "real_test_images\\L20251113_192411.jpg",
     "tile_detected": true,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 8,
         "circle": [
-          595,
-          455,
-          42
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          519,
-          679,
-          63
+          873,
+          775,
+          45
         ]
       }
     ],
@@ -8055,12 +6629,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          597,
-          454,
-          45
+          610,
+          458,
+          69
         ]
       }
     ],
@@ -8124,33 +6698,15 @@
   {
     "image_path": "real_test_images\\L20251113_192437.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
+        "color": "blue",
+        "position": 8,
         "circle": [
-          901,
-          310,
-          56
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          583,
-          373,
-          50
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          938,
-          535,
-          79
+          933,
+          831,
+          39
         ]
       }
     ],
@@ -8214,8 +6770,18 @@
   {
     "image_path": "real_test_images\\L20251113_192443.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          386,
+          664,
+          41
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -8279,12 +6845,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 5,
         "circle": [
-          473,
-          595,
-          59
+          884,
+          399,
+          44
         ]
       }
     ],
@@ -8351,12 +6917,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          613,
-          452,
-          71
+          910,
+          320,
+          36
         ]
       }
     ],
@@ -8423,12 +6989,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 8,
         "circle": [
-          595,
-          455,
-          37
+          908,
+          689,
+          39
         ]
       }
     ],
@@ -8495,12 +7061,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          598,
-          454,
-          38
+          610,
+          457,
+          63
         ]
       }
     ],
@@ -8564,33 +7130,15 @@
   {
     "image_path": "real_test_images\\L20251113_192556.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          578,
-          491,
-          26
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          521,
-          689,
-          37
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 8,
         "circle": [
-          874,
-          767,
-          44
+          915,
+          680,
+          40
         ]
       }
     ],
@@ -8657,12 +7205,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          601,
-          467,
-          41
+          907,
+          325,
+          35
         ]
       }
     ],
@@ -8729,12 +7277,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          595,
-          461,
-          41
+          380,
+          668,
+          42
         ]
       }
     ],
@@ -8798,8 +7346,18 @@
   {
     "image_path": "real_test_images\\L20251113_192619.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          374,
+          647,
+          42
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -8863,12 +7421,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          589,
-          467,
-          37
+          904,
+          319,
+          31
         ]
       }
     ],
@@ -8935,12 +7493,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 7,
         "circle": [
-          598,
-          478,
-          56
+          371,
+          671,
+          45
         ]
       }
     ],
@@ -9004,33 +7562,15 @@
   {
     "image_path": "real_test_images\\M20251113_192756.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          124,
-          112,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 1,
         "circle": [
-          427,
-          161,
-          36
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          112,
-          518,
-          42
+          422,
+          159,
+          45
         ]
       }
     ],
@@ -9097,12 +7637,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
+        "color": "blue",
+        "position": 0,
         "circle": [
-          417,
-          153,
-          31
+          147,
+          229,
+          42
         ]
       }
     ],
@@ -9172,9 +7712,9 @@
         "color": "blue",
         "position": 0,
         "circle": [
-          125,
-          115,
-          77
+          215,
+          181,
+          43
         ]
       }
     ],
@@ -9241,12 +7781,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          429,
-          160,
-          34
+          747,
+          131,
+          40
         ]
       }
     ],
@@ -9314,11 +7854,11 @@
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
+        "position": 3,
         "circle": [
-          148,
-          121,
-          57
+          272,
+          577,
+          35
         ]
       }
     ],
@@ -9385,12 +7925,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 3,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          113,
-          519,
-          42
+          447,
+          51,
+          28
         ]
       }
     ],
@@ -9454,8 +7994,18 @@
   {
     "image_path": "real_test_images\\M20251113_192902.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 3,
+        "circle": [
+          117,
+          523,
+          42
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -9516,8 +8066,18 @@
   {
     "image_path": "real_test_images\\M20251113_192907.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 1,
+        "circle": [
+          665,
+          124,
+          31
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -9578,8 +8138,18 @@
   {
     "image_path": "real_test_images\\M20251113_192914.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 1,
+        "circle": [
+          446,
+          149,
+          43
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -9640,51 +8210,15 @@
   {
     "image_path": "real_test_images\\N20251113_193121.jpg",
     "tile_detected": false,
-    "meeples_found": 5,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          97,
-          245,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          371,
-          141,
-          47
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 2,
         "circle": [
-          790,
-          51,
-          48
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          147,
-          507,
-          26
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          194,
-          755,
-          77
+          705,
+          107,
+          37
         ]
       }
     ],
@@ -9748,42 +8282,15 @@
   {
     "image_path": "real_test_images\\N20251113_193128.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          104,
-          254,
-          70
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 1,
         "circle": [
-          619,
-          170,
+          373,
+          165,
           45
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          128,
-          502,
-          44
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          185,
-          737,
-          70
         ]
       }
     ],
@@ -9847,42 +8354,15 @@
   {
     "image_path": "real_test_images\\N20251113_193139.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          133,
-          248,
-          46
-        ]
-      },
-      {
-        "color": "blue",
-        "position": 1,
-        "circle": [
-          619,
-          287,
-          32
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          343,
-          422,
-          30
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 6,
         "circle": [
-          199,
-          749,
-          74
+          298,
+          777,
+          45
         ]
       }
     ],
@@ -9946,33 +8426,15 @@
   {
     "image_path": "real_test_images\\N20251113_193147.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
+        "position": 1,
         "circle": [
-          109,
-          235,
-          69
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          191,
-          451,
-          46
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          190,
-          743,
-          73
+          433,
+          260,
+          44
         ]
       }
     ],
@@ -10036,33 +8498,15 @@
   {
     "image_path": "real_test_images\\N20251113_193151.jpg",
     "tile_detected": true,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          117,
-          235,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          446,
-          119,
-          77
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 6,
         "circle": [
-          250,
-          787,
-          79
+          105,
+          791,
+          39
         ]
       }
     ],
@@ -10126,42 +8570,15 @@
   {
     "image_path": "real_test_images\\N20251113_193156.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          440,
-          172,
-          45
-        ]
-      },
-      {
-        "color": "blue",
-        "position": 3,
-        "circle": [
-          283,
-          518,
-          56
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          457,
-          446,
-          34
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 6,
-        "circle": [
-          203,
-          751,
-          70
+          595,
+          52,
+          43
         ]
       }
     ],
@@ -10225,24 +8642,15 @@
   {
     "image_path": "real_test_images\\N20251113_193238.jpg",
     "tile_detected": true,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          277,
-          281,
-          71
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          441,
-          136,
-          40
+          670,
+          103,
+          36
         ]
       }
     ],
@@ -10306,8 +8714,18 @@
   {
     "image_path": "real_test_images\\N20251113_193253.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 3,
+        "circle": [
+          119,
+          502,
+          45
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -10371,12 +8789,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          441,
-          53,
-          39
+          445,
+          131,
+          42
         ]
       }
     ],
@@ -10443,12 +8861,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          431,
-          140,
-          36
+          662,
+          101,
+          30
         ]
       }
     ],
@@ -10512,8 +8930,18 @@
   {
     "image_path": "real_test_images\\N20251113_193357.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 3,
+        "circle": [
+          118,
+          503,
+          43
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -10574,42 +9002,15 @@
   {
     "image_path": "real_test_images\\O20251113_193430.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          104,
-          135,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 1,
         "circle": [
-          587,
-          167,
-          38
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          179,
-          604,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          797,
-          845,
-          67
+          608,
+          159,
+          41
         ]
       }
     ],
@@ -10673,24 +9074,15 @@
   {
     "image_path": "real_test_images\\O20251113_193445.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          149,
-          275,
-          46
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          200,
-          368,
-          58
+          374,
+          317,
+          36
         ]
       }
     ],
@@ -10754,33 +9146,15 @@
   {
     "image_path": "real_test_images\\O20251113_193450.jpg",
     "tile_detected": true,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          277,
-          287,
-          71
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          116,
-          551,
-          38
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          783,
-          859,
-          66
+          609,
+          160,
+          42
         ]
       }
     ],
@@ -10844,24 +9218,15 @@
   {
     "image_path": "real_test_images\\O20251113_193456.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          269,
-          289,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          808,
-          866,
-          49
+          609,
+          159,
+          41
         ]
       }
     ],
@@ -10925,24 +9290,15 @@
   {
     "image_path": "real_test_images\\O20251113_193510.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
+          609,
           155,
-          277,
-          45
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          778,
-          868,
-          38
+          42
         ]
       }
     ],
@@ -11006,33 +9362,15 @@
   {
     "image_path": "real_test_images\\O20251113_193520.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          167,
-          238,
-          51
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 3,
         "circle": [
-          145,
-          536,
-          39
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          805,
-          831,
-          57
+          125,
+          517,
+          41
         ]
       }
     ],
@@ -11096,42 +9434,15 @@
   {
     "image_path": "real_test_images\\O20251113_193557.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          281,
-          268,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          361,
-          238,
-          36
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 3,
         "circle": [
-          193,
-          567,
-          45
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          807,
-          838,
-          65
+          167,
+          429,
+          36
         ]
       }
     ],
@@ -11195,33 +9506,15 @@
   {
     "image_path": "real_test_images\\O20251113_193602.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          129,
-          110,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 3,
         "circle": [
-          145,
-          539,
-          43
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          801,
-          839,
-          67
+          129,
+          519,
+          45
         ]
       }
     ],
@@ -11285,24 +9578,15 @@
   {
     "image_path": "real_test_images\\O20251113_193612.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
+        "position": 1,
         "circle": [
-          123,
-          111,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          145,
-          550,
-          37
+          631,
+          140,
+          43
         ]
       }
     ],
@@ -11366,24 +9650,15 @@
   {
     "image_path": "real_test_images\\O20251113_193623.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
         "position": 0,
         "circle": [
-          116,
-          112,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          812,
-          827,
-          58
+          326,
+          280,
+          26
         ]
       }
     ],
@@ -11447,24 +9722,15 @@
   {
     "image_path": "real_test_images\\O20251113_193635.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 3,
         "circle": [
-          278,
-          272,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          616,
-          134,
-          31
+          130,
+          527,
+          45
         ]
       }
     ],
@@ -11528,24 +9794,15 @@
   {
     "image_path": "real_test_images\\O20251113_193648.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          181,
-          262,
-          45
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          830,
-          845,
-          54
+          627,
+          137,
+          41
         ]
       }
     ],
@@ -11609,33 +9866,15 @@
   {
     "image_path": "real_test_images\\O20251113_193655.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          287,
-          268,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          146,
-          553,
-          30
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          812,
-          829,
-          67
+          623,
+          133,
+          36
         ]
       }
     ],
@@ -11699,42 +9938,15 @@
   {
     "image_path": "real_test_images\\O20251113_193704.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          165,
-          261,
-          51
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          619,
-          130,
-          31
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          220,
-          596,
-          52
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          821,
-          821,
-          62
+          634,
+          299,
+          43
         ]
       }
     ],
@@ -11798,42 +10010,15 @@
   {
     "image_path": "real_test_images\\O20251113_193710.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          123,
-          112,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 1,
         "circle": [
-          364,
-          269,
-          34
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          151,
-          542,
-          46
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          847,
-          808,
-          65
+          501,
+          97,
+          29
         ]
       }
     ],
@@ -11897,24 +10082,15 @@
   {
     "image_path": "real_test_images\\O20251113_193722.jpg",
     "tile_detected": true,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          181,
-          265,
-          34
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          149,
-          548,
-          34
+          632,
+          136,
+          45
         ]
       }
     ],
@@ -11978,33 +10154,15 @@
   {
     "image_path": "real_test_images\\O20251113_193737.jpg",
     "tile_detected": true,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          94,
-          115,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 3,
         "circle": [
-          161,
-          608,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          409,
-          400,
-          38
+          93,
+          376,
+          43
         ]
       }
     ],
@@ -12071,12 +10229,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 3,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          167,
-          592,
-          34
+          595,
+          135,
+          43
         ]
       }
     ],
@@ -12140,8 +10298,18 @@
   {
     "image_path": "real_test_images\\P20251113_193837.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 1,
+        "circle": [
+          609,
+          151,
+          43
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -12202,33 +10370,15 @@
   {
     "image_path": "real_test_images\\P20251113_193843.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          281,
-          281,
-          42
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          457,
-          311,
-          38
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          500,
-          368,
-          33
+          608,
+          153,
+          41
         ]
       }
     ],
@@ -12295,12 +10445,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          467,
-          302,
-          40
+          598,
+          146,
+          30
         ]
       }
     ],
@@ -12364,24 +10514,15 @@
   {
     "image_path": "real_test_images\\P20251113_193858.jpg",
     "tile_detected": true,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          256,
-          231,
-          75
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 3,
         "circle": [
-          153,
-          605,
-          30
+          99,
+          544,
+          42
         ]
       }
     ],
@@ -12445,33 +10586,15 @@
   {
     "image_path": "real_test_images\\P20251113_193917.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          586,
-          145,
-          29
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          140,
-          439,
-          51
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          409,
-          448,
-          78
+          597,
+          149,
+          41
         ]
       }
     ],
@@ -12535,24 +10658,15 @@
   {
     "image_path": "real_test_images\\P20251113_193925.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          262,
-          281,
-          36
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          455,
-          296,
-          50
+          476,
+          118,
+          40
         ]
       }
     ],
@@ -12616,8 +10730,18 @@
   {
     "image_path": "real_test_images\\P20251113_193934.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          416,
+          410,
+          45
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -12681,12 +10805,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          551,
-          399,
-          78
+          617,
+          158,
+          42
         ]
       }
     ],
@@ -12750,8 +10874,18 @@
   {
     "image_path": "real_test_images\\P20251113_194052.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          406,
+          453,
+          44
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -12815,12 +10949,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 3,
         "circle": [
-          179,
-          620,
-          66
+          97,
+          541,
+          45
         ]
       }
     ],
@@ -12884,8 +11018,18 @@
   {
     "image_path": "real_test_images\\P20251113_194144.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 1,
+        "circle": [
+          578,
+          151,
+          31
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -12946,24 +11090,15 @@
   {
     "image_path": "real_test_images\\P20251113_194200.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          253,
-          224,
-          71
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          353,
-          295,
-          65
+          485,
+          275,
+          38
         ]
       }
     ],
@@ -13027,42 +11162,15 @@
   {
     "image_path": "real_test_images\\P20251113_194206.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          295,
-          286,
-          30
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          355,
-          293,
-          70
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          161,
-          584,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
+          406,
           401,
-          443,
-          79
+          38
         ]
       }
     ],
@@ -13126,42 +11234,15 @@
   {
     "image_path": "real_test_images\\P20251113_194213.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          253,
-          239,
-          54
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          441,
-          283,
-          59
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          161,
-          602,
-          57
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          485,
-          357,
-          37
+          433,
+          393,
+          33
         ]
       }
     ],
@@ -13225,24 +11306,15 @@
   {
     "image_path": "real_test_images\\P20251113_194222.jpg",
     "tile_detected": true,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          451,
-          292,
-          38
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          494,
-          350,
-          34
+          488,
+          98,
+          41
         ]
       }
     ],
@@ -13306,24 +11378,15 @@
   {
     "image_path": "real_test_images\\P20251113_194238.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 3,
         "circle": [
-          145,
-          295,
-          37
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          460,
-          308,
-          50
+          37,
+          419,
+          34
         ]
       }
     ],
@@ -13387,24 +11450,15 @@
   {
     "image_path": "real_test_images\\P20251113_194253.jpg",
     "tile_detected": true,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 1,
         "circle": [
-          370,
-          313,
-          78
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          184,
-          613,
-          37
+          473,
+          115,
+          26
         ]
       }
     ],
@@ -13468,8 +11522,18 @@
   {
     "image_path": "real_test_images\\P20251113_194259.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 1,
+        "circle": [
+          614,
+          158,
+          44
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -13530,24 +11594,15 @@
   {
     "image_path": "real_test_images\\Q20251113_194400.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          598,
-          285,
-          62
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 3,
         "circle": [
-          244,
-          596,
-          65
+          142,
+          575,
+          44
         ]
       }
     ],
@@ -13611,24 +11666,15 @@
   {
     "image_path": "real_test_images\\Q20251113_194411.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          179,
-          309,
-          59
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          518,
-          305,
-          69
+          773,
+          165,
+          42
         ]
       }
     ],
@@ -13692,24 +11738,15 @@
   {
     "image_path": "real_test_images\\Q20251113_194423.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          201,
-          305,
-          65
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          741,
-          143,
-          25
+          677,
+          92,
+          42
         ]
       }
     ],
@@ -13773,42 +11810,15 @@
   {
     "image_path": "real_test_images\\Q20251113_194437.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          262,
-          201,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          617,
-          273,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          758,
-          137,
-          34
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          143,
-          579,
-          53
+          777,
+          171,
+          40
         ]
       }
     ],
@@ -13872,42 +11882,15 @@
   {
     "image_path": "real_test_images\\Q20251113_194449.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          197,
-          310,
-          66
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          524,
-          327,
-          50
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          851,
-          163,
-          41
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          250,
-          371,
-          29
+          775,
+          175,
+          37
         ]
       }
     ],
@@ -13971,24 +11954,15 @@
   {
     "image_path": "real_test_images\\Q20251113_194459.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          205,
-          302,
-          47
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          133,
-          571,
-          29
+          505,
+          217,
+          42
         ]
       }
     ],
@@ -14052,33 +12026,15 @@
   {
     "image_path": "real_test_images\\Q20251113_194505.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          191,
-          304,
-          61
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          739,
-          206,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          141,
-          505,
-          71
+          623,
+          295,
+          39
         ]
       }
     ],
@@ -14142,42 +12098,15 @@
   {
     "image_path": "real_test_images\\R20251113_194609.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
-      {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          211,
-          296,
-          50
-        ]
-      },
       {
         "color": "blue",
         "position": 2,
         "circle": [
-          679,
-          313,
-          69
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          266,
-          386,
-          54
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          461,
-          399,
-          61
+          707,
+          106,
+          38
         ]
       }
     ],
@@ -14241,42 +12170,15 @@
   {
     "image_path": "real_test_images\\R20251113_194615.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          189,
-          295,
-          67
-        ]
-      },
-      {
         "color": "blue",
-        "position": 2,
+        "position": 5,
         "circle": [
-          691,
-          307,
-          73
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          268,
-          385,
-          54
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          495,
-          337,
-          65
+          695,
+          381,
+          41
         ]
       }
     ],
@@ -14340,42 +12242,15 @@
   {
     "image_path": "real_test_images\\R20251113_194621.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          211,
-          299,
-          54
-        ]
-      },
-      {
         "color": "blue",
-        "position": 1,
-        "circle": [
-          652,
-          286,
-          38
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 2,
         "circle": [
           772,
           145,
-          40
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          293,
-          383,
-          70
+          39
         ]
       }
     ],
@@ -14439,24 +12314,15 @@
   {
     "image_path": "real_test_images\\R20251113_194627.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          262,
-          230,
-          21
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          781,
-          185,
-          36
+          698,
+          117,
+          37
         ]
       }
     ],
@@ -14520,8 +12386,18 @@
   {
     "image_path": "real_test_images\\R20251113_194635.jpg",
     "tile_detected": true,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 2,
+        "circle": [
+          777,
+          183,
+          31
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -14582,42 +12458,15 @@
   {
     "image_path": "real_test_images\\R20251113_194640.jpg",
     "tile_detected": false,
-    "meeples_found": 4,
+    "meeples_found": 1,
     "meeples": [
-      {
-        "color": "red_orange",
-        "position": 0,
-        "circle": [
-          195,
-          291,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          751,
-          201,
-          54
-        ]
-      },
-      {
-        "color": "unknown_test",
-        "position": 3,
-        "circle": [
-          245,
-          603,
-          57
-        ]
-      },
       {
         "color": "blue",
         "position": 6,
         "circle": [
-          99,
-          734,
-          35
+          105,
+          731,
+          38
         ]
       }
     ],
@@ -14681,33 +12530,15 @@
   {
     "image_path": "real_test_images\\R20251113_194645.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 2,
         "circle": [
-          694,
-          311,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          273,
-          374,
-          46
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          619,
-          391,
-          50
+          857,
+          175,
+          39
         ]
       }
     ],
@@ -14771,24 +12602,15 @@
   {
     "image_path": "real_test_images\\S20251113_194710.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 2,
+        "position": 5,
         "circle": [
-          813,
-          247,
-          49
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          206,
-          460,
-          41
+          736,
+          669,
+          43
         ]
       }
     ],
@@ -14855,190 +12677,10 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          205,
-          457,
-          40
-        ]
-      }
-    ],
-    "regions": [
-      [
-        0,
-        0,
-        335,
-        335
-      ],
-      [
-        335,
-        0,
-        335,
-        335
-      ],
-      [
-        670,
-        0,
-        335,
-        335
-      ],
-      [
-        0,
-        335,
-        335,
-        335
-      ],
-      [
-        335,
-        335,
-        335,
-        335
-      ],
-      [
-        670,
-        335,
-        335,
-        335
-      ],
-      [
-        0,
-        670,
-        335,
-        335
-      ],
-      [
-        335,
-        670,
-        335,
-        335
-      ],
-      [
-        670,
-        670,
-        335,
-        335
-      ]
-    ]
-  },
-  {
-    "image_path": "real_test_images\\S20251113_194723.jpg",
-    "tile_detected": false,
-    "meeples_found": 3,
-    "meeples": [
-      {
         "color": "blue",
-        "position": 2,
-        "circle": [
-          815,
-          235,
-          52
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          221,
-          455,
-          53
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 4,
         "circle": [
-          479,
-          656,
-          29
-        ]
-      }
-    ],
-    "regions": [
-      [
-        0,
-        0,
-        335,
-        335
-      ],
-      [
-        335,
-        0,
-        335,
-        335
-      ],
-      [
-        670,
-        0,
-        335,
-        335
-      ],
-      [
-        0,
-        335,
-        335,
-        335
-      ],
-      [
-        335,
-        335,
-        335,
-        335
-      ],
-      [
-        670,
-        335,
-        335,
-        335
-      ],
-      [
-        0,
-        670,
-        335,
-        335
-      ],
-      [
-        335,
-        670,
-        335,
-        335
-      ],
-      [
-        670,
-        670,
-        335,
-        335
-      ]
-    ]
-  },
-  {
-    "image_path": "real_test_images\\S20251113_194729.jpg",
-    "tile_detected": false,
-    "meeples_found": 3,
-    "meeples": [
-      {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          794,
-          199,
-          79
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          331,
-          385,
-          36
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          478,
+          477,
           655,
           26
         ]
@@ -15102,80 +12744,161 @@
     ]
   },
   {
-    "image_path": "real_test_images\\S20251113_194854.jpg",
+    "image_path": "real_test_images\\S20251113_194723.jpg",
     "tile_detected": false,
-    "meeples_found": 8,
+    "meeples_found": 1,
     "meeples": [
       {
         "color": "blue",
-        "position": 0,
-        "circle": [
-          129,
-          142,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          538,
-          331,
-          77
-        ]
-      },
-      {
-        "color": "blue",
-        "position": 2,
-        "circle": [
-          818,
-          217,
-          57
-        ]
-      },
-      {
-        "color": "red_orange",
         "position": 3,
         "circle": [
-          334,
-          391,
-          79
+          129,
+          616,
+          43
         ]
-      },
+      }
+    ],
+    "regions": [
+      [
+        0,
+        0,
+        335,
+        335
+      ],
+      [
+        335,
+        0,
+        335,
+        335
+      ],
+      [
+        670,
+        0,
+        335,
+        335
+      ],
+      [
+        0,
+        335,
+        335,
+        335
+      ],
+      [
+        335,
+        335,
+        335,
+        335
+      ],
+      [
+        670,
+        335,
+        335,
+        335
+      ],
+      [
+        0,
+        670,
+        335,
+        335
+      ],
+      [
+        335,
+        670,
+        335,
+        335
+      ],
+      [
+        670,
+        670,
+        335,
+        335
+      ]
+    ]
+  },
+  {
+    "image_path": "real_test_images\\S20251113_194729.jpg",
+    "tile_detected": false,
+    "meeples_found": 1,
+    "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          595,
-          352,
-          59
+          557,
+          343,
+          41
         ]
-      },
+      }
+    ],
+    "regions": [
+      [
+        0,
+        0,
+        335,
+        335
+      ],
+      [
+        335,
+        0,
+        335,
+        335
+      ],
+      [
+        670,
+        0,
+        335,
+        335
+      ],
+      [
+        0,
+        335,
+        335,
+        335
+      ],
+      [
+        335,
+        335,
+        335,
+        335
+      ],
+      [
+        670,
+        335,
+        335,
+        335
+      ],
+      [
+        0,
+        670,
+        335,
+        335
+      ],
+      [
+        335,
+        670,
+        335,
+        335
+      ],
+      [
+        670,
+        670,
+        335,
+        335
+      ]
+    ]
+  },
+  {
+    "image_path": "real_test_images\\S20251113_194854.jpg",
+    "tile_detected": false,
+    "meeples_found": 1,
+    "meeples": [
       {
-        "color": "red_orange",
-        "position": 5,
+        "color": "blue",
+        "position": 6,
         "circle": [
-          847,
-          627,
-          77
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          601,
-          694,
-          42
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          841,
-          824,
-          34
+          70,
+          851,
+          38
         ]
       }
     ],
@@ -15239,51 +12962,15 @@
   {
     "image_path": "real_test_images\\S20251113_194859.jpg",
     "tile_detected": false,
-    "meeples_found": 5,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
-        "circle": [
-          406,
-          278,
-          61
-        ]
-      },
-      {
         "color": "blue",
-        "position": 2,
+        "position": 0,
         "circle": [
-          820,
-          217,
-          56
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          223,
-          455,
-          63
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          830,
-          397,
-          70
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          820,
-          765,
-          75
+          230,
+          299,
+          42
         ]
       }
     ],
@@ -15347,60 +13034,15 @@
   {
     "image_path": "real_test_images\\S20251113_194905.jpg",
     "tile_detected": false,
-    "meeples_found": 6,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 2,
-        "circle": [
-          833,
-          235,
-          74
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          292,
-          649,
-          52
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          649,
-          657,
-          52
-        ]
-      },
-      {
         "color": "blue",
-        "position": 5,
+        "position": 6,
         "circle": [
-          755,
-          661,
-          33
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 7,
-        "circle": [
-          597,
-          675,
+          164,
+          788,
           37
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 8,
-        "circle": [
-          736,
-          711,
-          32
         ]
       }
     ],
@@ -15464,33 +13106,15 @@
   {
     "image_path": "real_test_images\\T20251113_194944.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          293,
-          373,
-          52
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          463,
-          635,
-          30
-        ]
-      },
-      {
-        "color": "unknown_test",
+        "color": "blue",
         "position": 5,
         "circle": [
-          718,
-          638,
-          58
+          717,
+          645,
+          39
         ]
       }
     ],
@@ -15554,33 +13178,15 @@
   {
     "image_path": "real_test_images\\T20251113_194955.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          205,
-          430,
-          51
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
           463,
           633,
-          29
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          865,
-          369,
-          45
+          30
         ]
       }
     ],
@@ -15644,24 +13250,15 @@
   {
     "image_path": "real_test_images\\T20251113_195002.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 3,
+        "color": "blue",
+        "position": 1,
         "circle": [
-          201,
-          428,
-          55
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          853,
-          351,
-          52
+          399,
+          279,
+          36
         ]
       }
     ],
@@ -15725,33 +13322,15 @@
   {
     "image_path": "real_test_images\\T20251113_195009.jpg",
     "tile_detected": true,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 3,
+        "color": "blue",
+        "position": 2,
         "circle": [
-          205,
-          424,
-          37
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          461,
-          626,
-          26
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          854,
-          352,
-          49
+          758,
+          292,
+          42
         ]
       }
     ],
@@ -15815,33 +13394,15 @@
   {
     "image_path": "real_test_images\\T20251113_195021.jpg",
     "tile_detected": false,
-    "meeples_found": 3,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          193,
-          422,
-          41
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          463,
-          625,
+          461,
+          623,
           27
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 5,
-        "circle": [
-          867,
-          363,
-          30
         ]
       }
     ],
@@ -15908,12 +13469,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 3,
         "circle": [
-          302,
-          368,
-          54
+          116,
+          586,
+          42
         ]
       }
     ],
@@ -15977,24 +13538,15 @@
   {
     "image_path": "real_test_images\\T20251113_195128.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 3,
-        "circle": [
-          199,
-          448,
-          34
-        ]
-      },
-      {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
           467,
           640,
-          26
+          25
         ]
       }
     ],
@@ -16244,8 +13796,18 @@
   {
     "image_path": "real_test_images\\U20251113_195310.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 1,
+        "circle": [
+          429,
+          99,
+          67
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -16740,8 +14302,18 @@
   {
     "image_path": "real_test_images\\V20251113_195458.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          416,
+          463,
+          59
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -16929,12 +14501,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          431,
-          387,
-          31
+          635,
+          482,
+          45
         ]
       }
     ],
@@ -17001,12 +14573,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          371,
-          364,
-          27
+          577,
+          591,
+          34
         ]
       }
     ],
@@ -17073,12 +14645,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 7,
         "circle": [
-          410,
-          368,
-          52
+          413,
+          671,
+          42
         ]
       }
     ],
@@ -17145,12 +14717,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 3,
         "circle": [
-          301,
-          406,
-          70
+          221,
+          639,
+          20
         ]
       }
     ],
@@ -17214,8 +14786,18 @@
   {
     "image_path": "real_test_images\\W20251113_195734.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 7,
+        "circle": [
+          389,
+          701,
+          39
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -17279,12 +14861,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          388,
-          373,
-          42
+          631,
+          494,
+          32
         ]
       }
     ],
@@ -17348,8 +14930,18 @@
   {
     "image_path": "real_test_images\\W20251113_195747.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          391,
+          343,
+          70
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -17413,12 +15005,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          437,
-          383,
-          30
+          577,
+          593,
+          33
         ]
       }
     ],
@@ -17485,7 +15077,7 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
           638,
@@ -17554,8 +15146,18 @@
   {
     "image_path": "real_test_images\\W20251113_195823.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          589,
+          595,
+          33
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -17619,12 +15221,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 3,
         "circle": [
-          635,
-          475,
-          58
+          212,
+          431,
+          32
         ]
       }
     ],
@@ -17691,12 +15293,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          389,
-          349,
-          45
+          578,
+          593,
+          33
         ]
       }
     ],
@@ -17763,12 +15365,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          412,
-          379,
-          46
+          571,
+          587,
+          42
         ]
       }
     ],
@@ -17835,12 +15437,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
+        "color": "blue",
+        "position": 4,
         "circle": [
-          415,
-          334,
-          56
+          602,
+          548,
+          45
         ]
       }
     ],
@@ -17969,12 +15571,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          406,
-          346,
-          46
+          410,
+          341,
+          70
         ]
       }
     ],
@@ -18041,12 +15643,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          405,
-          373,
-          41
+          475,
+          485,
+          31
         ]
       }
     ],
@@ -18113,12 +15715,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 3,
         "circle": [
-          418,
-          356,
-          44
+          206,
+          369,
+          23
         ]
       }
     ],
@@ -18185,12 +15787,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 3,
         "circle": [
-          614,
-          563,
-          47
+          244,
+          620,
+          20
         ]
       }
     ],
@@ -18257,12 +15859,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          663,
-          415,
-          50
+          485,
+          407,
+          41
         ]
       }
     ],
@@ -18326,24 +15928,15 @@
   {
     "image_path": "real_test_images\\X20251113_200302.jpg",
     "tile_detected": false,
-    "meeples_found": 2,
+    "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
+        "color": "blue",
+        "position": 3,
         "circle": [
-          424,
-          329,
-          66
-        ]
-      },
-      {
-        "color": "red_orange",
-        "position": 4,
-        "circle": [
-          467,
-          363,
-          36
+          244,
+          611,
+          20
         ]
       }
     ],
@@ -18407,8 +16000,18 @@
   {
     "image_path": "real_test_images\\X20251113_200308.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          663,
+          418,
+          43
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -18472,12 +16075,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          403,
-          351,
-          41
+          603,
+          568,
+          45
         ]
       }
     ],
@@ -18544,12 +16147,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
+        "color": "blue",
+        "position": 4,
         "circle": [
-          412,
-          333,
-          50
+          394,
+          541,
+          44
         ]
       }
     ],
@@ -18613,8 +16216,18 @@
   {
     "image_path": "real_test_images\\X20251113_200352.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          587,
+          578,
+          28
+        ]
+      }
+    ],
     "regions": [
       [
         0,
@@ -18678,11 +16291,11 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          655,
-          464,
+          585,
+          578,
           33
         ]
       }
@@ -18750,12 +16363,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 4,
+        "color": "blue",
+        "position": 3,
         "circle": [
-          418,
-          349,
-          57
+          314,
+          339,
+          34
         ]
       }
     ],
@@ -18822,12 +16435,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
-        "position": 1,
+        "color": "blue",
+        "position": 4,
         "circle": [
-          409,
-          325,
-          44
+          598,
+          571,
+          33
         ]
       }
     ],
@@ -18894,12 +16507,12 @@
     "meeples_found": 1,
     "meeples": [
       {
-        "color": "red_orange",
+        "color": "blue",
         "position": 4,
         "circle": [
-          413,
-          343,
-          45
+          599,
+          559,
+          42
         ]
       }
     ],
@@ -18963,8 +16576,18 @@
   {
     "image_path": "real_test_images\\X20251113_200455.jpg",
     "tile_detected": false,
-    "meeples_found": 0,
-    "meeples": [],
+    "meeples_found": 1,
+    "meeples": [
+      {
+        "color": "blue",
+        "position": 4,
+        "circle": [
+          657,
+          410,
+          44
+        ]
+      }
+    ],
     "regions": [
       [
         0,
