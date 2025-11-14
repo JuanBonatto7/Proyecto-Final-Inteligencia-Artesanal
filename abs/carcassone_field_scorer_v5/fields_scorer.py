@@ -30,7 +30,7 @@ def print_safe(text):
         print(text.encode('ascii', 'replace').decode('ascii'))
 
 
-def main(image_path: str, output_path: str = None, white_threshold: int = 200):
+def main(image_path: str, output_path: str = None, white_threshold: int = 200, show_images: bool = True):
     """
     Ejecuta el análisis completo de campos.
 
@@ -120,9 +120,13 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
 
     # 5. Visualizar resultados / Visualize results
     print_safe("[5/6] Generando visualización... / Generating visualization...")
-    visualizer = FieldVisualizer(processor.image)
-    result_image = visualizer.draw_field_boundaries(fields, field_results)
-    summary_image = visualizer.create_summary_image(field_results, player_totals)
+    # Crear visualizaciones solo si se van a mostrar o guardar (evita trabajo innecesario)
+    result_image = None
+    summary_image = None
+    if show_images or output_path:
+        visualizer = FieldVisualizer(processor.image)
+        result_image = visualizer.draw_field_boundaries(fields, field_results)
+        summary_image = visualizer.create_summary_image(field_results, player_totals)
 
     # 6. Mostrar resultados en consola / Show results in console
     print_safe("\n" + "=" * 60)
