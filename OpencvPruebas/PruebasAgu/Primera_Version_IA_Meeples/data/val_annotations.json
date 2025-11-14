@@ -1,0 +1,14 @@
+[
+  {
+    "image_path": "tiles/A.png",
+    "has_blue_or_black_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null
+  },
+  {
+    "image_path": "tiles/B.png",
+    "has_blue_or_black_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null
+  }
+]

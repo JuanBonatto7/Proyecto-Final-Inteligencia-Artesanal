@@ -1,0 +1,112 @@
+[
+  {
+    "image_path": "tiles\\tile_005_r-2_c3.png",
+    "tile_letter": "E",
+    "tile_type": 4,
+    "rotation": 2,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null,
+    "confidence": 1.0,
+    "auto_annotated": false
+  },
+  {
+    "image_path": "tiles\\tile_034_r1_c5.png",
+    "tile_letter": "M",
+    "tile_type": 12,
+    "rotation": 0,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null,
+    "confidence": 1.0,
+    "auto_annotated": false
+  },
+  {
+    "image_path": "tiles\\tile_006_r-2_c4.png",
+    "tile_letter": "BLANCO",
+    "tile_type": 24,
+    "rotation": 0,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null,
+    "confidence": 1.0,
+    "auto_annotated": false
+  },
+  {
+    "image_path": "tiles\\tile_008_r-2_c8.png",
+    "tile_letter": "U",
+    "tile_type": 20,
+    "rotation": 0,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null,
+    "confidence": 1.0,
+    "auto_annotated": false
+  },
+  {
+    "image_path": "tiles\\tile_014_r-1_c5.png",
+    "tile_letter": "P",
+    "tile_type": 15,
+    "rotation": 2,
+    "has_meeple": true,
+    "meeple_position": 3,
+    "meeple_color": "black",
+    "confidence": 1.0,
+    "auto_annotated": false
+  },
+  {
+    "image_path": "tiles\\tile_015_r-1_c6.png",
+    "tile_letter": "P",
+    "tile_type": 15,
+    "rotation": 3,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null,
+    "confidence": 1.0,
+    "auto_annotated": false
+  },
+  {
+    "image_path": "tiles\\tile_017_r-1_c10.png",
+    "tile_letter": "Q",
+    "tile_type": 16,
+    "rotation": 2,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null,
+    "confidence": 1.0,
+    "auto_annotated": false
+  },
+  {
+    "image_path": "tiles\\tile_001_r-3_c3.png",
+    "tile_letter": "F",
+    "tile_type": 5,
+    "rotation": 0,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null,
+    "confidence": 1.0,
+    "auto_annotated": false
+  },
+  {
+    "image_path": "tiles\\tile_007_r-2_c5.png",
+    "tile_letter": "J",
+    "tile_type": 9,
+    "rotation": 0,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null,
+    "confidence": 1.0,
+    "auto_annotated": false
+  },
+  {
+    "image_path": "tiles\\tile_040_r1_c11.png",
+    "tile_letter": "R",
+    "tile_type": 17,
+    "rotation": 3,
+    "has_meeple": false,
+    "meeple_position": -1,
+    "meeple_color": null,
+    "confidence": 1.0,
+    "auto_annotated": false
+  }
+]
