@@ -2,6 +2,8 @@ from datetime import datetime
 import os
 from typing import Dict, Any
 
+import cv2
+
 from origin_matrix import Board, Tile
 from random_board_generator import generate_board
 from board_image_generator import BoardImageGenerator
@@ -77,14 +79,19 @@ def run_game(
     timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
     image_path = os.path.join(output_folder, f"tablero_{timestamp_str}.jpg")
     img_gen = BoardImageGenerator(tiles_folder=tiles_folder, tile_size=tile_size_px)
+
+
     _ = img_gen.generate_board_image(board, output_path=image_path, verbose=False)
 
     # Calcular puntuación (los logs los maneja el scorer vía set_debug)
     scores = GameScorer(board).score()
 
+    board_image = cv2.imread(image_path)
+    resized_image = cv2.resize(board_image, (800, 800))
+    cv2.imwrite(image_path, resized_image)
     # Intentar sumar puntos de campos (helper mínimo)
     #image_path es la imagen generada del tablero
-    scores = _add_field_points_from_image(scores, image_path, white_threshold=200)
+    scores = _add_field_points_from_image(scores, resized_image, white_threshold=200)
 
     # Mostrar solo resultados finales
     print("\n" + "=" * 70)
