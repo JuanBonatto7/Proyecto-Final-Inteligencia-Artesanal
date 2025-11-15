@@ -241,8 +241,7 @@ class CNNMeepleDetector:
                 torch.save(self.model.state_dict(), 'best_meeple_cnn.pth')
                 print(f"   💾 Mejor modelo guardado (acc: {val_acc:.2f}%)")
 
-        print("
-✅ Entrenamiento completado!"        print(f"Mejor accuracy de validación: {best_val_acc:.2f}%")
+        
 
         # Mostrar métricas finales
         if val_labels:
