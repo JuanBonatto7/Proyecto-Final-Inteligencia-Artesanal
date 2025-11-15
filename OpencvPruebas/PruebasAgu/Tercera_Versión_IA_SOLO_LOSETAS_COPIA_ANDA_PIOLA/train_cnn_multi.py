@@ -61,15 +61,15 @@ def train_model_multi():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Usando dispositivo: {device}")
 
-    # Transformaciones con data augmentation más agresivo
+    # Transformaciones con data augmentation para ResNet
     transform = transforms.Compose([
         transforms.ToPILImage(),
-        transforms.Resize((64, 64)),
-        transforms.RandomRotation(20),  # Aumentado de 10 a 20
+        transforms.Resize((224, 224)),  # ResNet espera 224x224
+        transforms.RandomRotation(20),
         transforms.RandomHorizontalFlip(),
-        transforms.RandomVerticalFlip(),  # Agregado flip vertical
-        transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3),  # Aumentado
-        transforms.RandomCrop(64, padding=4),  # Agregado crop aleatorio
+        transforms.RandomVerticalFlip(),
+        transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3),
+        transforms.RandomCrop(224, padding=4),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
@@ -84,16 +84,16 @@ def train_model_multi():
     train_dataset = torch.utils.data.Subset(dataset, [dataset.data.index(item) for item in train_data])
     val_dataset = torch.utils.data.Subset(dataset, [dataset.data.index(item) for item in val_data])
     
-    train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)  # Batch size aumentado
-    val_loader = DataLoader(val_dataset, batch_size=16, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=4, shuffle=True)  # Reducido para test rápido
+    val_loader = DataLoader(val_dataset, batch_size=4, shuffle=False)
 
     # Modelo
     model = CarcassonneCNN(num_classes=25).to(device)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.0001)  # Reducido de 0.001 a 0.0001
+    optimizer = optim.Adam(model.parameters(), lr=0.001)  # Aumentado para fine-tuning
 
     # Entrenamiento con validación
-    num_epochs = 100  # Aumentado de 50 a 100
+    num_epochs = 10  # Reducido para test rápido
     best_val_acc = 0.0
     patience = 15  # Aumentado para más paciencia
     patience_counter = 0

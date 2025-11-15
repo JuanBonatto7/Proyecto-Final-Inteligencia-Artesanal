@@ -129,9 +129,23 @@ class CarcassonneTileDetector:
         # Buscar meeple en TODAS las losetas (cualquier loseta puede tener meeple)
         image = self._remove_meeple(hsv, image)
 
-        # Usar CNN si está disponible, sino método tradicional
+        # Usar CNN si está disponible
         if self.cnn_model is not None:
             tile_type, confidence = self._detect_with_cnn(image)
+            
+            # Si confianza baja, combinar con método tradicional
+            if confidence < 0.7:
+                traditional_type = self._detect_with_traditional(image, has_shield)
+                if tile_type == traditional_type:
+                    # Si coinciden, usar ese tipo con confianza media
+                    confidence = (confidence + 0.7) / 2
+                else:
+                    # Si no coinciden, usar el de mayor confianza
+                    if confidence > 0.5:
+                        pass  # Mantener CNN
+                    else:
+                        tile_type = traditional_type
+                        confidence = 0.6  # Confianza del tradicional
             
             # Si la CNN dice BLANCO con alta confianza, verificar con criterios más estrictos
             if tile_type == 'BLANCO' and confidence > 0.8:

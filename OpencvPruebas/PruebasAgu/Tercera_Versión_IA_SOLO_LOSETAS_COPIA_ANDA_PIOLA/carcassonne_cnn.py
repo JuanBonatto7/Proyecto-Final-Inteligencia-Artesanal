@@ -5,7 +5,7 @@ import torch.nn.functional as F
 class CarcassonneCNN(nn.Module):
     """Modelo CNN simple para clasificar losetas de Carcassonne"""
 
-    def __init__(self, num_classes=24):
+    def __init__(self, num_classes=25):
         super(CarcassonneCNN, self).__init__()
         # Capas convolucionales
         self.conv1 = nn.Conv2d(3, 32, kernel_size=3, padding=1)
