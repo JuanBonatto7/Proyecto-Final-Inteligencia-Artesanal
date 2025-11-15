@@ -61,15 +61,15 @@ def train_model_multi():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Usando dispositivo: {device}")
 
-    # Transformaciones con data augmentation para ResNet
+    # Transformaciones con data augmentation
     transform = transforms.Compose([
         transforms.ToPILImage(),
-        transforms.Resize((224, 224)),  # ResNet espera 224x224
+        transforms.Resize((64, 64)),  # Ajustado al modelo
         transforms.RandomRotation(20),
         transforms.RandomHorizontalFlip(),
         transforms.RandomVerticalFlip(),
         transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3),
-        transforms.RandomCrop(224, padding=4),
+        transforms.RandomCrop(64, padding=4),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
@@ -93,7 +93,7 @@ def train_model_multi():
     optimizer = optim.Adam(model.parameters(), lr=0.001)  # Aumentado para fine-tuning
 
     # Entrenamiento con validación
-    num_epochs = 10  # Reducido para test rápido
+    num_epochs = 20  # Entrenamiento de 20 epochs
     best_val_acc = 0.0
     patience = 15  # Aumentado para más paciencia
     patience_counter = 0
@@ -141,7 +141,7 @@ def train_model_multi():
 
         val_acc = 100 * val_correct / val_total
 
-        if (epoch + 1) % 5 == 0:
+        if (epoch + 1) % 2 == 0:
             print(f"Epoch {epoch+1}/{num_epochs}, Train Loss: {running_loss/len(train_loader):.4f}, Train Acc: {train_acc:.2f}%, Val Loss: {val_loss/len(val_loader):.4f}, Val Acc: {val_acc:.2f}%")
 
         # Guardar mejor modelo
