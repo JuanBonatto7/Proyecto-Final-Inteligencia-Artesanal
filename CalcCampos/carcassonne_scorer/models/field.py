@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import Set, Optional
 import numpy as np
 
-from OpencvPruebas.DemosB.Demo5.config import Config
+from config.settings import Config
 
 @dataclass
 class Field:

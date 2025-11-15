@@ -2,13 +2,13 @@
 # processors/field_detector.py
 # ============================================================================
 
-from dataclasses import Field
 from typing import List
 import numpy as np
 
+from CalcCampos.carcassonne_scorer.models.field import Field
 from CalcCampos.carcassonne_scorer.processors.image_processor import ImageProcessor
 from CalcCampos.carcassonne_scorer.utils.mask_utils import MaskUtils
-from OpencvPruebas.DemosB.Demo5.config import Config
+from config.settings import Config
 
 class FieldDetector:
     """Detector de campos en el tablero."""

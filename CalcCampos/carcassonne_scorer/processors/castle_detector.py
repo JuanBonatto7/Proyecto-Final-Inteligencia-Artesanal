@@ -2,8 +2,8 @@
 # processors/castle_detector.py
 # ============================================================================
 
-from dataclasses import Field
 import numpy as np
+from CalcCampos.carcassonne_scorer.models.field import Field
 from CalcCampos.carcassonne_scorer.processors.image_processor import ImageProcessor
 from CalcCampos.carcassonne_scorer.utils.mask_utils import MaskUtils
 

@@ -11,13 +11,13 @@ class Config:
     # Dimensiones de la imagen
     IMAGE_SIZE = (800, 800)
     
-    # Colores RGB
+    # Colores RGB (basados en análisis de imágenes reales)
     COLORS: Dict[str, Tuple[int, int, int]] = {
-        'FIELD': (34, 177, 76),      # Verde
-        'CASTLE': (255, 127, 39),    # Naranja
+        'FIELD': (0, 191, 98),       # Verde
+        'CASTLE': (255, 145, 76),    # Naranja
         'ROAD': (63, 72, 204),       # Azul
         'VERTEX': (237, 28, 36),     # Rojo (antes "CHURCH", ahora vértices)
-        'MEEPLE_1': (163, 73, 164),  # Violeta
+        'MEEPLE_1': (156, 0, 1),     # Rojo oscuro/morado
         'MEEPLE_2': (0, 0, 0),       # Negro
         'EMPTY': (255, 255, 255)     # Blanco (loseta vacía)
     }

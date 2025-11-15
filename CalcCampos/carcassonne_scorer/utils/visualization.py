@@ -2,17 +2,18 @@
 # utils/visualization.py
 # ============================================================================
 
-from dataclasses import Field
 import os
 import cv2
 import numpy as np
 from typing import List
 
+from CalcCampos.carcassonne_scorer.models.field import Field
+
 from CalcCampos.carcassonne_scorer.models.game_state import GameState
 from CalcCampos.carcassonne_scorer.processors.castle_detector import CastleDetector
 from CalcCampos.carcassonne_scorer.processors.image_processor import ImageProcessor
 from CalcCampos.carcassonne_scorer.utils.mask_utils import MaskUtils
-from OpencvPruebas.DemosB.Demo5.config import Config
+from config.settings import Config
 
 class Visualizer:
     """Generador de visualizaciones del proceso."""

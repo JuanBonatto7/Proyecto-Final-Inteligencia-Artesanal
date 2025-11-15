@@ -6,7 +6,7 @@ import cv2
 import numpy as np
 from typing import Dict
 
-from CalcCampos.carcassonne_scorer.config.settings import Config
+from config.settings import Config
 from CalcCampos.carcassonne_scorer.utils.mask_utils import MaskUtils
 
 class ImageProcessor:

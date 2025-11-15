@@ -6,7 +6,7 @@ from typing import Tuple
 import cv2
 import numpy as np
 
-from OpencvPruebas.DemosB.Demo5.config import Config
+from config.settings import Config
 
 class MaskUtils:
     """Utilidades para trabajar con máscaras."""

@@ -9,9 +9,10 @@ from CalcCampos.carcassonne_scorer.processors.field_detector import FieldDetecto
 from CalcCampos.carcassonne_scorer.processors.image_processor import ImageProcessor
 from CalcCampos.carcassonne_scorer.scorers.field_scorer import FieldScorer
 from CalcCampos.carcassonne_scorer.utils.visualization import Visualizer
+from config.settings import Config
 
 
-def score(image_path: str) -> Dict[int, int]:
+def score(image_path: str) -> dict[int, int]:
     """
     Función principal para calcular puntuaciones de campos.
     
