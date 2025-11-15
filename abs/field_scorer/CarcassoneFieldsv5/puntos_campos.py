@@ -30,6 +30,20 @@ def print_safe(text):
         print(text.encode('ascii', 'replace').decode('ascii'))
 
 
+def create_incremental_folder(base_folder):
+    """Crea una carpeta incremental dentro de base_folder."""
+    if not os.path.exists(base_folder):
+        os.makedirs(base_folder)
+
+    folder_index = 1
+    while True:
+        new_folder = os.path.join(base_folder, f"resultados{folder_index}")
+        if not os.path.exists(new_folder):
+            os.makedirs(new_folder)
+            return new_folder
+        folder_index += 1
+
+
 def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     """
     Ejecuta el análisis completo de campos.
@@ -124,6 +138,20 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     result_image = visualizer.draw_field_boundaries(fields, field_results)
     summary_image = visualizer.create_summary_image(field_results, player_totals)
     
+    # Crear carpeta incremental para resultados
+    base_results_folder = "resultados"
+    results_folder = create_incremental_folder(base_results_folder)
+
+    # Actualizar rutas de salida
+    result_image_path = os.path.join(results_folder, "resultado.png")
+    summary_image_path = os.path.join(results_folder, "resultado_summary.png")
+
+    # Guardar y mostrar imágenes
+    cv2.imwrite(result_image_path, cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
+    cv2.imwrite(summary_image_path, cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
+    print_safe(f"\n[OK] Resultados guardados en: {result_image_path}")
+    print_safe(f"[OK] Resumen guardado en: {summary_image_path}")
+
     # 6. Mostrar resultados en consola
     print_safe("\n" + "=" * 60)
     print_safe("RESULTADOS")
@@ -163,14 +191,6 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
             player_name = PLAYER_NAMES.get(player, player)
             total = player_totals.get(player, 0)
             print_safe(f"{player_name}: {total} puntos")
-    
-    # Guardar y mostrar imágenes
-    if output_path:
-        cv2.imwrite(output_path, cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
-        summary_path = output_path.replace('.', '_summary.')
-        cv2.imwrite(summary_path, cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
-        print_safe(f"\n[OK] Resultados guardados en: {output_path}")
-        print_safe(f"[OK] Resumen guardado en: {summary_path}")
     
     # Mostrar imágenes
     cv2.imshow('Campos Detectados', cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
