@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw
 import os
 from typing import Tuple, Dict, Optional
 
-from origin_matrix import Board, Tile
+from origin_matrix import Board
 
 __all__ = ["BoardImageGenerator"]
 
@@ -19,9 +19,8 @@ class BoardImageGenerator:
         7: (0.20, 0.80), 8: (0.50, 0.85), 9: (0.80, 0.80),
     }
 
-    def __init__(self, tiles_folder: str, tile_size: int = 200):
+    def __init__(self, tiles_folder: str):
         self.tiles_folder = tiles_folder
-        self.tile_size = tile_size
         self.meeple_colors: Dict[int, Tuple[int, int, int]] = {
             1: (163, 73, 164),  # Morado
             2: (0, 0, 0),        # Negro
@@ -38,16 +37,16 @@ class BoardImageGenerator:
 
     def _create_placeholder_tile(self, tile_name: str) -> Image.Image:
         """Crea una imagen placeholder si falta el asset del tile."""
-        img = Image.new('RGB', (self.tile_size, self.tile_size), color='lightgray')
+        img = Image.new('RGB', (200, 200), color='lightgray')
         draw = ImageDraw.Draw(img)
-        draw.rectangle([0, 0, self.tile_size - 1, self.tile_size - 1], 
+        draw.rectangle([0, 0, 200 - 1, 200 - 1], 
                       outline='black', width=3)
         
         bbox = draw.textbbox((0, 0), tile_name)
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
-        x = (self.tile_size - text_width) // 2
-        y = (self.tile_size - text_height) // 2
+        x = (200 - text_width) // 2
+        y = (200 - text_height) // 2
         draw.text((x, y), tile_name, fill='black')
         return img
 
@@ -63,7 +62,7 @@ class BoardImageGenerator:
         else:
             try:
                 img = Image.open(tile_path).convert('RGB')
-                img = img.resize((self.tile_size, self.tile_size), Image.LANCZOS)
+                img = img.resize((200, 200), Image.LANCZOS)
             except Exception:
                 img = self._create_placeholder_tile(tile_name)
 
@@ -79,10 +78,10 @@ class BoardImageGenerator:
         draw = ImageDraw.Draw(img_copy)
         
         rel_x, rel_y = self.MEEPLE_POSITIONS.get(position, (0.5, 0.5))
-        x = int(rel_x * self.tile_size)
-        y = int(rel_y * self.tile_size)
+        x = int(rel_x * 200)
+        y = int(rel_y * 200)
         
-        radius = self.tile_size // 10
+        radius = 200 // 10
         color = self.meeple_colors.get(player, (128, 128, 128))
 
         # Cabeza
@@ -106,10 +105,10 @@ class BoardImageGenerator:
         rows = len(board.board)
         cols = len(board.board[0]) if rows > 0 else 0
 
-        border_size = self.tile_size
+        border_size = 200
 
-        board_width = cols * self.tile_size + border_size * 2
-        board_height = rows * self.tile_size + border_size * 2
+        board_width = cols * 200 + border_size * 2
+        board_height = rows * 200 + border_size * 2
 
         
         board_img = Image.new('RGB', (board_width, board_height), color='white')
@@ -132,8 +131,8 @@ class BoardImageGenerator:
                     )
                 
                 # Pegar en posición correcta
-                x = (j * self.tile_size) + border_size
-                y = (i * self.tile_size) + border_size
+                x = (j * 200) + border_size
+                y = (i * 200) + border_size
                 board_img.paste(tile_img, (x, y))
 
         # Redimensionar a tamaño final
