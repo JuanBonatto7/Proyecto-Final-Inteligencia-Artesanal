@@ -26,6 +26,11 @@ PLAYER_NAMES = {
     'MEEPLE_2': 'Jugador 2',
 }
 
+# Umbral para detectar áreas blancas (fuera del tablero)
+# Píxeles con R,G,B > WHITE_THRESHOLD se consideran blancos
+# Valores: 0-255 (200 = detecta grises claros, 220 = solo blancos puros)
+WHITE_THRESHOLD = 200
+
 # Configuración avanzada para detección de campos
 FIELD_DETECTION_CONFIG = {
     # Cuánto expandir las barreras (caminos/castillos) para separar campos

@@ -57,31 +57,3 @@ class ImageProcessor:
         road_mask = self.create_mask('ROAD')
         castle_mask = self.create_mask('CASTLE')
         return road_mask | castle_mask
-
-# Integración con el sistema de archivos y ejecución del procesador de imágenes
-if __name__ == "__main__":
-    import sys
-    from pathlib import Path
-    
-    # Asegurarse de que se proporciona una imagen
-    if len(sys.argv) < 2:
-        print("Uso: python integrator.py <ruta_imagen>")
-        sys.exit(1)
-    
-    image_path = sys.argv[1]
-    
-    # Verificar si la ruta de la imagen es válida
-    image_path = Path(image_path)
-    if not image_path.is_file():
-        print(f"La ruta de la imagen no es válida: {image_path}")
-        sys.exit(1)
-    
-    # Procesar la imagen
-    processor = ImageProcessor(str(image_path))
-    barrier_mask = processor.get_combined_barrier_mask()
-    
-    # Mostrar resultados
-    cv2.imshow("Imagen Original", processor.image)
-    cv2.imshow("Máscara de Barreras", barrier_mask.astype(np.uint8) * 255)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()

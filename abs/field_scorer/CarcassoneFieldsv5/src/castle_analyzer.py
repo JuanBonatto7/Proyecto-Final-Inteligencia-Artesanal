@@ -27,9 +27,8 @@ class CastleAnalyzer:
             structure=np.ones((3, 3), dtype=int)
         )
         
-        # Analizar cuáles están completos
         self.complete_castles = self._identify_complete_castles()
-        self.incomplete_castles = self._identify_incomplete_castles()
+        self.incomplete_castles = self._calculate_incomplete_castles()
     
     def _identify_complete_castles(self) -> Set[int]:
         """
@@ -42,8 +41,6 @@ class CastleAnalyzer:
         
         for castle_id in range(1, self.num_castles + 1):
             castle_pixels = (self.labeled_castles == castle_id)
-            
-            # Verificar si toca áreas blancas
             touches_white = self.board_detector.is_touching_white(castle_pixels, expansion=2)
             
             if not touches_white:
@@ -51,20 +48,15 @@ class CastleAnalyzer:
         
         return complete
     
-    def _identify_incomplete_castles(self) -> Set[int]:
+    def _calculate_incomplete_castles(self) -> Set[int]:
         """
-        Identifica castillos incompletos (tocan el blanco).
+        Calcula castillos incompletos (todos - completos).
         
         Returns:
             Set de IDs de castillos incompletos
         """
-        incomplete = set()
-        
-        for castle_id in range(1, self.num_castles + 1):
-            if castle_id not in self.complete_castles:
-                incomplete.add(castle_id)
-        
-        return incomplete
+        all_castles = set(range(1, self.num_castles + 1))
+        return all_castles - self.complete_castles
     
     def is_castle_complete(self, castle_id: int) -> bool:
         """

@@ -5,22 +5,21 @@ Identifica áreas blancas (fuera del tablero) vs área de juego.
 import numpy as np
 import cv2
 from scipy import ndimage
+from config.colors import WHITE_THRESHOLD
 
 
 class BoardDetector:
     """Detecta los límites del tablero y áreas fuera de juego."""
     
-    def __init__(self, image: np.ndarray, white_threshold: int = 200):
+    def __init__(self, image: np.ndarray):
         """
         Inicializa el detector de tablero.
         
         Args:
             image: Imagen RGB del tablero
-            white_threshold: Umbral para detectar blanco (0-255)
-                           Píxeles con R,G,B > threshold se consideran blancos
         """
         self.image = image
-        self.white_threshold = white_threshold
+        self.white_threshold = WHITE_THRESHOLD
         self.height, self.width = image.shape[:2]
     
     def detect_white_areas(self) -> np.ndarray:

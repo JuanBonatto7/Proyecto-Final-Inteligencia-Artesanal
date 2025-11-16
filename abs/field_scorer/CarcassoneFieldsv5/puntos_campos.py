@@ -13,13 +13,72 @@ if sys.platform == 'win32':
         sys.stdout = codecs.getwriter('utf-8')(sys.stdout.buffer, 'strict')
         sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
 
+from typing import Dict
 from src.image_processor import ImageProcessor
 from src.board_detector import BoardDetector
 from src.castle_analyzer import CastleAnalyzer
 from src.field_detector import FieldDetector
 from src.scoring import FieldScorer
 from src.visualizer import FieldVisualizer
-from config.colors import PLAYER_NAMES, FIELD_DETECTION_CONFIG
+from config.colors import PLAYER_NAMES, FIELD_DETECTION_CONFIG, WHITE_THRESHOLD
+
+
+def calculate_field_scores(image_path: str) -> Dict[int, int]:
+    """
+    Calcula puntos de campos para un tablero.
+    FUNCIÓN PÚBLICA PARA INTEGRACIÓN CON OTROS PROGRAMAS.
+    
+    Args:
+        image_path: Ruta de la imagen del tablero
+    
+    Returns:
+        Dict[int, int]: {1: puntos_jugador_1, 2: puntos_jugador_2}
+    
+    Example:
+        >>> scores = calculate_field_scores("tablero.png")
+        >>> print(scores)  # {1: 6, 2: 9}
+    """
+    # 1. Procesar imagen
+    processor = ImageProcessor(image_path)
+    
+    # 2. Detectar límites del tablero
+    board_detector = BoardDetector(processor.image)
+    board_mask = board_detector.create_board_mask()
+    
+    # 3. Crear máscaras
+    field_mask = board_detector.filter_mask_by_board(processor.create_mask('FIELD'))
+    castle_mask = board_detector.filter_mask_by_board(processor.create_mask('CASTLE'))
+    barrier_mask = board_detector.filter_mask_by_board(processor.get_combined_barrier_mask())
+    
+    meeple_masks = {
+        'MEEPLE_1': board_detector.filter_mask_by_board(processor.create_mask('MEEPLE_1')),
+        'MEEPLE_2': board_detector.filter_mask_by_board(processor.create_mask('MEEPLE_2')),
+    }
+    
+    # 4. Analizar castillos
+    castle_analyzer = CastleAnalyzer(castle_mask, board_detector)
+    
+    # 5. Detectar campos
+    detector = FieldDetector(field_mask, barrier_mask, castle_mask)
+    config = FIELD_DETECTION_CONFIG
+    labeled_fields, num_fields = detector.detect_fields(
+        expand_barriers_iterations=config['barrier_expansion'],
+        min_area=config['min_field_area']
+    )
+    
+    road_mask = board_detector.filter_mask_by_board(processor.create_mask('ROAD'))
+    fields = detector.create_fields(labeled_fields, num_fields, meeple_masks, road_mask=road_mask)
+    
+    # 6. Calcular puntuación
+    scorer = FieldScorer(castle_mask, castle_analyzer=castle_analyzer)
+    field_results = scorer.calculate_all_scores(fields)
+    player_totals = scorer.calculate_player_totals(field_results)
+    
+    # 7. Convertir formato: {'MEEPLE_1': x, 'MEEPLE_2': y} -> {1: x, 2: y}
+    return {
+        1: player_totals.get('MEEPLE_1', 0),
+        2: player_totals.get('MEEPLE_2', 0)
+    }
 
 
 def print_safe(text):
@@ -62,14 +121,13 @@ def create_incremental_folder(base_folder):
         folder_index += 1
 
 
-def main(image_path: str, output_path: str = None, white_threshold: int = 200):
+def main(image_path: str, output_path: str = None):
     """
-    Ejecuta el análisis completo de campos.
+    Ejecuta el análisis completo de campos con visualización y debug.
     
     Args:
         image_path: Ruta de la imagen del tablero
         output_path: Ruta para guardar resultado (opcional)
-        white_threshold: Umbral para detectar blanco (0-255)
     """
     # Crear carpeta incremental para resultados
     base_results_folder = "resultados"
@@ -92,7 +150,7 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     
     # 1.5 Detectar límites del tablero
     print_safe("[1.5/6] Detectando limites del tablero...")
-    board_detector = BoardDetector(processor.image, white_threshold=white_threshold)
+    board_detector = BoardDetector(processor.image)
     board_mask = board_detector.create_board_mask()
     white_areas = board_detector.detect_white_areas()
     
@@ -300,24 +358,29 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print_safe("Uso: python main.py <ruta_imagen> [ruta_salida] [umbral_blanco]")
+        print_safe("Uso: python puntos_campos.py <ruta_imagen> [ruta_salida]")
         print_safe("\nEjemplo:")
-        print_safe("  python main.py tablero.png resultado.png")
-        print_safe("  python main.py tablero.png resultado.png 210")
-        print_safe("\nParametros:")
-        print_safe("  umbral_blanco: 0-255, default=200 (mayor=mas estricto para blanco)")
+        print_safe("  python puntos_campos.py tablero.png")
+        print_safe("  python puntos_campos.py tablero.png resultado.png")
+        print_safe("\n" + "="*60)
+        print_safe("INTEGRACION CON OTRO PROGRAMA:")
+        print_safe("="*60)
+        print_safe("Para obtener solo los puntos sin visualizacion:")
+        print_safe("  from puntos_campos import calculate_field_scores")
+        print_safe("  scores = calculate_field_scores('tablero.png')")
+        print_safe("  # scores = {1: puntos_j1, 2: puntos_j2}")
+        print_safe("\nPara ajustar el umbral de blanco, edita WHITE_THRESHOLD en config/colors.py")
         sys.exit(1)
     
     input_image = sys.argv[1]
     output_image = sys.argv[2] if len(sys.argv) > 2 else "resultado.png"
-    white_thresh = int(sys.argv[3]) if len(sys.argv) > 3 else 200
     
     if not os.path.exists(input_image):
         print_safe(f"[ERROR] No existe el archivo: {input_image}")
         sys.exit(1)
     
     try:
-        main(input_image, output_image, white_threshold=white_thresh)
+        main(input_image, output_image)
     except Exception as e:
         print_safe(f"\n[ERROR] {str(e)}")
         import traceback

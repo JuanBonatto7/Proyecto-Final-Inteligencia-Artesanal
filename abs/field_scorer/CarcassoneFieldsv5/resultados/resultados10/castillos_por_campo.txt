@@ -7,34 +7,21 @@ DETALLE DE CASTILLOS POR CAMPO
 CAMPO 1
 ================================================================================
 
-CASTILLOS COMPLETOS (cuentan para puntos): 4
-  IDs: [np.int32(1), np.int32(4), np.int32(6), np.int32(7)]
-    - Castillo #1: 757 pixels
-    - Castillo #4: 7026 pixels
-    - Castillo #6: 2741 pixels
-    - Castillo #7: 760 pixels
+CASTILLOS COMPLETOS (cuentan para puntos): 0
+  Ninguno
 
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 9
-  IDs: [np.int32(3), np.int32(5), np.int32(9), np.int32(10), np.int32(13), np.int32(15), np.int32(16), np.int32(18), np.int32(20)]
-    - Castillo #3: 6186 pixels (toca borde)
-    - Castillo #5: 757 pixels (toca borde)
-    - Castillo #9: 8369 pixels (toca borde)
-    - Castillo #10: 7026 pixels (toca borde)
-    - Castillo #13: 2741 pixels (toca borde)
-    - Castillo #15: 333 pixels (toca borde)
-    - Castillo #16: 6653 pixels (toca borde)
-    - Castillo #18: 760 pixels (toca borde)
-    - Castillo #20: 355 pixels (toca borde)
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 0
+  Ninguno
 
 PUNTUACION:
-  Castillos completos: 4
+  Castillos completos: 0
   Puntos por castillo: 3
-  TOTAL: 12 puntos
+  TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 87660 pixels
-  Meeples: {'MEEPLE_1': 2, 'MEEPLE_2': 2}
-  Dueño: TIE
+  Área: 10117 pixels
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Dueño: None
 
 ================================================================================
 CAMPO 2
@@ -52,7 +39,7 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 1785 pixels
+  Área: 1486 pixels
   Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
   Dueño: None
 
@@ -60,20 +47,24 @@ INFO DEL CAMPO:
 CAMPO 3
 ================================================================================
 
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
+CASTILLOS COMPLETOS (cuentan para puntos): 2
+  IDs: [np.int32(2), np.int32(5)]
+    - Castillo #2: 754 pixels
+    - Castillo #5: 6750 pixels
 
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(1)]
-    - Castillo #1: 15934 pixels (toca borde)
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 3
+  IDs: [np.int32(1), np.int32(7), np.int32(10)]
+    - Castillo #1: 24450 pixels (toca borde)
+    - Castillo #7: 754 pixels (toca borde)
+    - Castillo #10: 6750 pixels (toca borde)
 
 PUNTUACION:
-  Castillos completos: 0
+  Castillos completos: 2
   Puntos por castillo: 3
-  TOTAL: 0 puntos
+  TOTAL: 6 puntos
 
 INFO DEL CAMPO:
-  Área: 1262 pixels
+  Área: 14222 pixels
   Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
   Dueño: None
 
@@ -93,54 +84,12 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 5813 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 1}
-  Dueño: MEEPLE_2
+  Área: 768 pixels
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Dueño: None
 
 ================================================================================
 CAMPO 5
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
-
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(2)]
-    - Castillo #2: 1924 pixels (toca borde)
-
-PUNTUACION:
-  Castillos completos: 0
-  Puntos por castillo: 3
-  TOTAL: 0 puntos
-
-INFO DEL CAMPO:
-  Área: 4489 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
-
-================================================================================
-CAMPO 6
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
-
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(1)]
-    - Castillo #1: 15934 pixels (toca borde)
-
-PUNTUACION:
-  Castillos completos: 0
-  Puntos por castillo: 3
-  TOTAL: 0 puntos
-
-INFO DEL CAMPO:
-  Área: 331 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
-
-================================================================================
-CAMPO 7
 ================================================================================
 
 CASTILLOS COMPLETOS (cuentan para puntos): 0
@@ -155,9 +104,61 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 6686 pixels
+  Área: 1553 pixels
   Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
   Dueño: None
+
+================================================================================
+CAMPO 6
+================================================================================
+
+CASTILLOS COMPLETOS (cuentan para puntos): 0
+  Ninguno
+
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
+  IDs: [np.int32(1)]
+    - Castillo #1: 24450 pixels (toca borde)
+
+PUNTUACION:
+  Castillos completos: 0
+  Puntos por castillo: 3
+  TOTAL: 0 puntos
+
+INFO DEL CAMPO:
+  Área: 6781 pixels
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Dueño: None
+
+================================================================================
+CAMPO 7
+================================================================================
+
+CASTILLOS COMPLETOS (cuentan para puntos): 4
+  IDs: [np.int32(1), np.int32(4), np.int32(5), np.int32(6)]
+    - Castillo #1: 756 pixels
+    - Castillo #4: 2728 pixels
+    - Castillo #5: 6750 pixels
+    - Castillo #6: 4733 pixels
+
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 7
+  IDs: [np.int32(2), np.int32(3), np.int32(9), np.int32(10), np.int32(11), np.int32(12), np.int32(15)]
+    - Castillo #2: 756 pixels (toca borde)
+    - Castillo #3: 340 pixels (toca borde)
+    - Castillo #9: 2728 pixels (toca borde)
+    - Castillo #10: 6750 pixels (toca borde)
+    - Castillo #11: 4733 pixels (toca borde)
+    - Castillo #12: 3462 pixels (toca borde)
+    - Castillo #15: 1939 pixels (toca borde)
+
+PUNTUACION:
+  Castillos completos: 4
+  Puntos por castillo: 3
+  TOTAL: 12 puntos
+
+INFO DEL CAMPO:
+  Área: 68213 pixels
+  Meeples: {'MEEPLE_1': 2, 'MEEPLE_2': 2}
+  Dueño: TIE
 
 ================================================================================
 CAMPO 8
@@ -166,9 +167,8 @@ CAMPO 8
 CASTILLOS COMPLETOS (cuentan para puntos): 0
   Ninguno
 
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(8)]
-    - Castillo #8: 1923 pixels (toca borde)
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 0
+  Ninguno
 
 PUNTUACION:
   Castillos completos: 0
@@ -176,7 +176,7 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 9860 pixels
+  Área: 765 pixels
   Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
   Dueño: None
 
@@ -184,28 +184,22 @@ INFO DEL CAMPO:
 CAMPO 9
 ================================================================================
 
-CASTILLOS COMPLETOS (cuentan para puntos): 3
-  IDs: [np.int32(2), np.int32(3), np.int32(5)]
-    - Castillo #2: 759 pixels
-    - Castillo #3: 737 pixels
-    - Castillo #5: 741 pixels
+CASTILLOS COMPLETOS (cuentan para puntos): 0
+  Ninguno
 
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 4
-  IDs: [np.int32(6), np.int32(7), np.int32(9), np.int32(12)]
-    - Castillo #6: 759 pixels (toca borde)
-    - Castillo #7: 737 pixels (toca borde)
-    - Castillo #9: 8369 pixels (toca borde)
-    - Castillo #12: 741 pixels (toca borde)
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
+  IDs: [np.int32(1)]
+    - Castillo #1: 24450 pixels (toca borde)
 
 PUNTUACION:
-  Castillos completos: 3
+  Castillos completos: 0
   Puntos por castillo: 3
-  TOTAL: 9 puntos
+  TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 18658 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 1}
-  Dueño: MEEPLE_2
+  Área: 5143 pixels
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Dueño: None
 
 ================================================================================
 CAMPO 10
@@ -215,8 +209,8 @@ CASTILLOS COMPLETOS (cuentan para puntos): 0
   Ninguno
 
 CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(3)]
-    - Castillo #3: 6186 pixels (toca borde)
+  IDs: [np.int32(1)]
+    - Castillo #1: 24450 pixels (toca borde)
 
 PUNTUACION:
   Castillos completos: 0
@@ -224,33 +218,30 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 1618 pixels
-  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 0}
-  Dueño: MEEPLE_1
+  Área: 324 pixels
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Dueño: None
 
 ================================================================================
 CAMPO 11
 ================================================================================
 
-CASTILLOS COMPLETOS (cuentan para puntos): 1
-  IDs: [np.int32(3)]
-    - Castillo #3: 737 pixels
+CASTILLOS COMPLETOS (cuentan para puntos): 0
+  Ninguno
 
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 3
-  IDs: [np.int32(4), np.int32(7), np.int32(9)]
-    - Castillo #4: 338 pixels (toca borde)
-    - Castillo #7: 737 pixels (toca borde)
-    - Castillo #9: 8369 pixels (toca borde)
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
+  IDs: [np.int32(1)]
+    - Castillo #1: 24450 pixels (toca borde)
 
 PUNTUACION:
-  Castillos completos: 1
+  Castillos completos: 0
   Puntos por castillo: 3
-  TOTAL: 3 puntos
+  TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 3415 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
+  Área: 8717 pixels
+  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 0}
+  Dueño: MEEPLE_1
 
 ================================================================================
 CAMPO 12
@@ -259,9 +250,8 @@ CAMPO 12
 CASTILLOS COMPLETOS (cuentan para puntos): 0
   Ninguno
 
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(3)]
-    - Castillo #3: 6186 pixels (toca borde)
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 0
+  Ninguno
 
 PUNTUACION:
   Castillos completos: 0
@@ -269,7 +259,7 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 923 pixels
+  Área: 762 pixels
   Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
   Dueño: None
 
@@ -289,7 +279,7 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 2334 pixels
+  Área: 3178 pixels
   Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
   Dueño: None
 
@@ -297,22 +287,30 @@ INFO DEL CAMPO:
 CAMPO 14
 ================================================================================
 
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
+CASTILLOS COMPLETOS (cuentan para puntos): 4
+  IDs: [np.int32(2), np.int32(3), np.int32(5), np.int32(6)]
+    - Castillo #2: 754 pixels
+    - Castillo #3: 742 pixels
+    - Castillo #5: 6750 pixels
+    - Castillo #6: 4733 pixels
 
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(9)]
-    - Castillo #9: 8369 pixels (toca borde)
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 5
+  IDs: [np.int32(1), np.int32(7), np.int32(8), np.int32(10), np.int32(11)]
+    - Castillo #1: 24450 pixels (toca borde)
+    - Castillo #7: 754 pixels (toca borde)
+    - Castillo #8: 742 pixels (toca borde)
+    - Castillo #10: 6750 pixels (toca borde)
+    - Castillo #11: 4733 pixels (toca borde)
 
 PUNTUACION:
-  Castillos completos: 0
+  Castillos completos: 4
   Puntos por castillo: 3
-  TOTAL: 0 puntos
+  TOTAL: 12 puntos
 
 INFO DEL CAMPO:
-  Área: 138 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
+  Área: 37885 pixels
+  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 1}
+  Dueño: TIE
 
 ================================================================================
 CAMPO 15
@@ -322,8 +320,8 @@ CASTILLOS COMPLETOS (cuentan para puntos): 0
   Ninguno
 
 CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(9)]
-    - Castillo #9: 8369 pixels (toca borde)
+  IDs: [np.int32(13)]
+    - Castillo #13: 338 pixels (toca borde)
 
 PUNTUACION:
   Castillos completos: 0
@@ -331,33 +329,12 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 136 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
+  Área: 13986 pixels
+  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 0}
+  Dueño: MEEPLE_1
 
 ================================================================================
 CAMPO 16
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
-
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(11)]
-    - Castillo #11: 5918 pixels (toca borde)
-
-PUNTUACION:
-  Castillos completos: 0
-  Puntos por castillo: 3
-  TOTAL: 0 puntos
-
-INFO DEL CAMPO:
-  Área: 2980 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
-
-================================================================================
-CAMPO 17
 ================================================================================
 
 CASTILLOS COMPLETOS (cuentan para puntos): 0
@@ -372,7 +349,29 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 2280 pixels
+  Área: 1478 pixels
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Dueño: None
+
+================================================================================
+CAMPO 17
+================================================================================
+
+CASTILLOS COMPLETOS (cuentan para puntos): 1
+  IDs: [np.int32(6)]
+    - Castillo #6: 4733 pixels
+
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
+  IDs: [np.int32(11)]
+    - Castillo #11: 4733 pixels (toca borde)
+
+PUNTUACION:
+  Castillos completos: 1
+  Puntos por castillo: 3
+  TOTAL: 3 puntos
+
+INFO DEL CAMPO:
+  Área: 2659 pixels
   Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
   Dueño: None
 
@@ -383,6 +382,27 @@ CAMPO 18
 CASTILLOS COMPLETOS (cuentan para puntos): 0
   Ninguno
 
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
+  IDs: [np.int32(14)]
+    - Castillo #14: 340 pixels (toca borde)
+
+PUNTUACION:
+  Castillos completos: 0
+  Puntos por castillo: 3
+  TOTAL: 0 puntos
+
+INFO DEL CAMPO:
+  Área: 8771 pixels
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Dueño: None
+
+================================================================================
+CAMPO 19
+================================================================================
+
+CASTILLOS COMPLETOS (cuentan para puntos): 0
+  Ninguno
+
 CASTILLOS INCOMPLETOS (NO cuentan para puntos): 0
   Ninguno
 
@@ -392,30 +412,7 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 762 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
-
-================================================================================
-CAMPO 19
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 1
-  IDs: [np.int32(6)]
-    - Castillo #6: 2741 pixels
-
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 2
-  IDs: [np.int32(13), np.int32(19)]
-    - Castillo #13: 2741 pixels (toca borde)
-    - Castillo #19: 353 pixels (toca borde)
-
-PUNTUACION:
-  Castillos completos: 1
-  Puntos por castillo: 3
-  TOTAL: 3 puntos
-
-INFO DEL CAMPO:
-  Área: 17802 pixels
+  Área: 5276 pixels
   Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
   Dueño: None
 
@@ -423,23 +420,21 @@ INFO DEL CAMPO:
 CAMPO 20
 ================================================================================
 
-CASTILLOS COMPLETOS (cuentan para puntos): 1
-  IDs: [np.int32(4)]
-    - Castillo #4: 7026 pixels
+CASTILLOS COMPLETOS (cuentan para puntos): 0
+  Ninguno
 
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(10)]
-    - Castillo #10: 7026 pixels (toca borde)
+CASTILLOS INCOMPLETOS (NO cuentan para puntos): 0
+  Ninguno
 
 PUNTUACION:
-  Castillos completos: 1
+  Castillos completos: 0
   Puntos por castillo: 3
-  TOTAL: 3 puntos
+  TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 329 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
+  Área: 606 pixels
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 1}
+  Dueño: MEEPLE_2
 
 ================================================================================
 CAMPO 21
@@ -448,51 +443,6 @@ CAMPO 21
 CASTILLOS COMPLETOS (cuentan para puntos): 0
   Ninguno
 
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 4
-  IDs: [np.int32(11), np.int32(14), np.int32(17), np.int32(21)]
-    - Castillo #11: 5918 pixels (toca borde)
-    - Castillo #14: 339 pixels (toca borde)
-    - Castillo #17: 4337 pixels (toca borde)
-    - Castillo #21: 1966 pixels (toca borde)
-
-PUNTUACION:
-  Castillos completos: 0
-  Puntos por castillo: 3
-  TOTAL: 0 puntos
-
-INFO DEL CAMPO:
-  Área: 15239 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
-
-================================================================================
-CAMPO 22
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
-
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(16)]
-    - Castillo #16: 6653 pixels (toca borde)
-
-PUNTUACION:
-  Castillos completos: 0
-  Puntos por castillo: 3
-  TOTAL: 0 puntos
-
-INFO DEL CAMPO:
-  Área: 2104 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 1}
-  Dueño: MEEPLE_2
-
-================================================================================
-CAMPO 23
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
-
 CASTILLOS INCOMPLETOS (NO cuentan para puntos): 0
   Ninguno
 
@@ -502,89 +452,7 @@ PUNTUACION:
   TOTAL: 0 puntos
 
 INFO DEL CAMPO:
-  Área: 1640 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 1}
-  Dueño: MEEPLE_2
-
-================================================================================
-CAMPO 24
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
-
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(11)]
-    - Castillo #11: 5918 pixels (toca borde)
-
-PUNTUACION:
-  Castillos completos: 0
-  Puntos por castillo: 3
-  TOTAL: 0 puntos
-
-INFO DEL CAMPO:
-  Área: 762 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
-
-================================================================================
-CAMPO 25
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
-
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 0
-  Ninguno
-
-PUNTUACION:
-  Castillos completos: 0
-  Puntos por castillo: 3
-  TOTAL: 0 puntos
-
-INFO DEL CAMPO:
-  Área: 700 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
-
-================================================================================
-CAMPO 26
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
-
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 1
-  IDs: [np.int32(17)]
-    - Castillo #17: 4337 pixels (toca borde)
-
-PUNTUACION:
-  Castillos completos: 0
-  Puntos por castillo: 3
-  TOTAL: 0 puntos
-
-INFO DEL CAMPO:
-  Área: 3517 pixels
-  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
-  Dueño: None
-
-================================================================================
-CAMPO 27
-================================================================================
-
-CASTILLOS COMPLETOS (cuentan para puntos): 0
-  Ninguno
-
-CASTILLOS INCOMPLETOS (NO cuentan para puntos): 0
-  Ninguno
-
-PUNTUACION:
-  Castillos completos: 0
-  Puntos por castillo: 3
-  TOTAL: 0 puntos
-
-INFO DEL CAMPO:
-  Área: 730 pixels
+  Área: 1545 pixels
   Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
   Dueño: None
 
@@ -592,7 +460,7 @@ INFO DEL CAMPO:
 ================================================================================
 RESUMEN GENERAL
 ================================================================================
-Total de campos analizados: 27
-Total de castillos en el tablero: 21
-  - Completos: 7
-  - Incompletos: 14
+Total de campos analizados: 21
+Total de castillos en el tablero: 15
+  - Completos: 6
+  - Incompletos: 9
