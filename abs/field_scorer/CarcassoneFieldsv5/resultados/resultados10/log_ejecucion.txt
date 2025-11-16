@@ -1,0 +1,244 @@
+============================================================
+ANALISIS DE CAMPOS - CARCASSONNE v3
+Con deteccion de tablero y castillos incompletos
+============================================================
+Carpeta de resultados: resultados\resultados10
+
+[1/6] Procesando imagen...
+[1.5/6] Detectando limites del tablero...
+   Pixeles dentro del tablero: 332886
+   Pixeles fuera (blancos): 307114
+[2/6] Creando mascaras...
+[2.5/6] Analizando castillos...
+   Total de castillos: 15
+   Castillos completos: 6
+   Castillos incompletos: 9
+   Pixeles verdes (campos): 194101
+   Pixeles de barreras: 68974
+   Pixeles de castillos: 68922
+[3/6] Detectando campos...
+   [OK] 21 campos detectados
+
+   Detalles de campos:
+     - Campo 1: 10117 pixels, Meeples: 0
+     - Campo 2: 1486 pixels, Meeples: 0
+     - Campo 3: 14222 pixels, Meeples: 0
+     - Campo 4: 768 pixels, Meeples: 0
+     - Campo 5: 1553 pixels, Meeples: 0
+     - Campo 6: 6781 pixels, Meeples: 0
+     - Campo 7: 68213 pixels, Meeples: 4
+     - Campo 8: 765 pixels, Meeples: 0
+     - Campo 9: 5143 pixels, Meeples: 0
+     - Campo 10: 324 pixels, Meeples: 0
+     - Campo 11: 8717 pixels, Meeples: 1
+     - Campo 12: 762 pixels, Meeples: 0
+     - Campo 13: 3178 pixels, Meeples: 0
+     - Campo 14: 37885 pixels, Meeples: 2
+     - Campo 15: 13986 pixels, Meeples: 1
+     - Campo 16: 1478 pixels, Meeples: 0
+     - Campo 17: 2659 pixels, Meeples: 0
+     - Campo 18: 8771 pixels, Meeples: 0
+     - Campo 19: 5276 pixels, Meeples: 0
+     - Campo 20: 606 pixels, Meeples: 1
+     - Campo 21: 1545 pixels, Meeples: 0
+
+[4/6] Calculando puntuacion...
+   (Solo castillos completos cuentan para puntos)
+
+[4.5/6] Guardando informacion detallada de castillos...
+   [OK] Detalles guardados en: resultados\resultados10\castillos_por_campo.txt
+
+======================================================================
+DEBUG DE MEEPLES
+======================================================================
+Total Meeples Jugador 1: 5
+Total Meeples Jugador 2: 4
+
+Campos con Meeples:
+  Campo 7: {'MEEPLE_1': 2, 'MEEPLE_2': 2}
+  Campo 11: {'MEEPLE_1': 1, 'MEEPLE_2': 0}
+  Campo 14: {'MEEPLE_1': 1, 'MEEPLE_2': 1}
+  Campo 15: {'MEEPLE_1': 1, 'MEEPLE_2': 0}
+  Campo 20: {'MEEPLE_1': 0, 'MEEPLE_2': 1}
+[5/6] Generando visualizacion...
+   Generando visualizacion de castillos...
+   Analizando validez de meeples...
+   Generando debug de meeples...
+
+[OK] Resultados guardados en: resultados\resultados10
+  - resultados\resultados10\resultado.png
+  - resultados\resultados10\resultado_summary.png
+  - resultados\resultados10\castillos_detectados.png
+  - resultados\resultados10\meeples_debug.png
+  - resultados\resultados10\debug_board_limits.png
+  - resultados\resultados10\debug_campos_limpios.png
+  - resultados\resultados10\log_ejecucion.txt
+
+============================================================
+RESULTADOS
+============================================================
+
+Campo 1:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 10117 pixels
+
+Campo 2:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 1486 pixels
+
+Campo 3:
+  Dueno: Sin dueno
+  Puntos: 6
+  Castillos: 2 completos + 1 incompletos
+    -> Solo los 2 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 14222 pixels
+
+Campo 4:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 768 pixels
+
+Campo 5:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 1553 pixels
+
+Campo 6:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos: 0 completos + 1 incompletos
+    -> Solo los 0 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 6781 pixels
+
+Campo 7:
+  Dueno: EMPATE
+  Puntos: 12
+  Castillos: 4 completos + 6 incompletos
+    -> Solo los 4 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 2, 'MEEPLE_2': 2}
+  Area: 68213 pixels
+
+Campo 8:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 765 pixels
+
+Campo 9:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos: 0 completos + 1 incompletos
+    -> Solo los 0 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 5143 pixels
+
+Campo 10:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos: 0 completos + 1 incompletos
+    -> Solo los 0 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 324 pixels
+
+Campo 11:
+  Dueno: Jugador 1
+  Puntos: 0
+  Castillos: 0 completos + 1 incompletos
+    -> Solo los 0 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 0}
+  Area: 8717 pixels
+
+Campo 12:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 762 pixels
+
+Campo 13:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 3178 pixels
+
+Campo 14:
+  Dueno: EMPATE
+  Puntos: 12
+  Castillos: 4 completos + 2 incompletos
+    -> Solo los 4 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 1}
+  Area: 37885 pixels
+
+Campo 15:
+  Dueno: Jugador 1
+  Puntos: 0
+  Castillos: 0 completos + 1 incompletos
+    -> Solo los 0 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 0}
+  Area: 13986 pixels
+
+Campo 16:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 1478 pixels
+
+Campo 17:
+  Dueno: Sin dueno
+  Puntos: 3
+  Castillos: 1 completos + 1 incompletos
+    -> Solo los 1 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 2659 pixels
+
+Campo 18:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos: 0 completos + 1 incompletos
+    -> Solo los 0 completos cuentan para puntos
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 8771 pixels
+
+Campo 19:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 5276 pixels
+
+Campo 20:
+  Dueno: Jugador 2
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 1}
+  Area: 606 pixels
+
+Campo 21:
+  Dueno: Sin dueno
+  Puntos: 0
+  Castillos completos: 0
+  Meeples: {'MEEPLE_1': 0, 'MEEPLE_2': 0}
+  Area: 1545 pixels
+
+------------------------------------------------------------
+PUNTUACION TOTAL:
+------------------------------------------------------------
+Jugador 1: 24 puntos
+Jugador 2: 24 puntos
+
+Presiona cualquier tecla en la ventana de imagen para cerrar...
