@@ -250,8 +250,8 @@ class CarcassonneTileDetector:
                 std_val = np.std(gray)
                 mean_val = np.mean(gray)
                 
-                # Filtrar fondos uniformes
-                if std_val > 20 and mean_val < 210:
+                # Filtrar fondos uniformes (relajado para capturar más losetas)
+                if std_val > 10:
                     tile = Tile(x, y, tw, th, tile_img, row, col)
                     tiles.append(tile)
 
