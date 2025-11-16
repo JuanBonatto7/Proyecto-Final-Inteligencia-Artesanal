@@ -105,8 +105,12 @@ class BoardImageGenerator:
         """Genera y guarda la imagen del tablero completo."""
         rows = len(board.board)
         cols = len(board.board[0]) if rows > 0 else 0
-        board_width = cols * self.tile_size
-        board_height = rows * self.tile_size
+
+        border_size = self.tile_size
+
+        board_width = cols * self.tile_size + border_size * 2
+        board_height = rows * self.tile_size + border_size * 2
+
         
         board_img = Image.new('RGB', (board_width, board_height), color='white')
 
@@ -128,8 +132,8 @@ class BoardImageGenerator:
                     )
                 
                 # Pegar en posición correcta
-                x = j * self.tile_size
-                y = i * self.tile_size
+                x = (j * self.tile_size) + border_size
+                y = (i * self.tile_size) + border_size
                 board_img.paste(tile_img, (x, y))
 
         # Redimensionar a tamaño final
