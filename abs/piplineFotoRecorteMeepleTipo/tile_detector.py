@@ -12,7 +12,7 @@ import sys
 import os
 import torch
 import torchvision.transforms as transforms
-from carcassonne_cnn import CarcassonneCNN
+from cnn_connector import CarcassonneCNN
 
 
 class CarcassonneTileDetector:
@@ -90,9 +90,7 @@ class CarcassonneTileDetector:
         """Carga el modelo CNN entrenado con múltiples imágenes"""
         # Intentar cargar el modelo con BLANCO primero
         model_paths = [
-            Path("carcassonne_cnn_multi_model.pth"),
-            Path("carcassonne_cnn_with_blanco.pth"),
-            Path("carcassonne_cnn_no_blanco.pth")
+            Path("carcassonne_cnn_multi_model.pth")
         ]
 
         for model_path in model_paths:
