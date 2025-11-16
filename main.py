@@ -24,7 +24,7 @@ def run_game():
 
     ##Genero imagen del tablero
     tiles_img_path = os.path.join("resources","tiles_texture_pack-v3")
-    gen_images = BoardImageGenerator("abs/tiles_texture_pack-v3")
+    gen_images = BoardImageGenerator(tiles_img_path)
     timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
     image_path = os.path.join("modules","imagen_generator","output", f"tablero_{timestamp_str}.jpg")
     os.makedirs(os.path.dirname(image_path), exist_ok=True)
