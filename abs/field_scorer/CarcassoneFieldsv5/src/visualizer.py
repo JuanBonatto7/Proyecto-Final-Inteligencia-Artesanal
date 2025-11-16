@@ -222,3 +222,96 @@ class FieldVisualizer:
             y_pos += 25
         
         return summary
+    
+    def visualize_all_castles(self, castle_analyzer, fields: List[Field], scorer) -> np.ndarray:
+        """
+        Crea una visualización de todos los castillos en el tablero.
+        
+        Args:
+            castle_analyzer: Analizador de castillos
+            fields: Lista de campos
+            scorer: Calculador de puntuación
+            
+        Returns:
+            Imagen con castillos visualizados
+        """
+        img = self.original.copy()
+        
+        # Obtener máscaras
+        complete_mask = castle_analyzer.get_complete_castles_mask()
+        incomplete_mask = castle_analyzer.get_incomplete_castles_mask()
+        
+        # Dibujar castillos completos en verde
+        complete_contours, _ = cv2.findContours(
+            complete_mask.astype(np.uint8) * 255,
+            cv2.RETR_EXTERNAL,
+            cv2.CHAIN_APPROX_SIMPLE
+        )
+        cv2.drawContours(img, complete_contours, -1, (0, 255, 0), 3)
+        
+        # Dibujar castillos incompletos en rojo
+        incomplete_contours, _ = cv2.findContours(
+            incomplete_mask.astype(np.uint8) * 255,
+            cv2.RETR_EXTERNAL,
+            cv2.CHAIN_APPROX_SIMPLE
+        )
+        cv2.drawContours(img, incomplete_contours, -1, (255, 0, 0), 3)
+        
+        # Etiquetar cada castillo completo
+        for castle_id in castle_analyzer.complete_castles:
+            castle_pixels = (castle_analyzer.labeled_castles == castle_id)
+            y_coords, x_coords = np.where(castle_pixels)
+            if len(y_coords) > 0:
+                cy, cx = int(y_coords.mean()), int(x_coords.mean())
+                
+                # Fondo blanco
+                text = f"C{castle_id}"
+                (tw, th), _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 2)
+                cv2.rectangle(img, (cx-tw//2-2, cy-th//2-2), 
+                             (cx+tw//2+2, cy+th//2+2), (255, 255, 255), -1)
+                
+                # Texto verde
+                cv2.putText(img, text, (cx-tw//2, cy+th//2),
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 200, 0), 2)
+        
+        # Etiquetar cada castillo incompleto
+        for castle_id in castle_analyzer.incomplete_castles:
+            castle_pixels = (castle_analyzer.labeled_castles == castle_id)
+            y_coords, x_coords = np.where(castle_pixels)
+            if len(y_coords) > 0:
+                cy, cx = int(y_coords.mean()), int(x_coords.mean())
+                
+                # Fondo blanco
+                text = f"I{castle_id}"
+                (tw, th), _ = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 2)
+                cv2.rectangle(img, (cx-tw//2-2, cy-th//2-2), 
+                             (cx+tw//2+2, cy+th//2+2), (255, 255, 255), -1)
+                
+                # Texto rojo
+                cv2.putText(img, text, (cx-tw//2, cy+th//2),
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 0, 0), 2)
+        
+        # Agregar leyenda
+        legend_y = 30
+        cv2.putText(img, "CASTILLOS:", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)
+        legend_y += 30
+        cv2.putText(img, "Verde (C#) = Completos (suman puntos)", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 200, 0), 2)
+        legend_y += 25
+        cv2.putText(img, "Rojo (I#) = Incompletos (NO suman)", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 0, 0), 2)
+        
+        # Agregar estadísticas
+        stats = castle_analyzer.get_castle_statistics()
+        legend_y += 35
+        cv2.putText(img, f"Total: {stats['total_castles']} castillos", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
+        legend_y += 25
+        cv2.putText(img, f"Completos: {stats['complete_castles']}", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 200, 0), 2)
+        legend_y += 25
+        cv2.putText(img, f"Incompletos: {stats['incomplete_castles']}", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 0, 0), 2)
+        
+        return img

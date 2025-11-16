@@ -7,6 +7,8 @@ from typing import Dict, List, Tuple
 from src.field_detector import Field
 import numpy as np
 from scipy import ndimage
+import cv2
+import os
 
 
 class FieldScorer:
@@ -80,6 +82,40 @@ class FieldScorer:
                 unique_castle_ids.add(castle_id)
         
         return len(unique_castle_ids)
+    
+    def get_castle_ids_for_field(self, field: Field, only_complete: bool = True) -> List[int]:
+        """
+        Obtiene los IDs de castillos adyacentes a un campo.
+        
+        Args:
+            field: Campo a analizar
+            only_complete: Si True, solo castillos completos
+            
+        Returns:
+            Lista de IDs de castillos
+        """
+        kernel = np.ones((7, 7), dtype=np.uint8)
+        expanded_field = ndimage.binary_dilation(field.pixels, structure=kernel, iterations=3)
+        
+        if only_complete and self.castle_analyzer:
+            labeled_to_use = self.labeled_complete_castles
+            castles_in_or_near_field = expanded_field & self.castle_analyzer.get_complete_castles_mask()
+        else:
+            labeled_to_use = self.labeled_castles
+            castles_in_or_near_field = expanded_field & self.castle_mask
+        
+        if not np.any(castles_in_or_near_field):
+            return []
+        
+        unique_castle_ids = set()
+        y_coords, x_coords = np.where(castles_in_or_near_field)
+        
+        for y, x in zip(y_coords, x_coords):
+            castle_id = labeled_to_use[y, x]
+            if castle_id > 0:
+                unique_castle_ids.add(castle_id)
+        
+        return sorted(list(unique_castle_ids))
     
     def determine_owner(self, field: Field) -> Tuple[str, bool]:
         """
@@ -187,3 +223,137 @@ class FieldScorer:
                         totals[player] = totals.get(player, 0) + score
         
         return totals
+    
+    def save_castle_details(self, fields: List[Field], field_results: Dict, output_folder: str, original_image: np.ndarray):
+        """
+        Guarda información detallada de los castillos por campo.
+        
+        Args:
+            fields: Lista de campos
+            field_results: Resultados de puntuación
+            output_folder: Carpeta donde guardar
+            original_image: Imagen original del tablero
+        """
+        details_file = os.path.join(output_folder, "castillos_por_campo.txt")
+        
+        with open(details_file, 'w', encoding='utf-8') as f:
+            f.write("=" * 80 + "\n")
+            f.write("DETALLE DE CASTILLOS POR CAMPO\n")
+            f.write("=" * 80 + "\n\n")
+            
+            for field in fields:
+                f.write(f"\n{'='*80}\n")
+                f.write(f"CAMPO {field.id}\n")
+                f.write(f"{'='*80}\n")
+                
+                # Castillos completos
+                complete_ids = self.get_castle_ids_for_field(field, only_complete=True)
+                f.write(f"\nCASTILLOS COMPLETOS (cuentan para puntos): {len(complete_ids)}\n")
+                if complete_ids:
+                    f.write(f"  IDs: {complete_ids}\n")
+                    for castle_id in complete_ids:
+                        castle_mask = (self.labeled_complete_castles == castle_id)
+                        area = castle_mask.sum()
+                        f.write(f"    - Castillo #{castle_id}: {area} pixels\n")
+                else:
+                    f.write("  Ninguno\n")
+                
+                # Castillos incompletos
+                all_ids = self.get_castle_ids_for_field(field, only_complete=False)
+                incomplete_ids = [cid for cid in all_ids if cid not in complete_ids]
+                f.write(f"\nCASTILLOS INCOMPLETOS (NO cuentan para puntos): {len(incomplete_ids)}\n")
+                if incomplete_ids:
+                    f.write(f"  IDs: {incomplete_ids}\n")
+                    for castle_id in incomplete_ids:
+                        castle_mask = (self.labeled_castles == castle_id)
+                        area = castle_mask.sum()
+                        f.write(f"    - Castillo #{castle_id}: {area} pixels (toca borde)\n")
+                else:
+                    f.write("  Ninguno\n")
+                
+                # Puntuación
+                f.write(f"\nPUNTUACION:\n")
+                f.write(f"  Castillos completos: {len(complete_ids)}\n")
+                f.write(f"  Puntos por castillo: 3\n")
+                f.write(f"  TOTAL: {len(complete_ids) * 3} puntos\n")
+                
+                # Info del campo
+                result = field_results.get(field.id, {})
+                f.write(f"\nINFO DEL CAMPO:\n")
+                f.write(f"  Área: {field.area} pixels\n")
+                f.write(f"  Meeples: {field.meeples}\n")
+                f.write(f"  Dueño: {result.get('owner', 'Ninguno')}\n")
+                
+                # Generar imagen individual del campo con castillos
+                self._save_field_castle_image(field, complete_ids, incomplete_ids, 
+                                              original_image, output_folder)
+            
+            f.write(f"\n\n{'='*80}\n")
+            f.write("RESUMEN GENERAL\n")
+            f.write(f"{'='*80}\n")
+            f.write(f"Total de campos analizados: {len(fields)}\n")
+            if self.castle_analyzer:
+                stats = self.castle_analyzer.get_castle_statistics()
+                f.write(f"Total de castillos en el tablero: {stats['total_castles']}\n")
+                f.write(f"  - Completos: {stats['complete_castles']}\n")
+                f.write(f"  - Incompletos: {stats['incomplete_castles']}\n")
+        
+        print(f"   [OK] Detalles guardados en: {details_file}")
+    
+    def _save_field_castle_image(self, field: Field, complete_ids: List[int], 
+                                  incomplete_ids: List[int], original_image: np.ndarray, 
+                                  output_folder: str):
+        """
+        Guarda imagen individual de un campo mostrando sus castillos.
+        
+        Args:
+            field: Campo a visualizar
+            complete_ids: IDs de castillos completos
+            incomplete_ids: IDs de castillos incompletos
+            original_image: Imagen original
+            output_folder: Carpeta de salida
+        """
+        img = original_image.copy()
+        
+        # Resaltar el campo en amarillo transparente
+        overlay = img.copy()
+        overlay[field.pixels] = [255, 255, 150]
+        img = cv2.addWeighted(img, 0.5, overlay, 0.5, 0)
+        
+        # Dibujar castillos completos en verde
+        for castle_id in complete_ids:
+            castle_mask = (self.labeled_complete_castles == castle_id)
+            contours, _ = cv2.findContours(
+                castle_mask.astype(np.uint8) * 255,
+                cv2.RETR_EXTERNAL,
+                cv2.CHAIN_APPROX_SIMPLE
+            )
+            cv2.drawContours(img, contours, -1, (0, 255, 0), 3)
+            
+            # Etiquetar castillo
+            y, x = np.where(castle_mask)
+            if len(y) > 0:
+                cy, cx = int(y.mean()), int(x.mean())
+                cv2.putText(img, f"C{castle_id}", (cx-10, cy), 
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
+        
+        # Dibujar castillos incompletos en rojo
+        for castle_id in incomplete_ids:
+            castle_mask = (self.labeled_castles == castle_id)
+            contours, _ = cv2.findContours(
+                castle_mask.astype(np.uint8) * 255,
+                cv2.RETR_EXTERNAL,
+                cv2.CHAIN_APPROX_SIMPLE
+            )
+            cv2.drawContours(img, contours, -1, (255, 0, 0), 3)
+            
+            # Etiquetar castillo
+            y, x = np.where(castle_mask)
+            if len(y) > 0:
+                cy, cx = int(y.mean()), int(x.mean())
+                cv2.putText(img, f"I{castle_id}", (cx-10, cy), 
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
+        
+        # Guardar imagen
+        filename = os.path.join(output_folder, f"campo_{field.id}_castillos.png")
+        cv2.imwrite(filename, cv2.cvtColor(img, cv2.COLOR_RGB2BGR))

@@ -30,6 +30,24 @@ def print_safe(text):
         print(text.encode('ascii', 'replace').decode('ascii'))
 
 
+class Logger:
+    """Captura toda la salida de consola a un archivo."""
+    def __init__(self, filepath):
+        self.terminal = sys.stdout
+        self.log = open(filepath, 'w', encoding='utf-8')
+    
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+    
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+    
+    def close(self):
+        self.log.close()
+
+
 def create_incremental_folder(base_folder):
     """Crea una carpeta incremental dentro de base_folder."""
     if not os.path.exists(base_folder):
@@ -53,10 +71,20 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
         output_path: Ruta para guardar resultado (opcional)
         white_threshold: Umbral para detectar blanco (0-255)
     """
+    # Crear carpeta incremental para resultados
+    base_results_folder = "resultados"
+    results_folder = create_incremental_folder(base_results_folder)
+    
+    # Iniciar logger para capturar toda la consola
+    log_file = os.path.join(results_folder, "log_ejecucion.txt")
+    logger = Logger(log_file)
+    sys.stdout = logger
+    
     print_safe("=" * 60)
     print_safe("ANALISIS DE CAMPOS - CARCASSONNE v3")
     print_safe("Con deteccion de tablero y castillos incompletos")
     print_safe("=" * 60)
+    print_safe(f"Carpeta de resultados: {results_folder}")
     
     # 1. Procesar imagen
     print_safe("\n[1/6] Procesando imagen...")
@@ -130,6 +158,11 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     print_safe("   (Solo castillos completos cuentan para puntos)")
     scorer = FieldScorer(castle_mask, castle_analyzer=castle_analyzer)
     field_results = scorer.calculate_all_scores(fields)
+    
+    # 4.5 Guardar información detallada de castillos por campo
+    print_safe("\n[4.5/6] Guardando informacion detallada de castillos...")
+    scorer.save_castle_details(fields, field_results, results_folder, processor.image)
+    
     player_totals = scorer.calculate_player_totals(field_results)
     
     # 5. Visualizar resultados
@@ -138,19 +171,39 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     result_image = visualizer.draw_field_boundaries(fields, field_results)
     summary_image = visualizer.create_summary_image(field_results, player_totals)
     
-    # Crear carpeta incremental para resultados
-    base_results_folder = "resultados"
-    results_folder = create_incremental_folder(base_results_folder)
-
+    # Generar visualización de castillos
+    print_safe("   Generando visualizacion de castillos...")
+    castle_viz = visualizer.visualize_all_castles(castle_analyzer, fields, scorer)
+    
     # Actualizar rutas de salida
     result_image_path = os.path.join(results_folder, "resultado.png")
     summary_image_path = os.path.join(results_folder, "resultado_summary.png")
+    castle_image_path = os.path.join(results_folder, "castillos_detectados.png")
+    board_mask_path = os.path.join(results_folder, "debug_board_limits.png")
+    fields_clean_path = os.path.join(results_folder, "debug_campos_limpios.png")
 
     # Guardar y mostrar imágenes
     cv2.imwrite(result_image_path, cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
     cv2.imwrite(summary_image_path, cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
-    print_safe(f"\n[OK] Resultados guardados en: {result_image_path}")
-    print_safe(f"[OK] Resumen guardado en: {summary_image_path}")
+    cv2.imwrite(castle_image_path, cv2.cvtColor(castle_viz, cv2.COLOR_RGB2BGR))
+    
+    # Guardar imágenes de debug
+    debug_board = processor.image.copy()
+    debug_board[white_areas] = [255, 0, 0]
+    cv2.imwrite(board_mask_path, cv2.cvtColor(debug_board, cv2.COLOR_RGB2BGR))
+    
+    debug_image = processor.image.copy()
+    for field in fields:
+        debug_image[field.pixels] = [255, 255, 0]
+    cv2.imwrite(fields_clean_path, cv2.cvtColor(debug_image, cv2.COLOR_RGB2BGR))
+    
+    print_safe(f"\n[OK] Resultados guardados en: {results_folder}")
+    print_safe(f"  - {result_image_path}")
+    print_safe(f"  - {summary_image_path}")
+    print_safe(f"  - {castle_image_path}")
+    print_safe(f"  - {board_mask_path}")
+    print_safe(f"  - {fields_clean_path}")
+    print_safe(f"  - {log_file}")
 
     # 6. Mostrar resultados en consola
     print_safe("\n" + "=" * 60)
@@ -195,21 +248,17 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     # Mostrar imágenes
     cv2.imshow('Campos Detectados', cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
     cv2.imshow('Resumen', cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
-    
-    # Debug: Mostrar máscara del tablero
-    debug_board = processor.image.copy()
-    debug_board[white_areas] = [255, 0, 0]  # Blanco en rojo
+    cv2.imshow('Castillos', cv2.cvtColor(castle_viz, cv2.COLOR_RGB2BGR))
     cv2.imshow('Debug: Limites del Tablero (rojo=fuera)', cv2.cvtColor(debug_board, cv2.COLOR_RGB2BGR))
-    
-    # Debug: Campos limpios
-    debug_image = processor.image.copy()
-    for field in fields:
-        debug_image[field.pixels] = [255, 255, 0]  # Amarillo
     cv2.imshow('Debug: Campos Limpios', cv2.cvtColor(debug_image, cv2.COLOR_RGB2BGR))
     
     print_safe("\nPresiona cualquier tecla en la ventana de imagen para cerrar...")
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+    
+    # Cerrar logger
+    logger.close()
+    sys.stdout = logger.terminal
     
     return field_results, player_totals
 
