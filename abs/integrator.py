@@ -29,6 +29,8 @@ def run_game(
     # Calcular puntuación (los logs los maneja el scorer vía set_debug)
     scores = GameScorer(board).score()
 
+
+
     # Mostrar solo resultados finales
     print("\n" + "=" * 70)
     print("RESULTADOS")
