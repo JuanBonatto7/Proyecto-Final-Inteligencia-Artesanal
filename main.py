@@ -7,7 +7,6 @@ from modules.incomplete_features_scorer.incomplete_features_scorer import GameSc
 from modules.CarcassoneFieldsv5.puntos_campos import calculate_field_scores
 
 
-
 ##volar
 from modules.random_board_generator import generate_board
 
@@ -20,9 +19,10 @@ def run_game():
     ##Metodo de agu y bonatto
 
     ##Genero imagen del tablero
+    tiles_img_path = os.path.join("resources","tiles_texture_pack-v3")
     gen_images = BoardImageGenerator("abs/tiles_texture_pack-v3")
     timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
-    image_path = os.path.join("abs/output", f"tablero_{timestamp_str}.jpg")
+    image_path = os.path.join("modules","imagen_generator","output", f"tablero_{timestamp_str}.jpg")
     gen_images.generate_board_image(board_game,image_path)
 
     ##Calculo puntos
