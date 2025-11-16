@@ -23,7 +23,7 @@ def run_game():
     board_game =origin_convert.convert("tablero.jpg")
 
     ##Genero imagen del tablero
-    tiles_img_path = os.path.join("resources","tiles_texture_pack-v3")
+    tiles_img_path = os.path.join("resources","tiles_texture_pack-v4")
     gen_images = BoardImageGenerator(tiles_img_path)
     timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
     image_path = os.path.join("modules","imagen_generator","output", f"tablero_{timestamp_str}.jpg")
