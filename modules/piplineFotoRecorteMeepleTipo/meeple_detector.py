@@ -322,7 +322,6 @@ class MeepleDetector:
 
         if output_path:
             cv2.imwrite(output_path, image)
-            print(f"Visualización guardada en: {output_path}")
         else:
             cv2.imshow('Detección de Meeple', image)
             cv2.waitKey(0)
@@ -334,7 +333,6 @@ def main():
     import os
 
     if len(sys.argv) < 2:
-        print("Uso: python MeepleDetectorSimple.py <imagen>")
         return
 
     image_path = sys.argv[1]
@@ -350,16 +348,10 @@ def main():
         print(result['error'])
         return
 
-    print(f"Hay meeple: {result['has_meeple']}")
-
     if result['has_meeple']:
-        print(f"Color: {result['color']}")
-        print(f"Posición: {result['position']}")
-        print(f"Confianza: {result['confidence']:.2f}")
 
         if result['circle']:
             x, y, r = result['circle']
-            print(f"Círculo: centro=({x},{y}), radio={r}")
 
     output_path = f"deteccion_{Path(image_path).stem}.jpg"
     detector.visualize_detection(image_path, output_path)

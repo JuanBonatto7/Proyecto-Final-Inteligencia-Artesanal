@@ -24,7 +24,7 @@ class CarcassonneTileDetector:
         # Losetas que tienen escudo según reglas del juego
         self.tiles_with_shields = {'C', 'F', 'M', 'O', 'Q', 'S'}
         # TODAS las losetas pueden tener meeple
-        self.tiles_with_possible_meeple = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ')  # Todas las letras
+        self.tiles_with_possible_meeple = set('ABCDEFGHIJKLMNOPQRSTUVWX')  # Todas las letras
         # Imagen de referencia del escudo
         self.shield_template = None
         # Modelo CNN
@@ -47,11 +47,9 @@ class CarcassonneTileDetector:
         if not self.reference_folder.exists():
             raise ValueError(f"Carpeta de referencias no encontrada: {self.reference_folder}")
 
-        print(f"Cargando referencias desde: {self.reference_folder}")
-
         total_images = 0
         # Cargar una imagen de referencia por letra (la primera PNG encontrada)
-        for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        for letter in "ABCDEFGHIJKLMNOPQRSTUVWX":
             letter_folder = self.reference_folder / letter
             if letter_folder.exists():
                 # Buscar la primera imagen PNG en la carpeta
@@ -61,7 +59,6 @@ class CarcassonneTileDetector:
                         img = cv2.resize(img, (200, 200))  # Tamaño estándar
                         self.references[letter] = img
                         total_images += 1
-                        print(f"  [OK] {img_file.name} cargada para {letter}")
                         break  # Solo cargar la primera
                     else:
                         print(f"  [ERROR] Error cargando {img_file.name}")
@@ -74,17 +71,11 @@ class CarcassonneTileDetector:
         shield_path = self.reference_folder / "Shield.png"
         if shield_path.exists():
             self.shield_template = cv2.imread(str(shield_path))
-            if self.shield_template is not None:
-                print(f"  [OK] Shield.png cargada")
-            else:
-                print(f"  [ERROR] Error cargando Shield.png")
         else:
             print(f"  [NOT FOUND] Shield.png no encontrada")
 
         if not self.references:
             raise ValueError("No se pudieron cargar referencias")
-
-        print(f"Total imágenes cargadas: {total_images} en {len(self.references)} clases")
 
     def _load_cnn_model(self):
         """Carga el modelo CNN entrenado con múltiples imágenes"""
@@ -100,7 +91,6 @@ class CarcassonneTileDetector:
                     self.cnn_model.load_state_dict(torch.load(str(model_path), map_location=self.device))
                     self.cnn_model.to(self.device)
                     self.cnn_model.eval()
-                    print(f"  [OK] Modelo CNN cargado desde {model_path.name}")
                     return
                 except Exception as e:
                     print(f"  [ERROR] Error cargando {model_path.name}: {e}")
@@ -111,7 +101,6 @@ class CarcassonneTileDetector:
 
     def detect_tile(self, image_path: str) -> str:
         """Detecta qué tipo de loseta es la imagen"""
-        print(f"Analizando loseta: {image_path}")
 
         # Cargar imagen de entrada
         image = cv2.imread(image_path)
@@ -153,23 +142,19 @@ class CarcassonneTileDetector:
         
         # Si confianza < 75% y tenemos modelo CNN, permitir selección manual
         if confidence < 0.75 and self.cnn_model is not None:
-            print(f"Confianza baja ({confidence:.2f}), mostrando opciones manuales...")
             option1, option2 = self._get_top_predictions(image_path)
             if option1 and option2:
                 user_selection = self._show_selection_window(image_path, option1, option2)
                 if user_selection:
                     tile_type = user_selection
                     confidence = max(option1[1], option2[1])
-                    print(f"Usuario seleccionó: {tile_type}")
                 else:
                     print("Usuario canceló selección, manteniendo predicción automática")
         
         # Para confianza baja, devolver la mejor predicción disponible en lugar de DESCONOCIDO
         if confidence < 0.6:
-            print(f"Loseta detectada: {tile_type} (confianza baja: {confidence:.2f})")
             return tile_type
 
-        print(f"Loseta detectada: {tile_type} (confianza: {confidence:.2f})")
         return tile_type
 
     def _remove_meeple(self, hsv: np.ndarray, image: np.ndarray) -> np.ndarray:
@@ -185,7 +170,6 @@ class CarcassonneTileDetector:
             meeple_mask = cv2.dilate(meeple_mask, kernel, iterations=2)
             # Inpainting
             image = cv2.inpaint(image, meeple_mask, 3, cv2.INPAINT_TELEA)
-            print("  Meeple detectado y removido")
 
         return image
 
@@ -240,10 +224,6 @@ class CarcassonneTileDetector:
                    mean_intensity > 150 and
                    variance < 2000)
 
-        # Debug info
-        if is_blank:
-            print(f"  Detectado como blanco: ratio {white_ratio:.2f}, media {mean_intensity:.1f}, varianza {variance:.1f}")
-
         return is_blank
 
     def _get_second_best_cnn_prediction(self, image: np.ndarray) -> tuple[str, float]:
@@ -285,10 +265,6 @@ class CarcassonneTileDetector:
 
         # Threshold ajustado para incluir M pero excluir N
         has_shield = max_val > 0.38  # Bajé a 0.38 para incluir M (0.395)
-
-        # Debug: mostrar resultado
-        if has_shield:
-            print(f"  Escudo detectado (confianza: {max_val:.2f})")
 
         return has_shield
 
@@ -514,8 +490,6 @@ class CarcassonneTileDetector:
 
 def main():
     if len(sys.argv) < 2:
-        print("Uso: python tile_detector.py <ruta_imagen_loseta>")
-        print("Ejemplo: python tile_detector.py loseta.jpg")
         sys.exit(1)
 
     image_path = sys.argv[1]
@@ -527,7 +501,6 @@ def main():
     try:
         detector = CarcassonneTileDetector()
         tile_type = detector.detect_tile(image_path)
-        print(f"\nResultado: Loseta tipo {tile_type}")
 
     except Exception as e:
         print(f"Error: {e}")

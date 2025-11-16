@@ -183,7 +183,6 @@ class OriginMatrixConverter:
 def main():
     """Ejemplo de uso"""
     if len(sys.argv) < 2:
-        print("Uso: python origin_matrix_converter.py <imagen_tablero>")
         return
     
     image_path = sys.argv[1]
@@ -204,13 +203,9 @@ def main():
     
     # Mostrar información
     dims = converter.get_dimensions()
-    print(f"Origin Matrix generada:")
-    print(f"  Dimensiones: {dims['rows']}x{dims['cols']}")
-    print(f"  Rango: filas [{dims['min_row']}, {dims['max_row']}], cols [{dims['min_col']}, {dims['max_col']}]")
     
     # Contar tiles
     total_tiles = sum(1 for row in board.board for tile in row if tile is not None)
-    print(f"  Total de losetas: {total_tiles}")
 
 
 if __name__ == "__main__":

@@ -24,11 +24,9 @@ class CarcassonneRotationDetector:
         if not self.reference_folder.exists():
             raise ValueError(f"Carpeta de referencias no encontrada: {self.reference_folder}")
 
-        print(f"Cargando referencias para rotación desde: {self.reference_folder}")
-
         total_images = 0
         # Cargar una imagen de referencia por letra (la primera PNG encontrada)
-        for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        for letter in "ABCDEFGHIJKLMNOPQRSTUVWX":
             letter_folder = self.reference_folder / letter
             if letter_folder.exists():
                 # Buscar la primera imagen PNG en la carpeta
@@ -38,7 +36,6 @@ class CarcassonneRotationDetector:
                         img = cv2.resize(img, (200, 200))  # Tamaño estándar
                         self.references[letter] = img
                         total_images += 1
-                        print(f"  [OK] {img_file.name} cargada para {letter}")
                         break  # Solo cargar la primera
                     else:
                         print(f"  [ERROR] Error cargando {img_file.name}")
@@ -50,14 +47,10 @@ class CarcassonneRotationDetector:
         if not self.references:
             raise ValueError("No se pudieron cargar referencias")
 
-        print(f"Total imágenes cargadas para rotación: {total_images} en {len(self.references)} clases")
-
     def detect_rotation(self, tile_type: str, image_path: str) -> int:
         """Detecta la rotación de la loseta"""
-        print(f"Detectando rotación para loseta tipo {tile_type}: {image_path}")
 
         if tile_type == 'BLANCO':
-            print("Rotación detectada: 0° (BLANCO)")
             return 0
 
         if tile_type not in self.references:
@@ -82,7 +75,6 @@ class CarcassonneRotationDetector:
             kernel = np.ones((5, 5), np.uint8)
             meeple_mask = cv2.dilate(meeple_mask, kernel, iterations=2)
             image = cv2.inpaint(image, meeple_mask, 3, cv2.INPAINT_TELEA)
-            print("  Meeple removido para detección de rotación")
 
         # Detectar rotación
         ref_img = self.references[tile_type]
@@ -109,15 +101,11 @@ class CarcassonneRotationDetector:
             if max_val > best_score:
                 best_score = max_val
                 best_angle = angle
-
-        print(f"Rotación detectada: {best_angle}° (confianza: {best_score:.2f})")
         return best_angle
 
 
 def main():
     if len(sys.argv) < 3:
-        print("Uso: python rotation_detector.py <tipo_loseta> <ruta_imagen_loseta>")
-        print("Ejemplo: python rotation_detector.py A loseta.jpg")
         sys.exit(1)
 
     tile_type = sys.argv[1].upper()
@@ -130,7 +118,6 @@ def main():
     try:
         detector = CarcassonneRotationDetector()
         rotation = detector.detect_rotation(tile_type, image_path)
-        print(f"\nResultado: Rotación {rotation}°")
 
     except Exception as e:
         print(f"Error: {e}")

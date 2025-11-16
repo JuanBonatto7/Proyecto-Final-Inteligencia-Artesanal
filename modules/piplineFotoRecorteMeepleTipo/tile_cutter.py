@@ -81,20 +81,9 @@ class CarcassonneTileDetector:
                 if w > 10 and h > 10:
                     ref = ReferencePoint(self.start_point[0], self.start_point[1], w, h)
                     self.reference_points.append(ref)
-                    print(f"Punto {len(self.reference_points)}: ({ref.x}, {ref.y}) - {ref.width}x{ref.height}")
     
     def select_reference_tiles(self, num_points: int = 8) -> bool:
         """Permite al usuario seleccionar múltiples losetas de referencia"""
-        print("\n=== SELECCIÓN DE LOSETAS DE REFERENCIA ===")
-        print(f"Instrucciones:")
-        print(f"1. Selecciona {num_points} losetas COMPLETAS bien distribuidas:")
-        print("   - Cuatro en las ESQUINAS (superior-izq, superior-der, inferior-izq, inferior-der)")
-        print("   - Cuatro en los BORDES (centro-superior, centro-inferior, centro-izquierdo, centro-derecho)")
-        print("   O simplemente distribuye las 8 losetas uniformemente por todo el tablero")
-        print("2. Presiona ENTER cuando termines")
-        print("3. Presiona 'u' para deshacer última selección")
-        print("4. Presiona ESC para cancelar")
-        print("=" * 50)
         
         window_name = "Seleccionar Losetas de Referencia"
         cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
@@ -145,12 +134,9 @@ class CarcassonneTileDetector:
                 if len(self.reference_points) >= num_points:
                     cv2.destroyWindow(window_name)
                     return True
-                else:
-                    print(f"Necesitas seleccionar al menos {num_points} losetas")
             elif key == ord('u'):  # Deshacer
                 if self.reference_points:
                     self.reference_points.pop()
-                    print(f"Punto eliminado. Total: {len(self.reference_points)}")
             elif key == 27:  # ESC
                 cv2.destroyWindow(window_name)
                 return False
@@ -168,16 +154,12 @@ class CarcassonneTileDetector:
         total_h = sum(p.height for p in self.reference_points)
         self.avg_tile_size = (total_w // len(self.reference_points), total_h // len(self.reference_points))
         
-        print(f"\nTamaño promedio de loseta: {self.avg_tile_size[0]}x{self.avg_tile_size[1]}")
-        
         # Calcular posiciones de grilla basadas en distancias relativas
-        print("\n=== CALCULANDO POSICIONES DE GRILLA AUTOMÁTICAMENTE ===")
         
         # Usar el primer punto como origen (0, 0)
         origin = self.reference_points[0]
         origin.grid_row = 0
         origin.grid_col = 0
-        print(f"Loseta #1 (origen): posición ({origin.x}, {origin.y}) → grilla (0, 0)")
         
         # Para cada otro punto, calcular su posición en grilla
         avg_w, avg_h = self.avg_tile_size
@@ -195,8 +177,6 @@ class CarcassonneTileDetector:
             
             point.grid_row = grid_row
             point.grid_col = grid_col
-            
-            print(f"Loseta #{i+1}: posición ({point.x}, {point.y}) → grilla ({grid_row}, {grid_col})")
     
     def interpolate_tile_position(self, grid_row: int, grid_col: int) -> Tuple[int, int, int, int]:
         """Interpola la posición y tamaño de una loseta usando los puntos de referencia"""
@@ -240,8 +220,6 @@ class CarcassonneTileDetector:
             print("Error: Se necesitan al menos 3 puntos de referencia")
             return []
         
-        print("\n=== DETECTANDO LOSETAS CON INTERPOLACIÓN ===")
-        
         h, w = self.image.shape[:2]
         tiles = []
         
@@ -250,8 +228,6 @@ class CarcassonneTileDetector:
         max_row = max(ref.grid_row for ref in self.reference_points) + 10
         min_col = min(ref.grid_col for ref in self.reference_points) - 10
         max_col = max(ref.grid_col for ref in self.reference_points) + 10
-        
-        print(f"Explorando grilla: filas [{min_row}, {max_row}], columnas [{min_col}, {max_col}]")
         
         for row in range(min_row, max_row + 1):
             for col in range(min_col, max_col + 1):
@@ -278,8 +254,7 @@ class CarcassonneTileDetector:
                 if std_val > 20 and mean_val < 210:
                     tile = Tile(x, y, tw, th, tile_img, row, col)
                     tiles.append(tile)
-        
-        print(f"Detectadas {len(tiles)} losetas válidas")
+
         self.tiles = tiles
         return tiles
     
@@ -331,28 +306,20 @@ class CarcassonneTileDetector:
         
         # Vaciar la carpeta tiles/ si existe
         if os.path.exists(output_dir):
-            print(f"\n=== LIMPIANDO CARPETA '{output_dir}/' ===")
             shutil.rmtree(output_dir)
-            print(f"✓ Carpeta '{output_dir}/' vaciada")
         
         # Crear carpeta nueva
         os.makedirs(output_dir)
-        print(f"✓ Carpeta '{output_dir}/' creada")
         
-        print(f"\n=== GUARDANDO LOSETAS ===")
         for i, tile in enumerate(self.tiles):
             filename = os.path.join(output_dir, f"tile_{i:03d}_r{tile.grid_row}_c{tile.grid_col}.png")
             cv2.imwrite(filename, tile.image)
-        
-        print(f"✓ Guardadas {len(self.tiles)} losetas en '{output_dir}/'")
 
 
 def main():
     import sys
     
     if len(sys.argv) < 2:
-        print("Uso: python script.py <ruta_imagen>")
-        print("Ejemplo: python script.py carcassonne.jpg")
         return
     
     image_path = sys.argv[1]
@@ -379,12 +346,6 @@ def main():
     
     result = detector.create_grid_overlay()
     
-    print("\n=== VISUALIZACIÓN ===")
-    print("Presiona:")
-    print("  's' - Guardar losetas individuales")
-    print("  'r' - Guardar imagen resultado")
-    print("  'q' - Salir")
-    
     cv2.namedWindow("Losetas Detectadas", cv2.WINDOW_NORMAL)
     
     h, w = result.shape[:2]
@@ -402,7 +363,6 @@ def main():
             detector.save_individual_tiles()
         elif key == ord('r'):
             cv2.imwrite("resultado_deteccion.png", result)
-            print("Imagen guardada como 'resultado_deteccion.png'")
         elif key == ord('q'):
             break
     
