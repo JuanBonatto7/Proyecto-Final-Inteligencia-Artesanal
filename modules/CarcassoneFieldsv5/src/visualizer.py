@@ -4,8 +4,8 @@ Visualización de resultados (CORREGIDO - etiquetas en posición correcta).
 import numpy as np
 import cv2
 from typing import List, Dict
-from src.field_detector import Field
-from config.colors import PLAYER_NAMES
+from .field_detector import Field
+from ..config.colors import PLAYER_NAMES
 import random
 
 

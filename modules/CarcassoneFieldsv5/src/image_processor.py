@@ -4,7 +4,7 @@ Procesamiento de la imagen del tablero.
 import numpy as np
 import cv2
 from typing import Tuple
-from config.colors import COLORS, COLOR_TOLERANCE, MEEPLE_TOLERANCE
+from ..config.colors import COLORS, COLOR_TOLERANCE, MEEPLE_TOLERANCE
 
 
 class ImageProcessor:
