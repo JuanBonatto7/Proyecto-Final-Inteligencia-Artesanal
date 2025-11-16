@@ -5,7 +5,7 @@ Identifica áreas blancas (fuera del tablero) vs área de juego.
 import numpy as np
 import cv2
 from scipy import ndimage
-from config.colors import WHITE_THRESHOLD
+from ..config.colors import WHITE_THRESHOLD
 
 
 class BoardDetector:

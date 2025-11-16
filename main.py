@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from typing import Dict
 from origin_matrix import Board
 from modules.imagen_generator.board_image_generator import BoardImageGenerator
 from modules.incomplete_features_scorer.incomplete_features_scorer import GameScorer
@@ -22,16 +23,17 @@ def run_game():
     gen_images = BoardImageGenerator("abs/tiles_texture_pack-v3")
     timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S")
     image_path = os.path.join("modules","imagen_generator","output", f"tablero_{timestamp_str}.jpg")
+    os.makedirs(os.path.dirname(image_path), exist_ok=True)
     gen_images.generate_board_image(board_game,image_path)
 
     ##Calculo puntos
     scores_incomplete_features_scorer = GameScorer(board_game).score()
     scores_fields = calculate_field_scores(image_path)
     
-    player1 = scores_fields.get(1) + scores_incomplete_features_scorer(1)
-    player2 = scores_fields.get(2) + scores_incomplete_features_scorer(2)
+    player1 = scores_fields.get(1) + scores_incomplete_features_scorer[1]
+    player2 = scores_fields.get(2) + scores_incomplete_features_scorer[2]
     
-    print("jugador 1 = " + player1 + "\njugador 2 = " + player2)
+    print("jugador 1 = " + str(player1) + "\njugador 2 = " + str(player2))
 
     return
 
