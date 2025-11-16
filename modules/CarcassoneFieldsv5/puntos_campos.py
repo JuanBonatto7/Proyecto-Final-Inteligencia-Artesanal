@@ -14,13 +14,13 @@ if sys.platform == 'win32':
         sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
 
 from typing import Dict
-from .src.image_processor import ImageProcessor
-from .src.board_detector import BoardDetector
-from .src.castle_analyzer import CastleAnalyzer
-from .src.field_detector import FieldDetector
-from .src.scoring import FieldScorer
-from .src.visualizer import FieldVisualizer
-from .config.colors import PLAYER_NAMES, FIELD_DETECTION_CONFIG, WHITE_THRESHOLD
+from src.image_processor import ImageProcessor
+from src.board_detector import BoardDetector
+from src.castle_analyzer import CastleAnalyzer
+from src.field_detector import FieldDetector
+from src.scoring import FieldScorer
+from src.visualizer import FieldVisualizer
+from config.colors import PLAYER_NAMES, FIELD_DETECTION_CONFIG, WHITE_THRESHOLD
 
 
 def calculate_field_scores(image_path: str) -> Dict[int, int]:
@@ -38,12 +38,17 @@ def calculate_field_scores(image_path: str) -> Dict[int, int]:
         >>> scores = calculate_field_scores("tablero.png")
         >>> print(scores)  # {1: 6, 2: 9}
     """
+    # Crear carpeta incremental para resultados
+    base_results_folder = "resultados"
+    results_folder = create_incremental_folder(base_results_folder)
+    
     # 1. Procesar imagen
     processor = ImageProcessor(image_path)
     
     # 2. Detectar límites del tablero
     board_detector = BoardDetector(processor.image)
     board_mask = board_detector.create_board_mask()
+    white_areas = board_detector.detect_white_areas()
     
     # 3. Crear máscaras
     field_mask = board_detector.filter_mask_by_board(processor.create_mask('FIELD'))
@@ -74,7 +79,34 @@ def calculate_field_scores(image_path: str) -> Dict[int, int]:
     field_results = scorer.calculate_all_scores(fields)
     player_totals = scorer.calculate_player_totals(field_results)
     
-    # 7. Convertir formato: {'MEEPLE_1': x, 'MEEPLE_2': y} -> {1: x, 2: y}
+    # 7. Generar y guardar visualizaciones (sin mostrar ventanas) DEBUGGER
+    visualizer = FieldVisualizer(processor.image)
+    
+    result_image = visualizer.draw_field_boundaries(fields, field_results)
+    cv2.imwrite(os.path.join(results_folder, "resultado.png"), cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
+    
+    summary_image = visualizer.create_summary_image(field_results, player_totals)
+    cv2.imwrite(os.path.join(results_folder, "resultado_summary.png"), cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
+    
+    castle_viz = visualizer.visualize_all_castles(castle_analyzer, fields, scorer)
+    cv2.imwrite(os.path.join(results_folder, "castillos_detectados.png"), cv2.cvtColor(castle_viz, cv2.COLOR_RGB2BGR))
+    
+    meeple_validity = detector.analyze_meeple_validity(meeple_masks, labeled_fields, road_mask=road_mask)
+    meeples_viz = visualizer.visualize_meeples(meeple_masks, meeple_validity)
+    cv2.imwrite(os.path.join(results_folder, "meeples_debug.png"), cv2.cvtColor(meeples_viz, cv2.COLOR_RGB2BGR))
+    
+    debug_board = processor.image.copy()
+    debug_board[white_areas] = [255, 0, 0]
+    cv2.imwrite(os.path.join(results_folder, "debug_board_limits.png"), cv2.cvtColor(debug_board, cv2.COLOR_RGB2BGR))
+    
+    debug_image = processor.image.copy()
+    for field in fields:
+        debug_image[field.pixels] = [255, 255, 0]
+    cv2.imwrite(os.path.join(results_folder, "debug_campos_limpios.png"), cv2.cvtColor(debug_image, cv2.COLOR_RGB2BGR))
+    
+    scorer.save_castle_details(fields, field_results, results_folder, processor.image, meeple_masks)
+    
+    # 8. Convertir formato: {'MEEPLE_1': x, 'MEEPLE_2': y} -> {1: x, 2: y}
     return {
         1: player_totals.get('MEEPLE_1', 0),
         2: player_totals.get('MEEPLE_2', 0)
