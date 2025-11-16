@@ -128,11 +128,11 @@ class FieldDetector:
         field_label: int,
         labeled_fields: np.ndarray,
         meeple_masks: Dict[str, np.ndarray],
-        road_mask: np.ndarray = None  # NUEVO parámetro
+        road_mask: np.ndarray = None
     ) -> Dict[str, int]:
         """
         Cuenta meeples de cada jugador en un campo.
-        Excluye meeples que tocan caminos (están en caminos, no en campos).
+        REGLA CRÍTICA: Excluye meeples que tocan caminos (están en caminos, no en campos).
         Excluye meeples que están completamente dentro de castillos (deben tocar campo).
         """
         field_pixels = (labeled_fields == field_label)
@@ -144,55 +144,74 @@ class FieldDetector:
         counts = {}
 
         for meeple_type, mask in meeple_masks.items():
-            # Meeples en el campo
-            meeples_in_field = expanded_field & mask
-            pixel_count = np.sum(meeples_in_field)
-
-            if pixel_count >= 10:
-                # NUEVO: Verificar si el meeple toca caminos
+            # PRIMERO: Etiquetar todos los meeples de este tipo en toda la imagen
+            # para procesarlos uno por uno
+            dilated_full_mask = ndimage.binary_dilation(
+                mask,
+                structure=np.ones((5, 5), dtype=int),
+                iterations=3
+            )
+            labeled_all_meeples, num_all_meeples = ndimage.label(
+                dilated_full_mask,
+                structure=np.ones((3, 3), dtype=int)
+            )
+            
+            valid_meeple_count = 0
+            
+            # Procesar cada meeple individual
+            for meeple_id in range(1, num_all_meeples + 1):
+                single_meeple_mask = (labeled_all_meeples == meeple_id)
+                
+                # PRIMERO: Obtener píxeles REALES del meeple (sin dilatación)
+                original_meeple_pixels = mask & single_meeple_mask
+                
+                if np.sum(original_meeple_pixels) == 0:
+                    continue  # No hay píxeles reales de meeple aquí
+                
+                # CRÍTICO: Verificar PRIMERO si el meeple toca caminos
+                # Esta es la verificación más importante y debe hacerse antes de expandir
                 if road_mask is not None:
-                    # Expandir meeple ligeramente para detectar proximidad
-                    expanded_meeple = ndimage.binary_dilation(meeples_in_field, iterations=2)
-                    touches_road = np.any(expanded_meeple & road_mask)
-
-                    # Si toca camino, NO cuenta para campo
-                    if touches_road:
-                        counts[meeple_type] = 0
-                        continue
-                
-                # NUEVO: Verificar si el meeple está completamente dentro de un castillo
-                # Si está completamente dentro de un castillo, debe ser descartado
-                if self.castle_mask is not None:
-                    # Obtener píxeles originales del meeple (sin expandir)
-                    original_meeple = mask & (labeled_fields == field_label)
-                    if np.sum(original_meeple) > 0:
-                        # Expandir ligeramente el meeple para detectar contacto
-                        expanded_meeple_for_field = ndimage.binary_dilation(original_meeple, iterations=2)
-                        
-                        # Verificar si toca algún píxel verde (campo real)
-                        touches_actual_field = np.any(expanded_meeple_for_field & self.field_mask)
-                        
-                        # Si NO toca ningún campo verde, está completamente en castillo
-                        if not touches_actual_field:
-                            counts[meeple_type] = 0
-                            continue
-                
-                # MEJORADO: Dilatar antes de etiquetar para agrupar fragmentos del mismo meeple
-                # Esto evita contar un meeple fragmentado como múltiples meeples
-                dilated_meeples = ndimage.binary_dilation(
-                    meeples_in_field, 
-                    structure=np.ones((5, 5), dtype=int),
-                    iterations=3
-                )
+                    # Verificación 1: Intersección directa (sin dilatación)
+                    directly_on_road = np.any(original_meeple_pixels & road_mask)
                     
-                # Contar meeples individuales
-                labeled_meeples, num_meeples = ndimage.label(
-                    dilated_meeples,
-                    structure=np.ones((3, 3), dtype=int)
-                )
-                counts[meeple_type] = num_meeples
-            else:
-                counts[meeple_type] = 0
+                    if directly_on_road:
+                        continue  # MEEPLE INVÁLIDO - directamente sobre camino
+                    
+                    # Verificación 2: Expandir el meeple moderadamente para detectar proximidad
+                    # Aumentado a 3 iteraciones para ser más estricto
+                    expanded_for_road_check = ndimage.binary_dilation(
+                        original_meeple_pixels,
+                        structure=np.ones((3, 3), dtype=np.uint8),
+                        iterations=3
+                    )
+                    
+                    if np.any(expanded_for_road_check & road_mask):
+                        continue  # MEEPLE INVÁLIDO - muy cerca de camino
+                
+                # Verificar si este meeple está en o cerca de este campo
+                meeple_in_expanded_field = np.any(single_meeple_mask & expanded_field)
+                
+                if not meeple_in_expanded_field:
+                    continue  # Este meeple no está en este campo
+                
+                # Verificar si está completamente dentro de un castillo
+                if self.castle_mask is not None:
+                    expanded_meeple_for_field = ndimage.binary_dilation(
+                        original_meeple_pixels,
+                        structure=np.ones((3, 3), dtype=np.uint8),
+                        iterations=2
+                    )
+                    
+                    # Debe tocar campo verde para ser válido
+                    touches_actual_field = np.any(expanded_meeple_for_field & self.field_mask)
+                    
+                    if not touches_actual_field:
+                        continue  # MEEPLE INVÁLIDO - solo en castillo
+                
+                # Si pasó todas las validaciones, contar este meeple
+                valid_meeple_count += 1
+            
+            counts[meeple_type] = valid_meeple_count
 
         return counts
     
