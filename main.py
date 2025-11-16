@@ -1,6 +1,5 @@
 import os
 from datetime import datetime
-from typing import Dict
 from origin_matrix import Board
 from modules.imagen_generator.board_image_generator import BoardImageGenerator
 from modules.incomplete_features_scorer.incomplete_features_scorer import GameScorer
@@ -13,10 +12,10 @@ from modules.random_board_generator import generate_board
 
 def run_game():
 
-    ##Metodo de agu y bonatto
-    matrix_tiles = generate_board(12) ####
+    ##Metodo para generar board aleatorios
+    matrix_tiles = generate_board(12)      ####
     board_game = Board(board=matrix_tiles) ####
-    ##Metodo de agu y bonatto
+    ##Metodo para generar board aleatorios
 
     ##Genero imagen del tablero
     tiles_img_path = os.path.join("resources","tiles_texture_pack-v3")
