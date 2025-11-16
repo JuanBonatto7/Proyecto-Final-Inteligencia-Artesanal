@@ -236,7 +236,8 @@ class FieldScorer:
         
         return totals
     
-    def save_castle_details(self, fields: List[Field], field_results: Dict, output_folder: str, original_image: np.ndarray):
+    def save_castle_details(self, fields: List[Field], field_results: Dict, output_folder: str, 
+                           original_image: np.ndarray, meeple_masks: Dict[str, np.ndarray] = None):
         """
         Guarda información detallada de los castillos por campo.
         
@@ -245,6 +246,7 @@ class FieldScorer:
             field_results: Resultados de puntuación
             output_folder: Carpeta donde guardar
             original_image: Imagen original del tablero
+            meeple_masks: Máscaras de meeples por jugador (opcional)
         """
         details_file = os.path.join(output_folder, "castillos_por_campo.txt")
         
@@ -296,9 +298,9 @@ class FieldScorer:
                 f.write(f"  Meeples: {field.meeples}\n")
                 f.write(f"  Dueño: {result.get('owner', 'Ninguno')}\n")
                 
-                # Generar imagen individual del campo con castillos
+                # Generar imagen individual del campo con castillos y meeples
                 self._save_field_castle_image(field, complete_ids, incomplete_ids, 
-                                              original_image, output_folder)
+                                              original_image, output_folder, meeple_masks)
             
             f.write(f"\n\n{'='*80}\n")
             f.write("RESUMEN GENERAL\n")
@@ -314,9 +316,9 @@ class FieldScorer:
     
     def _save_field_castle_image(self, field: Field, complete_ids: List[int], 
                                   incomplete_ids: List[int], original_image: np.ndarray, 
-                                  output_folder: str):
+                                  output_folder: str, meeple_masks: Dict[str, np.ndarray] = None):
         """
-        Guarda imagen individual de un campo mostrando sus castillos.
+        Guarda imagen individual de un campo mostrando sus castillos y meeples.
         
         Args:
             field: Campo a visualizar
@@ -324,6 +326,7 @@ class FieldScorer:
             incomplete_ids: IDs de castillos incompletos
             original_image: Imagen original
             output_folder: Carpeta de salida
+            meeple_masks: Máscaras de meeples por jugador (opcional)
         """
         img = original_image.copy()
         
@@ -365,6 +368,58 @@ class FieldScorer:
                 cy, cx = int(y.mean()), int(x.mean())
                 cv2.putText(img, f"I{castle_id}", (cx-10, cy), 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
+        
+        # NUEVO: Dibujar meeples del campo
+        if meeple_masks is not None:
+            # Expandir campo para detectar meeples
+            from scipy import ndimage
+            kernel = np.ones((5, 5), dtype=np.uint8)
+            expanded_field = ndimage.binary_dilation(field.pixels, structure=kernel, iterations=2)
+            
+            for player, mask in meeple_masks.items():
+                # Meeples en este campo
+                meeples_in_field = expanded_field & mask
+                
+                if np.sum(meeples_in_field) >= 10:
+                    # Color según jugador
+                    if player == 'MEEPLE_1':
+                        color = (255, 0, 255)  # Magenta
+                        label = 'J1'
+                    elif player == 'MEEPLE_2':
+                        color = (0, 0, 255)  # Azul
+                        label = 'J2'
+                    else:
+                        continue
+                    
+                    # Etiquetar meeples individuales
+                    dilated_meeples = ndimage.binary_dilation(
+                        meeples_in_field,
+                        structure=np.ones((5, 5), dtype=int),
+                        iterations=3
+                    )
+                    labeled_meeples, num_meeples = ndimage.label(
+                        dilated_meeples,
+                        structure=np.ones((3, 3), dtype=int)
+                    )
+                    
+                    for meeple_id in range(1, num_meeples + 1):
+                        meeple_pixels = (labeled_meeples == meeple_id)
+                        y_coords, x_coords = np.where(meeple_pixels)
+                        if len(y_coords) > 0:
+                            cy, cx = int(y_coords.mean()), int(x_coords.mean())
+                            # Dibujar círculo grande
+                            cv2.circle(img, (cx, cy), 15, color, 3)
+                            # Etiqueta del jugador
+                            cv2.putText(img, label, (cx-12, cy+5), 
+                                       cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+        
+        # Agregar leyenda con información del campo
+        legend_y = 30
+        cv2.putText(img, f"CAMPO {field.id}", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 2)
+        legend_y += 30
+        cv2.putText(img, f"Meeples: J1={field.meeples.get('MEEPLE_1', 0)}, J2={field.meeples.get('MEEPLE_2', 0)}", 
+                   (10, legend_y), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2)
         
         # Guardar imagen
         filename = os.path.join(output_folder, f"campo_{field.id}_castillos.png")

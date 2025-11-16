@@ -195,7 +195,7 @@ PUNTUACION:
 
 INFO DEL CAMPO:
   Área: 4241 pixels
-  Meeples: {'MEEPLE_1': 2, 'MEEPLE_2': 0}
+  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 0}
   Dueño: MEEPLE_1
 
 ================================================================================
@@ -472,7 +472,7 @@ PUNTUACION:
 
 INFO DEL CAMPO:
   Área: 1107 pixels
-  Meeples: {'MEEPLE_1': 2, 'MEEPLE_2': 0}
+  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 0}
   Dueño: MEEPLE_1
 
 ================================================================================
@@ -533,8 +533,8 @@ PUNTUACION:
 
 INFO DEL CAMPO:
   Área: 12217 pixels
-  Meeples: {'MEEPLE_1': 2, 'MEEPLE_2': 1}
-  Dueño: MEEPLE_1
+  Meeples: {'MEEPLE_1': 1, 'MEEPLE_2': 1}
+  Dueño: TIE
 
 ================================================================================
 CAMPO 26

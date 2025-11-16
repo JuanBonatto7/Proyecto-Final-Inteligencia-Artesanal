@@ -49,7 +49,7 @@ PUNTUACION:
 
 INFO DEL CAMPO:
   Área: 79784 pixels
-  Meeples: {'MEEPLE_1': 4, 'MEEPLE_2': 1}
+  Meeples: {'MEEPLE_1': 2, 'MEEPLE_2': 1}
   Dueño: MEEPLE_1
 
 ================================================================================

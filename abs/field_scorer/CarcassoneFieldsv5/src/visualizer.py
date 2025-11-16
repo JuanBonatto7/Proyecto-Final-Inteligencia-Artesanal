@@ -316,47 +316,90 @@ class FieldVisualizer:
         
         return img
     
-    def visualize_meeples(self, meeple_masks: Dict[str, np.ndarray]) -> np.ndarray:
+    def visualize_meeples(
+        self, 
+        meeple_masks: Dict[str, np.ndarray],
+        meeple_validity: Dict[str, Dict[str, List[np.ndarray]]] = None
+    ) -> np.ndarray:
         """
         Visualiza la posición de los meeples en el tablero.
+        Muestra meeples válidos con círculos y meeples inválidos con cruces rojas.
         
         Args:
             meeple_masks: Diccionario con máscaras de meeples por jugador
+            meeple_validity: Diccionario con clasificación de meeples válidos/inválidos
             
         Returns:
             Imagen con meeples marcados
         """
         img = self.original.copy()
         
-        for player, mask in meeple_masks.items():
-            if player == 'MEEPLE_1':
-                color = (255, 0, 255)  # Magenta
-                label = 'J1'
-            elif player == 'MEEPLE_2':
-                color = (0, 0, 255)  # Azul
-                label = 'J2'
-            else:
-                continue
-            
-            # Encontrar posiciones de meeples
-            y_coords, x_coords = np.where(mask)
-            
-            for y, x in zip(y_coords, x_coords):
-                # Dibujar círculo en la posición del meeple
-                cv2.circle(img, (x, y), 8, color, -1)
-                # Etiqueta del jugador
-                cv2.putText(img, label, (x-10, y-10), 
-                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+        if meeple_validity is None:
+            # Modo antiguo: solo mostrar las máscaras sin clasificación
+            for player, mask in meeple_masks.items():
+                if player == 'MEEPLE_1':
+                    color = (255, 0, 255)  # Magenta
+                    label = 'J1'
+                elif player == 'MEEPLE_2':
+                    color = (0, 0, 255)  # Azul
+                    label = 'J2'
+                else:
+                    continue
+                
+                # Encontrar posiciones de meeples
+                y_coords, x_coords = np.where(mask)
+                
+                for y, x in zip(y_coords, x_coords):
+                    cv2.circle(img, (x, y), 8, color, -1)
+                    cv2.putText(img, label, (x-10, y-10), 
+                               cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+        else:
+            # Modo nuevo: mostrar válidos e inválidos diferenciados
+            for player, validity_data in meeple_validity.items():
+                if player == 'MEEPLE_1':
+                    valid_color = (255, 0, 255)  # Magenta
+                    label = 'J1'
+                elif player == 'MEEPLE_2':
+                    valid_color = (0, 0, 255)  # Azul
+                    label = 'J2'
+                else:
+                    continue
+                
+                # Dibujar meeples VÁLIDOS con círculos
+                for meeple_mask in validity_data['valid']:
+                    y_coords, x_coords = np.where(meeple_mask)
+                    if len(y_coords) > 0:
+                        # Centro del meeple
+                        cy, cx = int(y_coords.mean()), int(x_coords.mean())
+                        cv2.circle(img, (cx, cy), 12, valid_color, 2)
+                        cv2.putText(img, label, (cx-10, cy-15), 
+                                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+                
+                # Dibujar meeples INVÁLIDOS con cruces rojas
+                for meeple_mask in validity_data['invalid']:
+                    y_coords, x_coords = np.where(meeple_mask)
+                    if len(y_coords) > 0:
+                        # Centro del meeple
+                        cy, cx = int(y_coords.mean()), int(x_coords.mean())
+                        # Dibujar cruz roja
+                        size = 15
+                        cv2.line(img, (cx-size, cy-size), (cx+size, cy+size), (0, 0, 255), 3)
+                        cv2.line(img, (cx-size, cy+size), (cx+size, cy-size), (0, 0, 255), 3)
+                        cv2.putText(img, f"{label}-X", (cx-15, cy-20), 
+                                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
         
         # Agregar leyenda
         legend_y = 30
         cv2.putText(img, "DEBUG MEEPLES", (10, legend_y),
                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)
         legend_y += 25
-        cv2.putText(img, "Circulo Magenta (J1) = Meeple Jugador 1", (10, legend_y),
+        cv2.putText(img, "Circulo Magenta (J1) = Meeple Valido Jugador 1", (10, legend_y),
                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 255), 2)
         legend_y += 25
-        cv2.putText(img, "Circulo Azul (J2) = Meeple Jugador 2", (10, legend_y),
+        cv2.putText(img, "Circulo Azul (J2) = Meeple Valido Jugador 2", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        legend_y += 25
+        cv2.putText(img, "Cruz Roja (X) = Meeple Invalido (toca camino o no toca campo)", (10, legend_y),
                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
         
         return img

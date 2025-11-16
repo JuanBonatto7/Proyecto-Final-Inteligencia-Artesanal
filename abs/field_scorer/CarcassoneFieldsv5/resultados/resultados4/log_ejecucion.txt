@@ -21,7 +21,7 @@ Carpeta de resultados: resultados\resultados4
 
    Detalles de campos:
      - Campo 1: 14636 pixels, Meeples: 0
-     - Campo 2: 79784 pixels, Meeples: 5
+     - Campo 2: 79784 pixels, Meeples: 3
      - Campo 3: 763 pixels, Meeples: 0
      - Campo 4: 10978 pixels, Meeples: 0
      - Campo 5: 10126 pixels, Meeples: 0
@@ -49,15 +49,16 @@ Carpeta de resultados: resultados\resultados4
 ======================================================================
 DEBUG DE MEEPLES
 ======================================================================
-Total Meeples Jugador 1: 4
+Total Meeples Jugador 1: 2
 Total Meeples Jugador 2: 3
 
 Campos con Meeples:
-  Campo 2: {'MEEPLE_1': 4, 'MEEPLE_2': 1}
+  Campo 2: {'MEEPLE_1': 2, 'MEEPLE_2': 1}
   Campo 15: {'MEEPLE_1': 0, 'MEEPLE_2': 1}
   Campo 17: {'MEEPLE_1': 0, 'MEEPLE_2': 1}
 [5/6] Generando visualizacion...
    Generando visualizacion de castillos...
+   Analizando validez de meeples...
    Generando debug de meeples...
 
 [OK] Resultados guardados en: resultados\resultados4
@@ -85,7 +86,7 @@ Campo 2:
   Puntos: 9
   Castillos: 3 completos + 5 incompletos
     -> Solo los 3 completos cuentan para puntos
-  Meeples: {'MEEPLE_1': 4, 'MEEPLE_2': 1}
+  Meeples: {'MEEPLE_1': 2, 'MEEPLE_2': 1}
   Area: 79784 pixels
 
 Campo 3:

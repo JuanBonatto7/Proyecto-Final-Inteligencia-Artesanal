@@ -133,7 +133,7 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     
     # 3. Detectar campos
     print_safe("[3/6] Detectando campos...")
-    detector = FieldDetector(field_mask, barrier_mask)
+    detector = FieldDetector(field_mask, barrier_mask, castle_mask)
     
     config = FIELD_DETECTION_CONFIG
     labeled_fields, num_fields = detector.detect_fields(
@@ -161,7 +161,7 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     
     # 4.5 Guardar información detallada de castillos por campo
     print_safe("\n[4.5/6] Guardando informacion detallada de castillos...")
-    scorer.save_castle_details(fields, field_results, results_folder, processor.image)
+    scorer.save_castle_details(fields, field_results, results_folder, processor.image, meeple_masks)
     
     player_totals = scorer.calculate_player_totals(field_results)
     
@@ -194,9 +194,17 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     print_safe("   Generando visualizacion de castillos...")
     castle_viz = visualizer.visualize_all_castles(castle_analyzer, fields, scorer)
     
-    # Generar visualización de meeples
+    # Generar análisis de validez de meeples
+    print_safe("   Analizando validez de meeples...")
+    meeple_validity = detector.analyze_meeple_validity(
+        meeple_masks,
+        labeled_fields,
+        road_mask=road_mask
+    )
+    
+    # Generar visualización de meeples con clasificación válido/inválido
     print_safe("   Generando debug de meeples...")
-    meeples_viz = visualizer.visualize_meeples(meeple_masks)
+    meeples_viz = visualizer.visualize_meeples(meeple_masks, meeple_validity)
     
     # Actualizar rutas de salida
     result_image_path = os.path.join(results_folder, "resultado.png")
