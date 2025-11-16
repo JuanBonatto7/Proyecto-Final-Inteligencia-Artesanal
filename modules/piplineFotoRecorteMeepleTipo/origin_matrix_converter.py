@@ -8,10 +8,10 @@ import cv2
 import os
 import sys
 from typing import Optional, List
-from tile_cutter import CarcassonneTileDetector
-from meeple_detector import MeepleDetector
-from tile_detector import CarcassonneTileDetector as TileTypeDetector
-from rotation_detector import CarcassonneRotationDetector
+from .tile_cutter import CarcassonneTileDetector
+from .meeple_detector import MeepleDetector
+from .tile_detector import CarcassonneTileDetector as TileTypeDetector
+from .rotation_detector import CarcassonneRotationDetector
 from origin_matrix import Tile, Board
 
 

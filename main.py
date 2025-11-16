@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 from typing import Dict
 from origin_matrix import Board
+from modules.piplineFotoRecorteMeepleTipo.origin_matrix_converter import OriginMatrixConverter
 from modules.imagen_generator.board_image_generator import BoardImageGenerator
 from modules.incomplete_features_scorer.incomplete_features_scorer import GameScorer
 from modules.CarcassoneFieldsv5.puntos_campos import calculate_field_scores
@@ -14,9 +15,12 @@ from modules.random_board_generator import generate_board
 def run_game():
 
     ##Metodo para generar board aleatorios
-    matrix_tiles = generate_board(12)      ####
-    board_game = Board(board=matrix_tiles) ####
+    ##matrix_tiles = generate_board(12)      ####
+    ##board_game = Board(board=matrix_tiles) ####
     ##Metodo para generar board aleatorios
+
+    origin_convert = OriginMatrixConverter()
+    board_game =origin_convert.convert("tablero.jpg")
 
     ##Genero imagen del tablero
     tiles_img_path = os.path.join("resources","tiles_texture_pack-v3")

@@ -15,7 +15,7 @@ class CarcassonneRotationDetector:
     """Detector de rotación usando referencias visuales oficiales"""
 
     def __init__(self, reference_folder: str = "referencias_organizadas"):
-        self.reference_folder = Path(reference_folder)
+        self.reference_folder = Path(__file__).parent / reference_folder
         self.references = {}  # Dict de imágenes de referencia (0°)
         self._load_references()
 

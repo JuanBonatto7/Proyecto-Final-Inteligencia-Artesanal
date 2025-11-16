@@ -12,14 +12,14 @@ import sys
 import os
 import torch
 import torchvision.transforms as transforms
-from cnn_connector import CarcassonneCNN
+from .cnn_connector import CarcassonneCNN
 
 
 class CarcassonneTileDetector:
     """Detector de losetas usando referencias visuales oficiales"""
 
     def __init__(self, reference_folder: str = "referencias_organizadas"):
-        self.reference_folder = Path(reference_folder)
+        self.reference_folder = Path(__file__).parent / reference_folder
         self.references = {}  # Ahora será un dict de listas de imágenes
         # Losetas que tienen escudo según reglas del juego
         self.tiles_with_shields = {'C', 'F', 'M', 'O', 'Q', 'S'}
@@ -90,7 +90,7 @@ class CarcassonneTileDetector:
         """Carga el modelo CNN entrenado con múltiples imágenes"""
         # Intentar cargar el modelo con BLANCO primero
         model_paths = [
-            Path("carcassonne_cnn_multi_model.pth")
+            Path(__file__).parent / "carcassonne_cnn_multi_model.pth"
         ]
 
         for model_path in model_paths:
