@@ -315,3 +315,48 @@ class FieldVisualizer:
                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (200, 0, 0), 2)
         
         return img
+    
+    def visualize_meeples(self, meeple_masks: Dict[str, np.ndarray]) -> np.ndarray:
+        """
+        Visualiza la posición de los meeples en el tablero.
+        
+        Args:
+            meeple_masks: Diccionario con máscaras de meeples por jugador
+            
+        Returns:
+            Imagen con meeples marcados
+        """
+        img = self.original.copy()
+        
+        for player, mask in meeple_masks.items():
+            if player == 'MEEPLE_1':
+                color = (255, 0, 255)  # Magenta
+                label = 'J1'
+            elif player == 'MEEPLE_2':
+                color = (0, 0, 255)  # Azul
+                label = 'J2'
+            else:
+                continue
+            
+            # Encontrar posiciones de meeples
+            y_coords, x_coords = np.where(mask)
+            
+            for y, x in zip(y_coords, x_coords):
+                # Dibujar círculo en la posición del meeple
+                cv2.circle(img, (x, y), 8, color, -1)
+                # Etiqueta del jugador
+                cv2.putText(img, label, (x-10, y-10), 
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+        
+        # Agregar leyenda
+        legend_y = 30
+        cv2.putText(img, "DEBUG MEEPLES", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2)
+        legend_y += 25
+        cv2.putText(img, "Circulo Magenta (J1) = Meeple Jugador 1", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 255), 2)
+        legend_y += 25
+        cv2.putText(img, "Circulo Azul (J2) = Meeple Jugador 2", (10, legend_y),
+                   cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+        
+        return img

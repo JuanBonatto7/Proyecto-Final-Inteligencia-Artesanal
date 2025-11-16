@@ -165,6 +165,25 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     
     player_totals = scorer.calculate_player_totals(field_results)
     
+    # DEBUG DE MEEPLES
+    print_safe("\n" + "=" * 70)
+    print_safe("DEBUG DE MEEPLES")
+    print_safe("=" * 70)
+    
+    # Calcular totales de meeples
+    total_meeples_1 = sum(field.meeples.get('MEEPLE_1', 0) for field in fields)
+    total_meeples_2 = sum(field.meeples.get('MEEPLE_2', 0) for field in fields)
+    
+    print_safe(f"Total Meeples Jugador 1: {total_meeples_1}")
+    print_safe(f"Total Meeples Jugador 2: {total_meeples_2}")
+    
+    # Listar campos con meeples
+    print_safe("\nCampos con Meeples:")
+    for field in fields:
+        total_m = sum(field.meeples.values())
+        if total_m > 0:
+            print_safe(f"  Campo {field.id}: {field.meeples}")
+    
     # 5. Visualizar resultados
     print_safe("[5/6] Generando visualizacion...")
     visualizer = FieldVisualizer(processor.image)
@@ -175,10 +194,15 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     print_safe("   Generando visualizacion de castillos...")
     castle_viz = visualizer.visualize_all_castles(castle_analyzer, fields, scorer)
     
+    # Generar visualización de meeples
+    print_safe("   Generando debug de meeples...")
+    meeples_viz = visualizer.visualize_meeples(meeple_masks)
+    
     # Actualizar rutas de salida
     result_image_path = os.path.join(results_folder, "resultado.png")
     summary_image_path = os.path.join(results_folder, "resultado_summary.png")
     castle_image_path = os.path.join(results_folder, "castillos_detectados.png")
+    meeples_image_path = os.path.join(results_folder, "meeples_debug.png")
     board_mask_path = os.path.join(results_folder, "debug_board_limits.png")
     fields_clean_path = os.path.join(results_folder, "debug_campos_limpios.png")
 
@@ -186,6 +210,7 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     cv2.imwrite(result_image_path, cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
     cv2.imwrite(summary_image_path, cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
     cv2.imwrite(castle_image_path, cv2.cvtColor(castle_viz, cv2.COLOR_RGB2BGR))
+    cv2.imwrite(meeples_image_path, cv2.cvtColor(meeples_viz, cv2.COLOR_RGB2BGR))
     
     # Guardar imágenes de debug
     debug_board = processor.image.copy()
@@ -201,6 +226,7 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     print_safe(f"  - {result_image_path}")
     print_safe(f"  - {summary_image_path}")
     print_safe(f"  - {castle_image_path}")
+    print_safe(f"  - {meeples_image_path}")
     print_safe(f"  - {board_mask_path}")
     print_safe(f"  - {fields_clean_path}")
     print_safe(f"  - {log_file}")
@@ -249,6 +275,7 @@ def main(image_path: str, output_path: str = None, white_threshold: int = 200):
     cv2.imshow('Campos Detectados', cv2.cvtColor(result_image, cv2.COLOR_RGB2BGR))
     cv2.imshow('Resumen', cv2.cvtColor(summary_image, cv2.COLOR_RGB2BGR))
     cv2.imshow('Castillos', cv2.cvtColor(castle_viz, cv2.COLOR_RGB2BGR))
+    cv2.imshow('Debug Meeples', cv2.cvtColor(meeples_viz, cv2.COLOR_RGB2BGR))
     cv2.imshow('Debug: Limites del Tablero (rojo=fuera)', cv2.cvtColor(debug_board, cv2.COLOR_RGB2BGR))
     cv2.imshow('Debug: Campos Limpios', cv2.cvtColor(debug_image, cv2.COLOR_RGB2BGR))
     

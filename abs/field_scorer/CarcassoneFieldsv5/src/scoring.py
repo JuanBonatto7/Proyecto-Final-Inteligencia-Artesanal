@@ -120,6 +120,8 @@ class FieldScorer:
     def determine_owner(self, field: Field) -> Tuple[str, bool]:
         """
         Determina el dueño de un campo.
+        El jugador con MÁS meeples es el dueño.
+        Si varios jugadores tienen la misma cantidad máxima, hay empate.
         
         Args:
             field: Campo a analizar
@@ -130,12 +132,17 @@ class FieldScorer:
         if not field.meeples or all(count == 0 for count in field.meeples.values()):
             return None, False
         
+        # Encontrar la cantidad máxima de meeples
         max_count = max(field.meeples.values())
+        
+        # Encontrar todos los jugadores con esa cantidad máxima
         owners = [player for player, count in field.meeples.items() if count == max_count]
         
+        # Si hay más de un jugador con el máximo, hay empate
         if len(owners) > 1:
             return 'TIE', True
         
+        # Si solo hay uno con el máximo, es el dueño
         return owners[0], False
     
     def calculate_field_score(self, field: Field) -> int:
@@ -196,6 +203,7 @@ class FieldScorer:
     ) -> Dict[str, int]:
         """
         Calcula puntos totales por jugador.
+        En caso de empate, TODOS los jugadores empatados obtienen los puntos completos.
         
         Args:
             field_results: Resultados por campo
@@ -210,17 +218,21 @@ class FieldScorer:
         }
         
         for field_data in field_results.values():
-            owner = field_data['owner']
-            score = field_data['score']
             is_tie = field_data['is_tie']
+            score = field_data['score']
+            meeples = field_data['meeples']
             
-            if owner and owner != 'TIE':
-                totals[owner] = totals.get(owner, 0) + score
-            elif is_tie:
-                # En caso de empate, todos reciben puntos
-                for player, count in field_data['meeples'].items():
-                    if count == max(field_data['meeples'].values()) and count > 0:
-                        totals[player] = totals.get(player, 0) + score
+            if score > 0:
+                if is_tie:
+                    # En caso de empate, todos los jugadores con meeples obtienen puntos completos
+                    for player, count in meeples.items():
+                        if count > 0:
+                            totals[player] += score
+                else:
+                    # Solo el dueño obtiene puntos
+                    owner = field_data['owner']
+                    if owner and owner != 'TIE':
+                        totals[owner] += score
         
         return totals
     
