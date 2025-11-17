@@ -754,35 +754,3 @@ def main(image_path: str, output_path: str = None):
     sys.stdout = logger.terminal
     
     return field_results, player_totals
-
-
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print_safe("Uso: python puntos_campos.py <ruta_imagen> [ruta_salida]")
-        print_safe("\nEjemplo:")
-        print_safe("  python puntos_campos.py tablero.png")
-        print_safe("  python puntos_campos.py tablero.png resultado.png")
-        print_safe("\n" + "="*60)
-        print_safe("INTEGRACION CON OTRO PROGRAMA:")
-        print_safe("="*60)
-        print_safe("Para obtener solo los puntos sin visualizacion:")
-        print_safe("  from puntos_campos import calculate_field_scores")
-        print_safe("  scores = calculate_field_scores('tablero.png')")
-        print_safe("  # scores = {1: puntos_j1, 2: puntos_j2}")
-        print_safe("\nPara ajustar el umbral de blanco, edita WHITE_THRESHOLD en config/colors.py")
-        sys.exit(1)
-    
-    input_image = sys.argv[1]
-    output_image = sys.argv[2] if len(sys.argv) > 2 else "resultado.png"
-    
-    if not os.path.exists(input_image):
-        print_safe(f"[ERROR] No existe el archivo: {input_image}")
-        sys.exit(1)
-    
-    try:
-        main(input_image, output_image)
-    except Exception as e:
-        print_safe(f"\n[ERROR] {str(e)}")
-        import traceback
-        traceback.print_exc()
-        sys.exit(1)
