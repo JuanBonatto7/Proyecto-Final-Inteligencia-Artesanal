@@ -275,7 +275,7 @@ def confirm_tiles():
         result = process_board_image(
             filepath,
             timestamp=timestamp,
-            tiles_texture_pack="tiles_texture_pack-v3",
+            tiles_texture_pack="tiles_texture_pack-v4",
             web_mode=True,
             reference_coords=reference_coords,
             manual_selections=manual_selections
