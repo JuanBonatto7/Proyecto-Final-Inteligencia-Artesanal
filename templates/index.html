@@ -519,6 +519,10 @@
         const newAnalysisBtn = document.getElementById('newAnalysisBtn');
 
         let selectedFile = null;
+        let currentSessionId = null;
+        let pendingSelections = {};
+        let referenceSelections = [];
+        let currentImageData = null;
 
         // Click en área de carga
         uploadArea.addEventListener('click', () => fileInput.click());
@@ -592,14 +596,547 @@
                     throw new Error(data.error);
                 }
 
-                // Mostrar resultados
-                displayResults(data);
+                // Verificar si necesita selección de losetas de referencia
+                if (data.needs_reference_selection) {
+                    currentSessionId = data.session_id;
+                    currentImageData = data;
+                    showReferenceSelection(data.image_url);
+                } else if (data.needs_confirmation) {
+                    // Confirmación de losetas
+                    currentSessionId = data.session_id;
+                    pendingSelections = {};
+                    showTileConfirmation(data.pending_tiles);
+                } else {
+                    // Mostrar resultados directamente
+                    displayResults(data);
+                }
             } catch (error) {
                 showError(error.message);
                 loadingSection.style.display = 'none';
                 uploadSection.style.display = 'block';
             }
         });
+
+        function showReferenceSelection(imageUrl) {
+            loadingSection.style.display = 'none';
+            
+            const modal = createReferenceSelectionModal(imageUrl);
+            document.body.appendChild(modal);
+        }
+
+        function createReferenceSelectionModal(imageUrl) {
+            const modalHTML = `
+                <div id="referenceSelectionModal" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.95);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10000;
+                    padding: 10px;
+                    overflow: hidden;
+                ">
+                    <div style="
+                        background: linear-gradient(135deg, #3d2817 0%, #2a1810 100%);
+                        border: 3px solid #d4af37;
+                        border-radius: 20px;
+                        padding: 15px;
+                        width: 99%;
+                        height: 99vh;
+                        display: flex;
+                        flex-direction: column;
+                        box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+                    ">
+                        <h2 style="color: #d4af37; text-align: center; margin-bottom: 5px; font-family: 'MedievalSharp', cursive; font-size: 1.5em;">
+                            📍 Selecciona 8 Losetas de Referencia
+                        </h2>
+                        <p style="color: #c9b037; text-align: center; margin-bottom: 5px; font-size: 0.85em;">
+                            Haz clic y arrastra sobre 8 losetas distribuidas. ENTER para continuar | ESC para cancelar | U para deshacer
+                        </p>
+                        <div id="selectionCounter" style="
+                            text-align: center;
+                            color: #ffd700;
+                            font-size: 1.2em;
+                            font-weight: bold;
+                            margin-bottom: 8px;
+                        ">
+                            Losetas: 0 / 8
+                        </div>
+                        <div style="
+                            flex: 1;
+                            display: flex;
+                            justify-content: center;
+                            margin-bottom: 10px;
+                            overflow: auto;
+                        ">
+                            <canvas id="selectionCanvas" style="
+                                border: 3px solid #d4af37;
+                                border-radius: 10px;
+                                cursor: crosshair;
+                                box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+                                display: block;
+                            "></canvas>
+                        </div>
+                        <div style="text-align: center; display: flex; gap: 15px; justify-content: center;">
+                            <button id="undoSelection" class="btn" style="
+                                background: linear-gradient(135deg, #8b4513 0%, #654321 100%);
+                                color: #ffd700;
+                                border: 2px solid #d4af37;
+                                padding: 8px 20px;
+                                font-size: 0.9em;
+                                font-weight: bold;
+                                border-radius: 8px;
+                                cursor: pointer;
+                                font-family: 'Cinzel', serif;
+                            ">
+                                ↩️ Deshacer
+                            </button>
+                            <button id="submitReferences" class="btn" style="
+                                background: linear-gradient(135deg, #d4af37 0%, #c9b037 100%);
+                                color: #2a1810;
+                                border: 2px solid #ffd700;
+                                padding: 8px 20px;
+                                font-size: 0.9em;
+                                font-weight: bold;
+                                border-radius: 8px;
+                                cursor: pointer;
+                                font-family: 'Cinzel', serif;
+                            " disabled>
+                                ✓ Continuar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const modalDiv = document.createElement('div');
+            modalDiv.innerHTML = modalHTML;
+            const modal = modalDiv.firstElementChild;
+            
+            // Configurar canvas
+            const canvas = modal.querySelector('#selectionCanvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.onload = () => {
+                // Escalar la imagen al ancho de la ventana (como la vista previa)
+                const maxWidth = window.innerWidth * 0.95;
+                let scale = Math.min(1, maxWidth / img.width); // Máximo 100% del tamaño real
+                
+                canvas.width = img.width * scale;
+                canvas.height = img.height * scale;
+                
+                // Establecer el tamaño CSS del canvas
+                canvas.style.width = canvas.width + 'px';
+                canvas.style.height = canvas.height + 'px';
+                
+                // Guardar escala para conversión de coordenadas
+                canvas.dataset.scale = scale;
+                canvas.dataset.originalWidth = img.width;
+                canvas.dataset.originalHeight = img.height;
+                
+                // Dibujar imagen escalada
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // Configurar eventos de selección
+                setupCanvasSelection(canvas, ctx, img, scale);
+            };
+            
+            img.src = imageUrl;
+            
+            return modal;
+        }
+
+        function setupCanvasSelection(canvas, ctx, img, scale) {
+            let isDrawing = false;
+            let startX, startY;
+            let currentRect = null;
+            referenceSelections = [];
+            
+            function redrawCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                
+                // Dibujar selecciones guardadas - TODAS EN AMARILLO sin números
+                referenceSelections.forEach((rect, index) => {
+                    ctx.strokeStyle = '#FFD700'; // Amarillo dorado
+                    ctx.lineWidth = 4;
+                    ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+                });
+                
+                // Dibujar rectángulo actual
+                if (currentRect) {
+                    ctx.strokeStyle = '#00FF00'; // Verde brillante mientras dibuja
+                    ctx.lineWidth = 3;
+                    ctx.setLineDash([10, 5]);
+                    ctx.strokeRect(currentRect.x, currentRect.y, currentRect.width, currentRect.height);
+                    ctx.setLineDash([]);
+                }
+                
+                updateCounter();
+            }
+            
+            function updateCounter() {
+                const counter = document.getElementById('selectionCounter');
+                const submitBtn = document.getElementById('submitReferences');
+                counter.textContent = `Losetas: ${referenceSelections.length} / 8`;
+                
+                if (referenceSelections.length >= 8) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                } else {
+                    submitBtn.disabled = true;
+                    submitBtn.style.opacity = '0.5';
+                }
+            }
+            
+            canvas.addEventListener('mousedown', (e) => {
+                if (referenceSelections.length >= 8) return;
+                
+                const rect = canvas.getBoundingClientRect();
+                startX = (e.clientX - rect.left) * (canvas.width / rect.width);
+                startY = (e.clientY - rect.top) * (canvas.height / rect.height);
+                isDrawing = true;
+            });
+            
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDrawing) return;
+                
+                const rect = canvas.getBoundingClientRect();
+                const currentX = (e.clientX - rect.left) * (canvas.width / rect.width);
+                const currentY = (e.clientY - rect.top) * (canvas.height / rect.height);
+                
+                const width = currentX - startX;
+                const height = currentY - startY;
+                
+                currentRect = {
+                    x: width < 0 ? currentX : startX,
+                    y: height < 0 ? currentY : startY,
+                    width: Math.abs(width),
+                    height: Math.abs(height)
+                };
+                
+                redrawCanvas();
+            });
+            
+            canvas.addEventListener('mouseup', (e) => {
+                if (!isDrawing) return;
+                isDrawing = false;
+                
+                if (currentRect && currentRect.width > 10 && currentRect.height > 10) {
+                    referenceSelections.push({...currentRect});
+                }
+                
+                currentRect = null;
+                redrawCanvas();
+            });
+            
+            // Botón deshacer
+            document.getElementById('undoSelection').addEventListener('click', () => {
+                if (referenceSelections.length > 0) {
+                    referenceSelections.pop();
+                    redrawCanvas();
+                }
+            });
+            
+            // Teclado
+            function handleKeyPress(e) {
+                if (e.key === 'u' || e.key === 'U') {
+                    document.getElementById('undoSelection').click();
+                } else if (e.key === 'Enter' && referenceSelections.length >= 8) {
+                    document.getElementById('submitReferences').click();
+                } else if (e.key === 'Escape') {
+                    const modal = document.getElementById('referenceSelectionModal');
+                    if (modal) modal.remove();
+                    uploadSection.style.display = 'block';
+                }
+            }
+            
+            document.addEventListener('keydown', handleKeyPress);
+            
+            // Botón submit
+            document.getElementById('submitReferences').addEventListener('click', async () => {
+                // Convertir coordenadas a escala original
+                const originalCoords = referenceSelections.map(rect => ({
+                    x: rect.x / scale,
+                    y: rect.y / scale,
+                    width: rect.width / scale,
+                    height: rect.height / scale
+                }));
+                
+                // Remover modal
+                const modal = document.getElementById('referenceSelectionModal');
+                if (modal) {
+                    modal.remove();
+                    document.removeEventListener('keydown', handleKeyPress);
+                }
+                
+                // Mostrar loading
+                loadingSection.style.display = 'block';
+                
+                // Enviar al servidor
+                await processWithReferences(originalCoords);
+            });
+        }
+
+        async function processWithReferences(referenceCoords) {
+            try {
+                const response = await fetch('/process_with_references', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSessionId,
+                        reference_coords: referenceCoords
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                // Verificar si necesita confirmación de losetas
+                if (data.needs_confirmation) {
+                    pendingSelections = {};
+                    showTileConfirmation(data.pending_tiles);
+                } else {
+                    // Mostrar resultados
+                    displayResults(data);
+                }
+            } catch (error) {
+                showError(error.message);
+                loadingSection.style.display = 'none';
+                uploadSection.style.display = 'block';
+            }
+        }
+
+        function showTileConfirmation(pendingTiles) {
+            loadingSection.style.display = 'none';
+            
+            // Crear modal de confirmación
+            const modal = createConfirmationModal(pendingTiles);
+            document.body.appendChild(modal);
+        }
+
+        function createConfirmationModal(pendingTiles) {
+            const modalHTML = `
+                <div id="tileConfirmationModal" style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.9);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10000;
+                    overflow-y: auto;
+                ">
+                    <div style="
+                        background: linear-gradient(135deg, #3d2817 0%, #2a1810 100%);
+                        border: 3px solid #d4af37;
+                        border-radius: 20px;
+                        padding: 40px;
+                        max-width: 800px;
+                        width: 90%;
+                        max-height: 90vh;
+                        overflow-y: auto;
+                        box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+                    ">
+                        <h2 style="color: #d4af37; text-align: center; margin-bottom: 30px; font-family: 'MedievalSharp', cursive;">
+                            🎯 Confirma las Losetas Detectadas
+                        </h2>
+                        <p style="color: #c9b037; text-align: center; margin-bottom: 20px;">
+                            Algunas losetas necesitan confirmación. Selecciona la opción correcta:
+                        </p>
+                        <div id="tilesContainer"></div>
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button id="submitConfirmations" class="btn" style="
+                                background: linear-gradient(135deg, #d4af37 0%, #c9b037 100%);
+                                color: #2a1810;
+                                border: 2px solid #ffd700;
+                                padding: 15px 40px;
+                                font-size: 1.1em;
+                                font-weight: bold;
+                                border-radius: 10px;
+                                cursor: pointer;
+                                font-family: 'Cinzel', serif;
+                            ">
+                                Continuar Procesamiento
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const modalDiv = document.createElement('div');
+            modalDiv.innerHTML = modalHTML;
+            const modal = modalDiv.firstElementChild;
+            
+            const container = modal.querySelector('#tilesContainer');
+            
+            pendingTiles.forEach((tile, index) => {
+                const tileDiv = document.createElement('div');
+                tileDiv.style.cssText = `
+                    background: linear-gradient(135deg, rgba(44, 24, 16, 0.6) 0%, rgba(26, 15, 8, 0.6) 100%);
+                    border: 2px solid rgba(212, 175, 55, 0.5);
+                    border-radius: 15px;
+                    padding: 20px;
+                    margin-bottom: 20px;
+                `;
+                
+                tileDiv.innerHTML = `
+                    <h3 style="color: #d4af37; margin-bottom: 15px; text-align: center;">
+                        Loseta #${index + 1} - Posición (${tile.grid_position[0]}, ${tile.grid_position[1]})
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; align-items: center;">
+                        <div style="text-align: center;">
+                            <p style="color: #c9b037; margin-bottom: 10px; font-weight: bold;">Opción A: ${tile.options[0].letter}</p>
+                            <img src="data:image/png;base64,${tile.options[0].reference_image}" 
+                                 style="width: 120px; height: 120px; border: 2px solid #d4af37; border-radius: 10px; cursor: pointer;"
+                                 onclick="selectTileOption(${tile.tile_index}, '${tile.options[0].letter}', this)"
+                                 class="tile-option"
+                                 data-tile-index="${tile.tile_index}">
+                            <p style="color: #ffd700; margin-top: 5px; font-size: 0.9em;">Conf: ${(tile.options[0].confidence * 100).toFixed(1)}%</p>
+                            <p style="color: #c9b037; margin-top: 5px; font-size: 0.85em;">Presiona A</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="color: #c9b037; margin-bottom: 10px; font-weight: bold;">Detectada</p>
+                            <img src="data:image/png;base64,${tile.tile_image}" 
+                                 style="width: 120px; height: 120px; border: 2px solid #fff; border-radius: 10px;">
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="color: #c9b037; margin-bottom: 10px; font-weight: bold;">Opción D: ${tile.options[1].letter}</p>
+                            <img src="data:image/png;base64,${tile.options[1].reference_image}" 
+                                 style="width: 120px; height: 120px; border: 2px solid #d4af37; border-radius: 10px; cursor: pointer;"
+                                 onclick="selectTileOption(${tile.tile_index}, '${tile.options[1].letter}', this)"
+                                 class="tile-option"
+                                 data-tile-index="${tile.tile_index}">
+                            <p style="color: #ffd700; margin-top: 5px; font-size: 0.9em;">Conf: ${(tile.options[1].confidence * 100).toFixed(1)}%</p>
+                            <p style="color: #c9b037; margin-top: 5px; font-size: 0.85em;">Presiona D</p>
+                        </div>
+                    </div>
+                    <div id="selection-${tile.tile_index}" style="text-align: center; margin-top: 10px; color: #ffd700; font-weight: bold;"></div>
+                `;
+                
+                container.appendChild(tileDiv);
+            });
+            
+            // Agregar event listener para el botón
+            modal.querySelector('#submitConfirmations').addEventListener('click', submitConfirmations);
+            
+            // Agregar keyboard shortcuts
+            document.addEventListener('keydown', handleKeyboardSelection);
+            
+            return modal;
+        }
+
+        function selectTileOption(tileIndex, letter, imgElement) {
+            pendingSelections[tileIndex] = letter;
+            
+            // Remover selección previa de esta loseta
+            const allOptionsForTile = document.querySelectorAll(`[data-tile-index="${tileIndex}"]`);
+            allOptionsForTile.forEach(opt => {
+                opt.style.border = '2px solid #d4af37';
+                opt.style.boxShadow = 'none';
+            });
+            
+            // Marcar la selección actual
+            imgElement.style.border = '4px solid #ffd700';
+            imgElement.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.8)';
+            
+            // Mostrar mensaje de confirmación
+            const selectionDiv = document.getElementById(`selection-${tileIndex}`);
+            selectionDiv.textContent = `✓ Seleccionado: ${letter}`;
+        }
+
+        function handleKeyboardSelection(event) {
+            // Encontrar la primera loseta sin selección
+            const modal = document.getElementById('tileConfirmationModal');
+            if (!modal) return;
+            
+            const allTiles = modal.querySelectorAll('.tile-option');
+            const tileIndices = [...new Set([...allTiles].map(opt => parseInt(opt.dataset.tileIndex)))];
+            
+            // Encontrar primera sin selección
+            let currentTileIndex = null;
+            for (const idx of tileIndices) {
+                if (!(idx in pendingSelections)) {
+                    currentTileIndex = idx;
+                    break;
+                }
+            }
+            
+            if (currentTileIndex === null) return;
+            
+            const options = document.querySelectorAll(`[data-tile-index="${currentTileIndex}"]`);
+            
+            if (event.key === 'a' || event.key === 'A') {
+                options[0].click();
+            } else if (event.key === 'd' || event.key === 'D') {
+                options[1].click();
+            }
+        }
+
+        async function submitConfirmations() {
+            const modal = document.getElementById('tileConfirmationModal');
+            const allTiles = modal.querySelectorAll('.tile-option');
+            const tileIndices = [...new Set([...allTiles].map(opt => parseInt(opt.dataset.tileIndex)))];
+            
+            // Verificar que todas las losetas tengan selección
+            for (const idx of tileIndices) {
+                if (!(idx in pendingSelections)) {
+                    showError('Por favor selecciona una opción para todas las losetas');
+                    return;
+                }
+            }
+            
+            // Remover modal y mostrar loading
+            modal.remove();
+            document.removeEventListener('keydown', handleKeyboardSelection);
+            loadingSection.style.display = 'block';
+            
+            try {
+                const response = await fetch('/confirm_tiles', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        session_id: currentSessionId,
+                        selections: pendingSelections
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                // Verificar si hay más confirmaciones pendientes
+                if (data.needs_confirmation) {
+                    pendingSelections = {};
+                    showTileConfirmation(data.pending_tiles);
+                } else {
+                    // Mostrar resultados finales
+                    displayResults(data);
+                }
+            } catch (error) {
+                showError(error.message);
+                loadingSection.style.display = 'none';
+                uploadSection.style.display = 'block';
+            }
+        }
 
         function displayResults(data) {
             loadingSection.style.display = 'none';

@@ -30,25 +30,38 @@ class OriginMatrixConverter:
         self.max_col = 0
         self.rows = 0
         self.cols = 0
+        self.pending_confirmations = []  # Para almacenar losetas que necesitan confirmación
     
-    def convert(self, image_path: str, num_reference_points: int = 8) -> Optional[Board]:
+    def convert(self, image_path: str, num_reference_points: int = 8, web_mode: bool = False, 
+                manual_selections: dict = None, reference_coords: list = None) -> Optional[Board]:
         """
         Convierte imagen de tablero a Origin Matrix
         
         Args:
             image_path: Ruta a la imagen del tablero
             num_reference_points: Número de puntos de referencia para detección
+            web_mode: Si es True, no abre ventanas y retorna info para confirmación web
+            manual_selections: Dict con selecciones manuales {tile_index: selected_type}
+            reference_coords: Lista de coordenadas manuales para puntos de referencia
             
         Returns:
             Board con la Origin Matrix o None si falla
+            Si web_mode=True y hay confirmaciones pendientes, retorna dict con info
         """
         # Cargar imagen
         if not self.tile_detector.load_image(image_path):
             return None
         
         # Seleccionar puntos de referencia
-        if not self.tile_detector.select_reference_tiles(num_points=num_reference_points):
-            return None
+        if reference_coords:
+            # Usar coordenadas proporcionadas manualmente
+            if not self.tile_detector.set_reference_points_from_coords(reference_coords):
+                return None
+        else:
+            # Seleccionar puntos de referencia (automático en web_mode)
+            if not self.tile_detector.select_reference_tiles(num_points=num_reference_points, 
+                                                              auto_detect=web_mode):
+                return None
         
         # Detectar todas las losetas
         self.tile_detector.assign_grid_positions()
@@ -61,10 +74,7 @@ class OriginMatrixConverter:
         self._calculate_dimensions(tiles)
         
         # Analizar cada loseta
-        self._process_tiles(tiles)
-        
-        # Crear y retornar Board
-        return self._create_board()
+        return self._process_tiles(tiles, web_mode, manual_selections)
     
     def _calculate_dimensions(self, tiles):
         """Calcula dimensiones del tablero"""
@@ -76,9 +86,11 @@ class OriginMatrixConverter:
         self.rows = self.max_row - self.min_row + 1
         self.cols = self.max_col - self.min_col + 1
     
-    def _process_tiles(self, tiles):
+    def _process_tiles(self, tiles, web_mode=False, manual_selections=None):
         """Procesa todas las losetas detectando tipo, rotación y meeples"""
         self.results = []
+        self.pending_confirmations = []
+        manual_selections = manual_selections or {}
         
         for i, tile in enumerate(tiles):
             temp_path = f"temp_tile_{i}.png"
@@ -86,9 +98,46 @@ class OriginMatrixConverter:
             
             # Detectar tipo
             try:
-                tile_type = self.type_detector.detect_tile(temp_path)
+                # Si hay selección manual para esta loseta, usarla
+                if i in manual_selections:
+                    tile_type = manual_selections[i]
+                    tile_info = {
+                        'type': tile_type,
+                        'confidence': 1.0,
+                        'needs_confirmation': False
+                    }
+                else:
+                    detection_result = self.type_detector.detect_tile(temp_path, web_mode=web_mode)
+                    
+                    if web_mode and isinstance(detection_result, dict):
+                        tile_info = detection_result
+                    else:
+                        # Modo no-web, resultado es string
+                        tile_type = detection_result
+                        tile_info = {
+                            'type': tile_type,
+                            'confidence': 1.0,
+                            'needs_confirmation': False
+                        }
             except:
-                tile_type = "?"
+                tile_info = {
+                    'type': '?',
+                    'confidence': 0.0,
+                    'needs_confirmation': False
+                }
+            
+            # Si necesita confirmación en web_mode, guardar para después
+            if web_mode and tile_info.get('needs_confirmation', False):
+                self.pending_confirmations.append({
+                    'tile_index': i,
+                    'tile_image_path': temp_path,
+                    'options': tile_info['options'],
+                    'grid_position': (tile.grid_row, tile.grid_col)
+                })
+                # Por ahora usar la primera opción como temporal
+                tile_type = tile_info['options'][0]['letter']
+            else:
+                tile_type = tile_info['type']
             
             # Detectar rotación
             try:
@@ -106,9 +155,10 @@ class OriginMatrixConverter:
                     'position': None
                 }
             
-            # Limpiar temporal
-            if os.path.exists(temp_path):
-                os.remove(temp_path)
+            # No eliminar temp_path aún si hay confirmaciones pendientes
+            if not web_mode or not tile_info.get('needs_confirmation', False):
+                if os.path.exists(temp_path):
+                    os.remove(temp_path)
             
             # Guardar resultado
             self.results.append({
@@ -119,6 +169,17 @@ class OriginMatrixConverter:
                 'meeple_color': meeple_result.get('color'),
                 'meeple_position': meeple_result.get('position')
             })
+        
+        # Si estamos en web_mode y hay confirmaciones pendientes, retornar info
+        if web_mode and self.pending_confirmations:
+            return {
+                'needs_confirmation': True,
+                'pending_tiles': self.pending_confirmations,
+                'partial_results': self.results
+            }
+        
+        # Crear board normal
+        return self._create_board()
     
     def _create_board(self) -> Board:
         """Crea la Origin Matrix (Board)"""

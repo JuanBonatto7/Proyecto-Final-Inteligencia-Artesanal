@@ -99,8 +99,17 @@ class CarcassonneTileDetector:
         print("  [NOT FOUND] Ningún modelo CNN encontrado, usando método tradicional")
         self.cnn_model = None
 
-    def detect_tile(self, image_path: str) -> str:
-        """Detecta qué tipo de loseta es la imagen"""
+    def detect_tile(self, image_path: str, web_mode: bool = False) -> str:
+        """Detecta qué tipo de loseta es la imagen
+        
+        Args:
+            image_path: Ruta a la imagen
+            web_mode: Si es True, no abre ventanas y retorna datos para web
+            
+        Returns:
+            Si web_mode=False: str con el tipo de loseta
+            Si web_mode=True: dict con {'type': str, 'confidence': float, 'options': list}
+        """
 
         # Cargar imagen de entrada
         image = cv2.imread(image_path)
@@ -140,16 +149,37 @@ class CarcassonneTileDetector:
             tile_type = self._detect_with_traditional(image, has_shield)
             confidence = 0.7  # Confianza fija para método tradicional
         
-        # Si confianza < 75% y tenemos modelo CNN, permitir selección manual
+        # Si confianza < 75% y tenemos modelo CNN
         if confidence < 0.75 and self.cnn_model is not None:
             option1, option2 = self._get_top_predictions(image_path)
             if option1 and option2:
-                user_selection = self._show_selection_window(image_path, option1, option2)
-                if user_selection:
-                    tile_type = user_selection
-                    confidence = max(option1[1], option2[1])
+                if web_mode:
+                    # Modo web: retornar opciones como dict
+                    return {
+                        'type': tile_type,
+                        'confidence': confidence,
+                        'options': [
+                            {'letter': option1[0], 'confidence': option1[1]},
+                            {'letter': option2[0], 'confidence': option2[1]}
+                        ],
+                        'needs_confirmation': True
+                    }
                 else:
-                    print("Usuario canceló selección, manteniendo predicción automática")
+                    # Modo desktop: mostrar ventana de selección
+                    user_selection = self._show_selection_window(image_path, option1, option2)
+                    if user_selection:
+                        tile_type = user_selection
+                        confidence = max(option1[1], option2[1])
+                    else:
+                        print("Usuario canceló selección, manteniendo predicción automática")
+        
+        # Retornar según modo
+        if web_mode:
+            return {
+                'type': tile_type,
+                'confidence': confidence,
+                'needs_confirmation': False
+            }
         
         # Para confianza baja, devolver la mejor predicción disponible en lugar de DESCONOCIDO
         if confidence < 0.6:
