@@ -2,11 +2,7 @@ from flask import Flask, render_template, request, jsonify, send_file
 import os
 from datetime import datetime
 from werkzeug.utils import secure_filename
-from origin_matrix import Board
-from modules.piplineFotoRecorteMeepleTipo.origin_matrix_converter import OriginMatrixConverter
-from modules.imagen_generator.board_image_generator import BoardImageGenerator
-from modules.incomplete_features_scorer.incomplete_features_scorer import GameScorer
-from modules.CarcassoneFieldsv5.puntos_campos import calculate_field_scores
+from main import process_board_image
 import base64
 
 app = Flask(__name__)
@@ -93,22 +89,30 @@ def process_with_references():
         # Guardar coordenadas en sesión para usar después
         session['reference_coords'] = reference_coords
         
-        # Procesar el tablero en modo web con coordenadas de referencia
-        origin_convert = OriginMatrixConverter()
-        result = origin_convert.convert(filepath, web_mode=True, reference_coords=reference_coords)
+        # Procesar el tablero usando la función de main.py
+        result = process_board_image(
+            filepath,
+            timestamp=timestamp,
+            tiles_texture_pack="tiles_texture_pack-v3",
+            web_mode=True,
+            reference_coords=reference_coords
+        )
         
-        if result is None:
-            return jsonify({'error': 'No se pudo procesar el tablero. Verifique la imagen.'}), 400
+        # result puede ser:
+        # 1. Una tupla (dict_confirmacion, None, None) si necesita confirmaciones
+        # 2. Una tupla (scores_dict, image_path, board_game) si procesó correctamente
         
-        # Verificar si necesita confirmaciones de losetas
-        if isinstance(result, dict) and result.get('needs_confirmation', False):
+        # Desempaquetar la tupla
+        first_element, image_path, board_game = result
+        
+        # Verificar si el primer elemento es un dict de confirmación
+        if isinstance(first_element, dict) and first_element.get('needs_confirmation', False):
             # Actualizar sesión
-            processing_sessions[session_id]['converter'] = origin_convert
             processing_sessions[session_id]['stage'] = 'confirm_tiles'
             
             # Preparar datos de losetas que necesitan confirmación
             pending_tiles = []
-            for tile_info in result['pending_tiles']:
+            for tile_info in first_element['pending_tiles']:
                 # Leer imagen de la loseta y codificarla en base64
                 with open(tile_info['tile_image_path'], 'rb') as img_file:
                     img_data = base64.b64encode(img_file.read()).decode('utf-8')
@@ -146,21 +150,14 @@ def process_with_references():
                 'pending_tiles': pending_tiles
             })
         
-        # Si no necesita confirmación, procesar normalmente
-        board_game = result
+        # Si no necesita confirmación, first_element es el diccionario de scores
+        scores = first_element
         
-        # Generar imagen del tablero procesado
-        tiles_img_path = os.path.join("resources", "tiles_texture_pack-v3")
-        gen_images = BoardImageGenerator(tiles_img_path)
-        image_path = os.path.join("modules", "imagen_generator", "output", f"tablero_{timestamp}.jpg")
-        gen_images.generate_board_image(board_game, image_path)
+        if scores is None:
+            return jsonify({'error': 'No se pudo procesar el tablero. Verifique la imagen.'}), 400
         
-        # Calcular puntos
-        scores_incomplete_features_scorer = GameScorer(board_game).score()
-        scores_fields = calculate_field_scores(image_path)
-        
-        player1 = scores_fields.get(1, 0) + scores_incomplete_features_scorer.get(1, 0)
-        player2 = scores_fields.get(2, 0) + scores_incomplete_features_scorer.get(2, 0)
+        player1 = scores[1]
+        player2 = scores[2]
         
         # Limpiar sesión
         del processing_sessions[session_id]
@@ -171,13 +168,13 @@ def process_with_references():
             'scores': {
                 'player1': {
                     'total': player1,
-                    'fields': scores_fields.get(1, 0),
-                    'features': scores_incomplete_features_scorer.get(1, 0)
+                    'fields': scores['player1_fields'],
+                    'features': scores['player1_features']
                 },
                 'player2': {
                     'total': player2,
-                    'fields': scores_fields.get(2, 0),
-                    'features': scores_incomplete_features_scorer.get(2, 0)
+                    'fields': scores['player2_fields'],
+                    'features': scores['player2_features']
                 }
             },
             'processed_image': f'/result/{timestamp}',
@@ -210,22 +207,30 @@ def confirm_tiles():
         # Obtener las coordenadas de referencia de la sesión (si existen)
         reference_coords = session.get('reference_coords', None)
         
-        # Re-procesar con las selecciones manuales
-        origin_convert = OriginMatrixConverter()
         # Convertir keys a int
         manual_selections = {int(k): v for k, v in selections.items()}
-        board_game = origin_convert.convert(filepath, web_mode=True, 
-                                           manual_selections=manual_selections,
-                                           reference_coords=reference_coords)
+        
+        # Re-procesar con las selecciones manuales usando la función de main.py
+        result = process_board_image(
+            filepath,
+            timestamp=timestamp,
+            tiles_texture_pack="tiles_texture_pack-v3",
+            web_mode=True,
+            reference_coords=reference_coords,
+            manual_selections=manual_selections
+        )
+        
+        # Desempaquetar la tupla
+        first_element, image_path, board_game = result
         
         # Verificar si aún hay confirmaciones pendientes
-        if isinstance(board_game, dict) and board_game.get('needs_confirmation', False):
+        if isinstance(first_element, dict) and first_element.get('needs_confirmation', False):
             # Actualizar sesión
-            processing_sessions[session_id]['converter'] = origin_convert
+            processing_sessions[session_id]['stage'] = 'confirm_tiles'
             
             # Retornar nuevas confirmaciones pendientes (mismo formato que antes)
             pending_tiles = []
-            for tile_info in board_game['pending_tiles']:
+            for tile_info in first_element['pending_tiles']:
                 with open(tile_info['tile_image_path'], 'rb') as img_file:
                     img_data = base64.b64encode(img_file.read()).decode('utf-8')
                 
@@ -260,7 +265,8 @@ def confirm_tiles():
                 'pending_tiles': pending_tiles
             })
         
-        # Todas las confirmaciones completadas, generar resultado final
+        # Todas las confirmaciones completadas, first_element es el diccionario de scores
+        scores = first_element
         
         # Limpiar archivos temporales de losetas
         temp_tiles_dir = "temp_tiles"
@@ -272,18 +278,8 @@ def confirm_tiles():
                     except:
                         pass
         
-        # Generar imagen del tablero
-        tiles_img_path = os.path.join("resources", "tiles_texture_pack-v3")
-        gen_images = BoardImageGenerator(tiles_img_path)
-        image_path = os.path.join("modules", "imagen_generator", "output", f"tablero_{timestamp}.jpg")
-        gen_images.generate_board_image(board_game, image_path)
-        
-        # Calcular puntos
-        scores_incomplete_features_scorer = GameScorer(board_game).score()
-        scores_fields = calculate_field_scores(image_path)
-        
-        player1 = scores_fields.get(1, 0) + scores_incomplete_features_scorer.get(1, 0)
-        player2 = scores_fields.get(2, 0) + scores_incomplete_features_scorer.get(2, 0)
+        player1 = scores[1]
+        player2 = scores[2]
         
         # Obtener nombre de archivo original
         temp_filename = session.get('temp_filename', f'tablero_{timestamp}.jpg')
@@ -297,13 +293,13 @@ def confirm_tiles():
             'scores': {
                 'player1': {
                     'total': player1,
-                    'fields': scores_fields.get(1, 0),
-                    'features': scores_incomplete_features_scorer.get(1, 0)
+                    'fields': scores['player1_fields'],
+                    'features': scores['player1_features']
                 },
                 'player2': {
                     'total': player2,
-                    'fields': scores_fields.get(2, 0),
-                    'features': scores_incomplete_features_scorer.get(2, 0)
+                    'fields': scores['player2_fields'],
+                    'features': scores['player2_features']
                 }
             },
             'processed_image': f'/result/{timestamp}',
@@ -339,4 +335,5 @@ def serve_static(filename):
         return jsonify({'error': 'Archivo no encontrado'}), 404
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Desactivar use_reloader en Windows para evitar problemas con el debugger
+    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)

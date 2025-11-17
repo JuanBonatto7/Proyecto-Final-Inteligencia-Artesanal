@@ -4,7 +4,7 @@ Solo cuenta castillos COMPLETOS para puntos.
 Castillos incompletos delimitan pero no puntúan.
 """
 from typing import Dict, List, Tuple
-from src.field_detector import Field
+from modules.CarcassoneFieldsv5.src.field_detector import Field
 import numpy as np
 from scipy import ndimage
 import cv2

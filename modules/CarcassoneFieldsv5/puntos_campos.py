@@ -16,13 +16,13 @@ if sys.platform == 'win32':
         sys.stderr = codecs.getwriter('utf-8')(sys.stderr.buffer, 'strict')
 
 from typing import Dict
-from src.image_processor import ImageProcessor
-from src.board_detector import BoardDetector
-from src.castle_analyzer import CastleAnalyzer
-from src.field_detector import FieldDetector
-from src.scoring import FieldScorer
-from src.visualizer import FieldVisualizer
-from config.colors import PLAYER_NAMES, FIELD_DETECTION_CONFIG, WHITE_THRESHOLD
+from modules.CarcassoneFieldsv5.src.image_processor import ImageProcessor
+from modules.CarcassoneFieldsv5.src.board_detector import BoardDetector
+from modules.CarcassoneFieldsv5.src.castle_analyzer import CastleAnalyzer
+from modules.CarcassoneFieldsv5.src.field_detector import FieldDetector
+from modules.CarcassoneFieldsv5.src.scoring import FieldScorer
+from modules.CarcassoneFieldsv5.src.visualizer import FieldVisualizer
+from modules.CarcassoneFieldsv5.config.colors import PLAYER_NAMES, FIELD_DETECTION_CONFIG, WHITE_THRESHOLD
 
 
 def calculate_field_scores(image_path: str) -> Dict[int, int]:
