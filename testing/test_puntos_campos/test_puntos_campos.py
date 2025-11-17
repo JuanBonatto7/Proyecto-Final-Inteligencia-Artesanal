@@ -1,3 +1,4 @@
+"""Tests unitarios para el cálculo de puntos de campos en Carcassonne."""
 import unittest
 import sys
 import os
@@ -24,7 +25,7 @@ class TestMathOperations(unittest.TestCase):
         resultado_esperado = {1:0,2:9}
 
         self.assertEqual(resultado,resultado_esperado)
-    
+
     def test_tablero3(self):
         resultado = calculate_field_scores("../casos_tableros_generados/tablero3.jpg")
         resultado_esperado = {1:6,2:0}

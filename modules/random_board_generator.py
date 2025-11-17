@@ -1,3 +1,4 @@
+"""Generador de tableros aleatorios de Carcassonne para pruebas."""
 import random
 from dataclasses import dataclass
 from typing import List, Optional, Tuple, Dict, Set
@@ -114,35 +115,35 @@ def can_place_tile(board: List[List[Optional[Tile]]], row: int, col: int,
                    tile_type: str, rotation: int) -> bool:
     """Verifica si un tile puede colocarse en una posición dada."""
     n = len(board)
-    
+
     # Verificar borde superior
     if row > 0 and board[row - 1][col] is not None:
         neighbor = board[row - 1][col]
         if not tiles_match(tile_type, rotation, "TOP",
                           neighbor.type, neighbor.rotation, "BOTTOM"):
             return False
-    
+
     # Verificar borde inferior
     if row < n - 1 and board[row + 1][col] is not None:
         neighbor = board[row + 1][col]
         if not tiles_match(tile_type, rotation, "BOTTOM",
                           neighbor.type, neighbor.rotation, "TOP"):
             return False
-    
+
     # Verificar borde izquierdo
     if col > 0 and board[row][col - 1] is not None:
         neighbor = board[row][col - 1]
         if not tiles_match(tile_type, rotation, "LEFT",
                           neighbor.type, neighbor.rotation, "RIGHT"):
             return False
-    
+
     # Verificar borde derecho
     if col < n - 1 and board[row][col + 1] is not None:
         neighbor = board[row][col + 1]
         if not tiles_match(tile_type, rotation, "RIGHT",
                           neighbor.type, neighbor.rotation, "LEFT"):
             return False
-    
+
     return True
 
 def is_structure_closed(board, row, col, pos):
@@ -170,7 +171,7 @@ def is_structure_closed(board, row, col, pos):
             nr, nc = row + dr, col + dc
             if not (0 <= nr < n and 0 <= nc < n) or board[nr][nc] is None:
                 return False
-        return True  
+        return True
 
     #Ciudades y Caminos
     if start_feature not in [FEATURE_CITY, FEATURE_ROAD]:
@@ -299,7 +300,7 @@ def get_neighbors_with_direction(board: List[List[Optional[Tile]]], row: int, co
     """Retorna vecinos existentes con su dirección relativa."""
     neighbors = []
     n = len(board)
-    
+
     if row > 0 and board[row - 1][col] is not None:
         neighbors.append((row - 1, col, "TOP"))
     if row < n - 1 and board[row + 1][col] is not None:
@@ -308,18 +309,18 @@ def get_neighbors_with_direction(board: List[List[Optional[Tile]]], row: int, co
         neighbors.append((row, col - 1, "LEFT"))
     if col < n - 1 and board[row][col + 1] is not None:
         neighbors.append((row, col + 1, "RIGHT"))
-    
+
     return neighbors
 
 def find_valid_rotation(tile_type: str, board: List[List[Optional[Tile]]], row: int, col: int) -> Optional[int]:
     """Busca una rotación válida para el tile en la posición dada."""
     rotations = [0, 90, 180, 270]
     random.shuffle(rotations)
-    
+
     for rotation in rotations:
         if can_place_tile(board, row, col, tile_type, rotation):
             return rotation
-    
+
     return None
 
 def generate_board(n) -> List[List[Optional[Tile]]]:

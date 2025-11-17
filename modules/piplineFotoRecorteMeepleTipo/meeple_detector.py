@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Detector de meeples en losetas de Carcassonne mediante visión por computadora."""
 import cv2
 import numpy as np
 from typing import Tuple, Optional, Dict

@@ -1,3 +1,7 @@
+"""
+Módulo que define las estructuras de datos para el tablero de Carcassonne.
+Contiene las clases Tile y Board para representar losetas y el tablero completo.
+"""
 from dataclasses import dataclass
 from typing import List, Tuple, Optional
 

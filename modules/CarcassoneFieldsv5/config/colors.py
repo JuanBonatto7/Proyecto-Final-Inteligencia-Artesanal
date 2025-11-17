@@ -36,11 +36,11 @@ FIELD_DETECTION_CONFIG = {
     # Cuánto expandir las barreras (caminos/castillos) para separar campos
     # Valores más altos = mejor separación pero campos más pequeños
     'barrier_expansion': 2,
-    
+
     # Área mínima en píxeles para considerar un campo válido
     # Filtra campos muy pequeños que probablemente son ruido
     'min_field_area': 100,
-    
+
     # Umbral de píxeles de meeple para contar como presente
     'meeple_detection_threshold': 15,
 }

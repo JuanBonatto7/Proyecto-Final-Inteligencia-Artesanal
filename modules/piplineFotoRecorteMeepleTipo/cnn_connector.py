@@ -1,3 +1,4 @@
+"""Modelo CNN para clasificación de losetas de Carcassonne."""
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

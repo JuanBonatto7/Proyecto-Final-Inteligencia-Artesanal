@@ -1,3 +1,4 @@
+"""Generador de imágenes visuales de tableros de Carcassonne."""
 from PIL import Image, ImageDraw
 import os
 from typing import Tuple, Dict, Optional
@@ -39,9 +40,9 @@ class BoardImageGenerator:
         """Crea una imagen placeholder si falta el asset del tile."""
         img = Image.new('RGB', (200, 200), color='lightgray')
         draw = ImageDraw.Draw(img)
-        draw.rectangle([0, 0, 200 - 1, 200 - 1], 
+        draw.rectangle([0, 0, 200 - 1, 200 - 1],
                       outline='black', width=3)
-        
+
         bbox = draw.textbbox((0, 0), tile_name)
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
@@ -56,7 +57,7 @@ class BoardImageGenerator:
             return self._tile_cache[tile_name].copy()
 
         tile_path = self._find_tile_file(tile_name)
-        
+
         if tile_path is None:
             img = self._create_placeholder_tile(tile_name)
         else:
@@ -73,28 +74,28 @@ class BoardImageGenerator:
         """Dibuja un meeple simple sobre la imagen del tile."""
         if player <= 0:
             return img
-            
+
         img_copy = img.copy()
         draw = ImageDraw.Draw(img_copy)
-        
+
         rel_x, rel_y = self.MEEPLE_POSITIONS.get(position, (0.5, 0.5))
         x = int(rel_x * 200)
         y = int(rel_y * 200)
-        
+
         radius = 200 // 10
         color = self.meeple_colors.get(player, (128, 128, 128))
 
         # Cabeza
         head_radius = radius // 2
         draw.ellipse(
-            [x - head_radius, y - radius, 
+            [x - head_radius, y - radius,
              x + head_radius, y - radius + head_radius * 2],
             fill=color, outline='black', width=1
         )
-        
+
         # Cuerpo
         draw.ellipse(
-            [x - radius, y - radius // 3, 
+            [x - radius, y - radius // 3,
             x + radius, y + radius],
             fill=color, outline='black', width=2
         )
@@ -110,26 +111,26 @@ class BoardImageGenerator:
         board_width = cols * 200 + border_size * 2
         board_height = rows * 200 + border_size * 2
 
-        
+
         board_img = Image.new('RGB', (board_width, board_height), color='white')
 
         for i, row in enumerate(board.board):
             for j, tile in enumerate(row):
                 if tile is None:
                     continue
-                    
+
                 # Cargar y rotar tile
                 tile_img = self.load_tile_image(tile.type)
                 tile_img = tile_img.rotate(-tile.rotation, expand=False)
-                
+
                 # Dibujar meeple si existe
                 if tile.meeple_info is not None:
                     tile_img = self.draw_meeple(
-                        tile_img, 
-                        tile.meeple_info[0], 
+                        tile_img,
+                        tile.meeple_info[0],
                         tile.meeple_info[1]
                     )
-                
+
                 # Pegar en posición correcta
                 x = (j * 200) + border_size
                 y = (i * 200) + border_size

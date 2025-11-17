@@ -1,3 +1,4 @@
+"""Script de prueba rápida para calcular puntajes de campos."""
 from puntos_campos import calculate_field_scores
 
 # Probar con una imagen

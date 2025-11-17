@@ -17,7 +17,7 @@ from origin_matrix import Tile, Board
 
 class OriginMatrixConverter:
     """Convierte imagen de tablero a Origin Matrix"""
-    
+
     def __init__(self):
         self.tile_detector = CarcassonneTileDetector()
         self.meeple_detector = MeepleDetector()
@@ -31,23 +31,23 @@ class OriginMatrixConverter:
         self.rows = 0
         self.cols = 0
         self.pending_confirmations = []  # Para almacenar losetas que necesitan confirmación
-        
+
         # Crear carpeta para archivos temporales
         self.temp_dir = "temp_tiles"
         os.makedirs(self.temp_dir, exist_ok=True)
-    
-    def convert(self, image_path: str, num_reference_points: int = 8, web_mode: bool = False, 
+
+    def convert(self, image_path: str, num_reference_points: int = 8, web_mode: bool = False,
                 manual_selections: dict = None, reference_coords: list = None) -> Optional[Board]:
         """
         Convierte imagen de tablero a Origin Matrix
-        
+
         Args:
             image_path: Ruta a la imagen del tablero
             num_reference_points: Número de puntos de referencia para detección
             web_mode: Si es True, no abre ventanas y retorna info para confirmación web
             manual_selections: Dict con selecciones manuales {tile_index: selected_type}
             reference_coords: Lista de coordenadas manuales para puntos de referencia
-            
+
         Returns:
             Board con la Origin Matrix o None si falla
             Si web_mode=True y hay confirmaciones pendientes, retorna dict con info
@@ -55,7 +55,7 @@ class OriginMatrixConverter:
         # Cargar imagen
         if not self.tile_detector.load_image(image_path):
             return None
-        
+
         # Seleccionar puntos de referencia
         if reference_coords:
             # Usar coordenadas proporcionadas manualmente
@@ -63,43 +63,43 @@ class OriginMatrixConverter:
                 return None
         else:
             # Seleccionar puntos de referencia (automático en web_mode)
-            if not self.tile_detector.select_reference_tiles(num_points=num_reference_points, 
+            if not self.tile_detector.select_reference_tiles(num_points=num_reference_points,
                                                               auto_detect=web_mode):
                 return None
-        
+
         # Detectar todas las losetas
         self.tile_detector.assign_grid_positions()
         tiles = self.tile_detector.detect_tiles_interpolated()
-        
+
         if not tiles:
             return None
-        
+
         # Calcular dimensiones
         self._calculate_dimensions(tiles)
-        
+
         # Analizar cada loseta
         return self._process_tiles(tiles, web_mode, manual_selections)
-    
+
     def _calculate_dimensions(self, tiles):
         """Calcula dimensiones del tablero"""
         self.min_row = min(tile.grid_row for tile in tiles)
         self.max_row = max(tile.grid_row for tile in tiles)
         self.min_col = min(tile.grid_col for tile in tiles)
         self.max_col = max(tile.grid_col for tile in tiles)
-        
+
         self.rows = self.max_row - self.min_row + 1
         self.cols = self.max_col - self.min_col + 1
-    
+
     def _process_tiles(self, tiles, web_mode=False, manual_selections=None):
         """Procesa todas las losetas detectando tipo, rotación y meeples"""
         self.results = []
         self.pending_confirmations = []
         manual_selections = manual_selections or {}
-        
+
         for i, tile in enumerate(tiles):
             temp_path = os.path.join(self.temp_dir, f"temp_tile_{i}.png")
             cv2.imwrite(temp_path, tile.image)
-            
+
             # Detectar tipo
             try:
                 # Si hay selección manual para esta loseta, usarla
@@ -112,7 +112,7 @@ class OriginMatrixConverter:
                     }
                 else:
                     detection_result = self.type_detector.detect_tile(temp_path, web_mode=web_mode)
-                    
+
                     if web_mode and isinstance(detection_result, dict):
                         tile_info = detection_result
                     else:
@@ -129,7 +129,7 @@ class OriginMatrixConverter:
                     'confidence': 0.0,
                     'needs_confirmation': False
                 }
-            
+
             # Si necesita confirmación en web_mode, guardar para después
             if web_mode and tile_info.get('needs_confirmation', False):
                 self.pending_confirmations.append({
@@ -142,13 +142,13 @@ class OriginMatrixConverter:
                 tile_type = tile_info['options'][0]['letter']
             else:
                 tile_type = tile_info['type']
-            
+
             # Detectar rotación
             try:
                 rotation = self.rotation_detector.detect_rotation(tile_type, temp_path)
             except:
                 rotation = 0
-            
+
             # Detectar meeple
             try:
                 meeple_result = self.meeple_detector.detect_meeple(temp_path)
@@ -158,12 +158,12 @@ class OriginMatrixConverter:
                     'color': None,
                     'position': None
                 }
-            
+
             # No eliminar temp_path aún si hay confirmaciones pendientes
             if not web_mode or not tile_info.get('needs_confirmation', False):
                 if os.path.exists(temp_path):
                     os.remove(temp_path)
-            
+
             # Guardar resultado
             self.results.append({
                 'grid_position': (tile.grid_row, tile.grid_col),
@@ -173,7 +173,7 @@ class OriginMatrixConverter:
                 'meeple_color': meeple_result.get('color'),
                 'meeple_position': meeple_result.get('position')
             })
-        
+
         # Si estamos en web_mode y hay confirmaciones pendientes, retornar info
         if web_mode and self.pending_confirmations:
             return {
@@ -181,33 +181,33 @@ class OriginMatrixConverter:
                 'pending_tiles': self.pending_confirmations,
                 'partial_results': self.results
             }
-        
+
         # Crear board normal
         return self._create_board()
-    
+
     def _create_board(self) -> Board:
         """Crea la Origin Matrix (Board)"""
         # Inicializar matriz vacía
         matrix: List[List[Optional[Tile]]] = [[None] * self.cols for _ in range(self.rows)]
-        
+
         # Llenar matriz
         for result in self.results:
             grid_row, grid_col = result['grid_position']
-            
+
             # Convertir a índices de matriz
             matrix_row = grid_row - self.min_row
             matrix_col = grid_col - self.min_col
-            
+
             # Verificar límites
             if not (0 <= matrix_row < self.rows and 0 <= matrix_col < self.cols):
                 continue
-            
+
             tile_type = result['tile_type']
-            
+
             # Filtrar BLANCO y desconocidos
             if tile_type in ('BLANCO', '?'):
                 continue
-            
+
             # Procesar meeple
             meeple_info = None
             if result['has_meeple'] and result['meeple_position'] is not None:
@@ -217,22 +217,22 @@ class OriginMatrixConverter:
                     player = 2
                 else:
                     player = 0
-                
+
                 meeple_pos = result['meeple_position'] + 1
                 meeple_info = (player, meeple_pos)
-            
+
             # Crear Tile
             tile = Tile(
                 type=tile_type,
                 rotation=result['rotation'],
                 meeple_info=meeple_info
             )
-            
+
             # Asignar a matriz
             matrix[matrix_row][matrix_col] = tile
-        
+
         return Board(board=matrix)
-    
+
     def get_dimensions(self):
         """Retorna dimensiones y offsets del tablero"""
         return {
@@ -249,26 +249,26 @@ def main():
     """Ejemplo de uso"""
     if len(sys.argv) < 2:
         return
-    
+
     image_path = sys.argv[1]
-    
+
     if not os.path.exists(image_path):
         print(f"Error: No se encontro la imagen {image_path}")
         return
-    
+
     # Crear converter
     converter = OriginMatrixConverter()
-    
+
     # Convertir a Origin Matrix
     board = converter.convert(image_path, num_reference_points=8)
-    
+
     if board is None:
         print("Error: No se pudo generar la Origin Matrix")
         return
-    
+
     # Mostrar información
     dims = converter.get_dimensions()
-    
+
     # Contar tiles
     total_tiles = sum(1 for row in board.board for tile in row if tile is not None)
 

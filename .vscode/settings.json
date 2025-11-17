@@ -10,5 +10,7 @@
     "python.testing.unittestEnabled": true,
     "python.analysis.extraPaths": [
         "./abs"
-    ]
+    ],
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": []
 }

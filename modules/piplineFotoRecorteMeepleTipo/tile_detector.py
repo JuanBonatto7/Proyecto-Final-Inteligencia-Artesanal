@@ -101,11 +101,11 @@ class CarcassonneTileDetector:
 
     def detect_tile(self, image_path: str, web_mode: bool = False) -> str:
         """Detecta qué tipo de loseta es la imagen
-        
+
         Args:
             image_path: Ruta a la imagen
             web_mode: Si es True, no abre ventanas y retorna datos para web
-            
+
         Returns:
             Si web_mode=False: str con el tipo de loseta
             Si web_mode=True: dict con {'type': str, 'confidence': float, 'options': list}
@@ -131,7 +131,7 @@ class CarcassonneTileDetector:
         # Usar CNN si está disponible
         if self.cnn_model is not None:
             tile_type, confidence = self._detect_with_cnn(image)
-            
+
             # Si confianza baja, combinar con método tradicional
             if confidence < 0.7:
                 traditional_type = self._detect_with_traditional(image, has_shield)
@@ -148,7 +148,7 @@ class CarcassonneTileDetector:
         else:
             tile_type = self._detect_with_traditional(image, has_shield)
             confidence = 0.7  # Confianza fija para método tradicional
-        
+
         # Si confianza < 75% y tenemos modelo CNN
         if confidence < 0.75 and self.cnn_model is not None:
             option1, option2 = self._get_top_predictions(image_path)
@@ -172,7 +172,7 @@ class CarcassonneTileDetector:
                         confidence = max(option1[1], option2[1])
                     else:
                         print("Usuario canceló selección, manteniendo predicción automática")
-        
+
         # Retornar según modo
         if web_mode:
             return {
@@ -180,7 +180,7 @@ class CarcassonneTileDetector:
                 'confidence': confidence,
                 'needs_confirmation': False
             }
-        
+
         # Para confianza baja, devolver la mejor predicción disponible en lugar de DESCONOCIDO
         if confidence < 0.6:
             return tile_type
@@ -208,7 +208,7 @@ class CarcassonneTileDetector:
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         mean_intensity = np.mean(gray)
         variance = np.var(gray)
-        
+
         # Criterios basados en análisis de imágenes BLANCO reales:
         # BLANCO tiene mean ~136-140 y variance ~470-840
         is_blank = mean_intensity > 135 and variance < 900
@@ -264,16 +264,16 @@ class CarcassonneTileDetector:
         with torch.no_grad():
             outputs = self.cnn_model(input_tensor)
             probabilities = torch.nn.functional.softmax(outputs, dim=1)
-            
+
             # Obtener top 2 predicciones
             top2_prob, top2_idx = torch.topk(probabilities, 2, dim=1)
-            
+
             # La segunda mejor (excluyendo BLANCO si es la primera)
             second_idx = top2_idx[0][1].item()  # Segundo mejor
             second_prob = top2_prob[0][1].item()
-            
+
             second_tile = self.idx_to_letter.get(second_idx, '?')
-            
+
         return second_tile, second_prob
 
     def _detect_shield_with_template(self, image: np.ndarray) -> bool:
@@ -452,7 +452,7 @@ class CarcassonneTileDetector:
         image = cv2.imread(image_path)
         if image is None:
             return None, None
-        
+
         # Preprocesar imagen
         image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         input_tensor = self.transform(image_rgb).unsqueeze(0).to(self.device)
@@ -460,15 +460,15 @@ class CarcassonneTileDetector:
         with torch.no_grad():
             outputs = self.cnn_model(input_tensor)
             probabilities = torch.nn.functional.softmax(outputs, dim=1)
-            
+
             # Obtener top 2 predicciones
             top2_prob, top2_idx = torch.topk(probabilities, 2, dim=1)
-            
+
             first_tile = self.idx_to_letter.get(top2_idx[0][0].item(), '?')
             first_conf = top2_prob[0][0].item()
             second_tile = self.idx_to_letter.get(top2_idx[0][1].item(), '?')
             second_conf = top2_prob[0][1].item()
-            
+
         return (first_tile, first_conf), (second_tile, second_conf)
 
     def _show_selection_window(self, image_path: str, option1: Tuple[str, float], option2: Tuple[str, float]) -> str:
@@ -477,34 +477,34 @@ class CarcassonneTileDetector:
         image = cv2.imread(image_path)
         if image is None:
             return None
-        
+
         # Crear imagen de comparación lado a lado
         height, width = image.shape[:2]
-        
+
         # Cargar imágenes de referencia
         ref_dir = self.reference_folder
         ref1_path = ref_dir / option1[0] / f"{option1[0]}_ref_001.png"
         ref2_path = ref_dir / option2[0] / f"{option2[0]}_ref_001.png"
-        
+
         ref1 = cv2.imread(str(ref1_path)) if ref1_path.exists() else np.zeros((height, width, 3), dtype=np.uint8)
         ref2 = cv2.imread(str(ref2_path)) if ref2_path.exists() else np.zeros((height, width, 3), dtype=np.uint8)
-        
+
         # Redimensionar referencias
         ref1 = cv2.resize(ref1, (width, height))
         ref2 = cv2.resize(ref2, (width, height))
-        
+
         # Crear imagen combinada: ref izquierda, imagen original, ref derecha
         combined = np.hstack([ref1, image, ref2])
-        
+
         # Agregar texto
         font = cv2.FONT_HERSHEY_SIMPLEX
         cv2.putText(combined, f"A: {option1[0]} ({option1[1]:.2f})", (10, 30), font, 1, (0, 255, 0), 2)
         cv2.putText(combined, f"IMAGEN DETECTADA", (width + 10, 30), font, 1, (255, 255, 255), 2)
         cv2.putText(combined, f"D: {option2[0]} ({option2[1]:.2f})", (2*width + 10, 30), font, 1, (0, 255, 0), 2)
         cv2.putText(combined, "Presiona A (izquierda) o D (derecha)", (10, height - 10), font, 0.7, (255, 255, 0), 2)
-        
+
         cv2.imshow("Selecciona la loseta correcta", combined)
-        
+
         while True:
             key = cv2.waitKey(0) & 0xFF
             if key == ord('a') or key == ord('A'):

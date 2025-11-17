@@ -14,15 +14,15 @@ class Field:
     pixels: np.ndarray  # Máscara del campo
     meeples: Dict[str, int]  # Conteo de meeples por jugador
     area: int
-    
+
 
 class FieldDetector:
     """Detecta y segmenta campos en el tablero."""
-    
+
     def __init__(self, field_mask: np.ndarray, barrier_mask: np.ndarray, castle_mask: np.ndarray = None):
         """
         Inicializa el detector de campos.
-        
+
         Args:
             field_mask: Máscara de campos (verde)
             barrier_mask: Máscara de barreras (caminos + castillos)
@@ -33,98 +33,98 @@ class FieldDetector:
         self.castle_mask = castle_mask
         # Los campos son verdes que NO están en barreras
         self.clean_field_mask = field_mask & ~barrier_mask
-    
+
     def expand_barriers(self, iterations=3):
         """
         Expande las barreras para separar mejor los campos.
         Esto ayuda a que los caminos delgados separen correctamente.
-        
+
         Args:
             iterations: Número de iteraciones de dilatación
-            
+
         Returns:
             Máscara de barreras expandida
         """
         # Crear kernel para dilatación
         kernel = np.ones((3, 3), dtype=np.uint8)
-        
+
         # Dilatar las barreras
         expanded = self.barrier_mask.astype(np.uint8)
         expanded = ndimage.binary_dilation(expanded, structure=kernel, iterations=iterations)
-        
+
         return expanded
-    
+
     def detect_fields(self, expand_barriers_iterations=3, min_area=50) -> Tuple[np.ndarray, int]:
         """
         Detecta regiones de campos conectadas.
-        
+
         Args:
             expand_barriers_iterations: Cuánto expandir las barreras (más = mejor separación)
             min_area: Área mínima en píxeles para considerar un campo válido
-        
+
         Returns:
             labeled_array: Array con campos etiquetados
             num_fields: Número de campos detectados
         """
         # PASO 1: Expandir barreras para separar mejor los campos
         expanded_barriers = self.expand_barriers(iterations=expand_barriers_iterations)
-        
+
         # PASO 2: Limpiar campos - quitar áreas que están en barreras expandidas
         clean_fields = self.field_mask & ~expanded_barriers
-        
+
         # PASO 3: Aplicar operaciones morfológicas para limpiar ruido
         # Closing: elimina pequeños agujeros
         kernel_close = np.ones((5, 5), dtype=np.uint8)
         clean_fields = ndimage.binary_closing(clean_fields, structure=kernel_close)
-        
+
         # Opening: elimina pequeños puntos aislados
         kernel_open = np.ones((3, 3), dtype=np.uint8)
         clean_fields = ndimage.binary_opening(clean_fields, structure=kernel_open)
-        
+
         # PASO 4: Etiquetar regiones conectadas (8-conectividad)
         structure = np.ones((3, 3), dtype=int)
         labeled_array, num_fields = ndimage.label(clean_fields, structure=structure)
-        
+
         # PASO 5: Filtrar campos muy pequeños (probablemente ruido)
         if min_area > 0:
             labeled_array, num_fields = self._filter_small_fields(
                 labeled_array, num_fields, min_area
             )
-        
+
         return labeled_array, num_fields
-    
+
     def _filter_small_fields(
-        self, 
-        labeled_array: np.ndarray, 
-        num_fields: int, 
+        self,
+        labeled_array: np.ndarray,
+        num_fields: int,
         min_area: int
     ) -> Tuple[np.ndarray, int]:
         """
         Filtra campos que son demasiado pequeños.
-        
+
         Args:
             labeled_array: Array etiquetado
             num_fields: Número de campos
             min_area: Área mínima
-            
+
         Returns:
             labeled_array filtrado y nuevo número de campos
         """
         new_labeled = np.zeros_like(labeled_array)
         new_id = 1
-        
+
         for field_id in range(1, num_fields + 1):
             field_pixels = (labeled_array == field_id)
             area = np.sum(field_pixels)
-            
+
             if area >= min_area:
                 new_labeled[field_pixels] = new_id
                 new_id += 1
-        
+
         return new_labeled, new_id - 1
-    
+
     def count_meeples_in_field(
-        self, 
+        self,
         field_label: int,
         labeled_fields: np.ndarray,
         meeple_masks: Dict[str, np.ndarray],
@@ -155,28 +155,28 @@ class FieldDetector:
                 dilated_full_mask,
                 structure=np.ones((3, 3), dtype=int)
             )
-            
+
             valid_meeple_count = 0
-            
+
             # Procesar cada meeple individual
             for meeple_id in range(1, num_all_meeples + 1):
                 single_meeple_mask = (labeled_all_meeples == meeple_id)
-                
+
                 # PRIMERO: Obtener píxeles REALES del meeple (sin dilatación)
                 original_meeple_pixels = mask & single_meeple_mask
-                
+
                 if np.sum(original_meeple_pixels) == 0:
                     continue  # No hay píxeles reales de meeple aquí
-                
+
                 # CRÍTICO: Verificar PRIMERO si el meeple toca caminos
                 # Esta es la verificación más importante y debe hacerse antes de expandir
                 if road_mask is not None:
                     # Verificación 1: Intersección directa (sin dilatación)
                     directly_on_road = np.any(original_meeple_pixels & road_mask)
-                    
+
                     if directly_on_road:
                         continue  # MEEPLE INVÁLIDO - directamente sobre camino
-                    
+
                     # Verificación 2: Expandir el meeple moderadamente para detectar proximidad
                     # Aumentado a 3 iteraciones para ser más estricto
                     expanded_for_road_check = ndimage.binary_dilation(
@@ -184,16 +184,16 @@ class FieldDetector:
                         structure=np.ones((3, 3), dtype=np.uint8),
                         iterations=3
                     )
-                    
+
                     if np.any(expanded_for_road_check & road_mask):
                         continue  # MEEPLE INVÁLIDO - muy cerca de camino
-                
+
                 # Verificar si este meeple está en o cerca de este campo
                 meeple_in_expanded_field = np.any(single_meeple_mask & expanded_field)
-                
+
                 if not meeple_in_expanded_field:
                     continue  # Este meeple no está en este campo
-                
+
                 # Verificar si está completamente dentro de un castillo
                 if self.castle_mask is not None:
                     expanded_meeple_for_field = ndimage.binary_dilation(
@@ -201,20 +201,20 @@ class FieldDetector:
                         structure=np.ones((3, 3), dtype=np.uint8),
                         iterations=2
                     )
-                    
+
                     # Debe tocar campo verde para ser válido
                     touches_actual_field = np.any(expanded_meeple_for_field & self.field_mask)
-                    
+
                     if not touches_actual_field:
                         continue  # MEEPLE INVÁLIDO - solo en castillo
-                
+
                 # Si pasó todas las validaciones, contar este meeple
                 valid_meeple_count += 1
-            
+
             counts[meeple_type] = valid_meeple_count
 
         return counts
-    
+
     def analyze_meeple_validity(
         self,
         meeple_masks: Dict[str, np.ndarray],
@@ -223,22 +223,22 @@ class FieldDetector:
     ) -> Dict[str, Dict[str, List[np.ndarray]]]:
         """
         Analiza todos los meeples y clasifica cuáles son válidos e inválidos.
-        
+
         Args:
             meeple_masks: Máscaras de meeples por jugador
             labeled_fields: Campos etiquetados
             road_mask: Máscara de caminos
-            
+
         Returns:
             Diccionario con 'valid' e 'invalid' para cada tipo de meeple,
             conteniendo listas de máscaras de meeples individuales
         """
         result = {}
-        
+
         for meeple_type, mask in meeple_masks.items():
             valid_meeples = []
             invalid_meeples = []
-            
+
             # Etiquetar meeples individuales (con dilatación para agrupar fragmentos)
             dilated_mask = ndimage.binary_dilation(
                 mask,
@@ -249,15 +249,15 @@ class FieldDetector:
                 dilated_mask,
                 structure=np.ones((3, 3), dtype=int)
             )
-            
+
             # Analizar cada meeple
             for meeple_id in range(1, num_meeples + 1):
                 meeple_pixels = (labeled_meeples == meeple_id)
-                
+
                 # Verificar si tiene suficientes píxeles
                 if np.sum(meeple_pixels) < 10:
                     continue
-                
+
                 # Verificar si toca algún campo
                 expanded_meeple = ndimage.binary_dilation(
                     meeple_pixels,
@@ -265,13 +265,13 @@ class FieldDetector:
                     iterations=2
                 )
                 touches_field = np.any(expanded_meeple & (labeled_fields > 0))
-                
+
                 # Verificar si toca caminos
                 touches_road = False
                 if road_mask is not None:
                     expanded_for_road = ndimage.binary_dilation(meeple_pixels, iterations=2)
                     touches_road = np.any(expanded_for_road & road_mask)
-                
+
                 # NUEVO: Verificar si está completamente dentro de un castillo
                 inside_castle = False
                 if self.castle_mask is not None:
@@ -279,24 +279,24 @@ class FieldDetector:
                     touches_actual_field = np.any(expanded_for_field & self.field_mask)
                     # Si no toca campo verde, está completamente en castillo
                     inside_castle = not touches_actual_field
-                
+
                 # Clasificar meeple
                 is_valid = touches_field and not touches_road and not inside_castle
-                
+
                 if is_valid:
                     valid_meeples.append(meeple_pixels)
                 else:
                     invalid_meeples.append(meeple_pixels)
-            
+
             result[meeple_type] = {
                 'valid': valid_meeples,
                 'invalid': invalid_meeples
             }
-        
+
         return result
-    
+
     def create_fields(
-        self, 
+        self,
         labeled_fields: np.ndarray,
         num_fields: int,
         meeple_masks: Dict[str, np.ndarray],
@@ -304,29 +304,29 @@ class FieldDetector:
     ) -> List[Field]:
         """Crea objetos Field para cada campo detectado."""
         fields = []
-        
+
         for field_id in range(1, num_fields + 1):
             field_pixels = (labeled_fields == field_id)
             area = np.sum(field_pixels)
-            
+
             if area == 0:
                 continue
-            
+
             # PASAR road_mask al contador
             meeples = self.count_meeples_in_field(
-                field_id, 
-                labeled_fields, 
+                field_id,
+                labeled_fields,
                 meeple_masks,
                 road_mask=road_mask  # NUEVO
             )
-            
+
             field = Field(
                 id=field_id,
                 pixels=field_pixels,
                 meeples=meeples,
                 area=area
             )
-            
+
             fields.append(field)
-        
+
         return fields
