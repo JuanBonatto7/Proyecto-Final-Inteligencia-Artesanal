@@ -329,5 +329,12 @@ def get_upload_image(filename):
     except Exception as e:
         return jsonify({'error': 'Imagen no encontrada'}), 404
 
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    try:
+        return send_file(os.path.join('static', filename))
+    except Exception as e:
+        return jsonify({'error': 'Archivo no encontrado'}), 404
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
