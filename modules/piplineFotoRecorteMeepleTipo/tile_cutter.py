@@ -82,8 +82,33 @@ class CarcassonneTileDetector:
                     ref = ReferencePoint(self.start_point[0], self.start_point[1], w, h)
                     self.reference_points.append(ref)
     
-    def select_reference_tiles(self, num_points: int = 8) -> bool:
-        """Permite al usuario seleccionar múltiples losetas de referencia"""
+    def set_reference_points_from_coords(self, coords_list: List[dict]) -> bool:
+        """Establece puntos de referencia desde coordenadas proporcionadas
+        
+        Args:
+            coords_list: Lista de dicts con {x, y, width, height} en coordenadas de imagen original
+        
+        Returns:
+            True si se establecieron correctamente
+        """
+        self.reference_points = []
+        
+        for coord in coords_list:
+            ref = ReferencePoint(
+                x=int(coord['x']),
+                y=int(coord['y']),
+                width=int(coord['width']),
+                height=int(coord['height'])
+            )
+            self.reference_points.append(ref)
+        
+        return len(self.reference_points) >= 3
+    
+    def select_reference_tiles(self, num_points: int = 8, auto_detect: bool = False) -> bool:
+        """Permite al usuario seleccionar múltiples losetas de referencia o detectarlas automáticamente"""
+        
+        if auto_detect:
+            return self._auto_detect_reference_tiles(num_points)
         
         window_name = "Seleccionar Losetas de Referencia"
         cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
@@ -143,33 +168,126 @@ class CarcassonneTileDetector:
         
         return False
     
+    def _auto_detect_reference_tiles(self, num_points: int = 8) -> bool:
+        """Detecta automáticamente puntos de referencia sin intervención del usuario"""
+        # Convertir a escala de grises
+        gray = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
+        
+        # Aplicar threshold adaptativo para detectar bordes de losetas
+        blur = cv2.GaussianBlur(gray, (5, 5), 0)
+        thresh = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+                                       cv2.THRESH_BINARY, 11, 2)
+        
+        # Detectar contornos
+        contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        
+        # Filtrar contornos por área y proporción
+        h, w = self.image.shape[:2]
+        min_area = (w * h) * 0.005  # Al menos 0.5% del área total
+        max_area = (w * h) * 0.1    # Máximo 10% del área total
+        
+        candidate_tiles = []
+        for contour in contours:
+            area = cv2.contourArea(contour)
+            if min_area < area < max_area:
+                x, y, cw, ch = cv2.boundingRect(contour)
+                aspect_ratio = cw / ch if ch > 0 else 0
+                
+                # Buscar rectángulos aproximadamente cuadrados (losetas)
+                if 0.7 < aspect_ratio < 1.3:  # Tolerancia para cuadrados
+                    candidate_tiles.append({
+                        'x': x, 'y': y, 'w': cw, 'h': ch,
+                        'area': area,
+                        'center': (x + cw//2, y + ch//2)
+                    })
+        
+        if len(candidate_tiles) < num_points:
+            print(f"Solo se detectaron {len(candidate_tiles)} losetas, se necesitan {num_points}")
+            return False
+        
+        # Ordenar por área (las más grandes primero) y tomar una muestra distribuida
+        candidate_tiles.sort(key=lambda t: t['area'], reverse=True)
+        
+        # Seleccionar puntos bien distribuidos en el espacio
+        selected = []
+        grid_divisions = int(np.sqrt(num_points))
+        
+        # Dividir imagen en cuadrantes y seleccionar uno por región
+        for i in range(grid_divisions):
+            for j in range(grid_divisions):
+                if len(selected) >= num_points:
+                    break
+                
+                # Definir región
+                region_x = (w // grid_divisions) * j
+                region_y = (h // grid_divisions) * i
+                region_w = w // grid_divisions
+                region_h = h // grid_divisions
+                
+                # Buscar loseta en esta región
+                for tile in candidate_tiles:
+                    cx, cy = tile['center']
+                    if (region_x <= cx < region_x + region_w and 
+                        region_y <= cy < region_y + region_h and
+                        tile not in selected):
+                        selected.append(tile)
+                        break
+        
+        # Si no tenemos suficientes, completar con las más grandes restantes
+        for tile in candidate_tiles:
+            if len(selected) >= num_points:
+                break
+            if tile not in selected:
+                selected.append(tile)
+        
+        # Convertir a ReferencePoint
+        self.reference_points = []
+        for tile in selected[:num_points]:
+            ref = ReferencePoint(tile['x'], tile['y'], tile['w'], tile['h'])
+            self.reference_points.append(ref)
+        
+        return len(self.reference_points) >= num_points
+    
     def assign_grid_positions(self):
         """Asigna posiciones de grilla a los puntos de referencia automáticamente"""
         if len(self.reference_points) < 3:
             print("Error: Se necesitan al menos 3 puntos de referencia")
             return
         
-        # Calcular tamaño promedio
+        # Calcular tamaño promedio con mayor precisión
         total_w = sum(p.width for p in self.reference_points)
         total_h = sum(p.height for p in self.reference_points)
-        self.avg_tile_size = (total_w // len(self.reference_points), total_h // len(self.reference_points))
+        avg_w = total_w / len(self.reference_points)
+        avg_h = total_h / len(self.reference_points)
+        self.avg_tile_size = (avg_w, avg_h)
         
-        # Calcular posiciones de grilla basadas en distancias relativas
+        # Encontrar el punto más arriba a la izquierda como origen
+        origin_idx = 0
+        min_score = float('inf')
         
-        # Usar el primer punto como origen (0, 0)
-        origin = self.reference_points[0]
+        for i, point in enumerate(self.reference_points):
+            # Score basado en distancia desde esquina superior izquierda
+            score = point.x + point.y
+            if score < min_score:
+                min_score = score
+                origin_idx = i
+        
+        origin = self.reference_points[origin_idx]
         origin.grid_row = 0
         origin.grid_col = 0
         
-        # Para cada otro punto, calcular su posición en grilla
+        # Para cada otro punto, calcular su posición en grilla con mayor precisión
         avg_w, avg_h = self.avg_tile_size
         
-        for i in range(1, len(self.reference_points)):
+        for i in range(len(self.reference_points)):
+            if i == origin_idx:
+                continue
+                
             point = self.reference_points[i]
             
-            # Calcular desplazamiento desde el origen en píxeles
-            dx = point.x - origin.x
-            dy = point.y - origin.y
+            # Calcular desplazamiento desde el origen en píxeles (centro a centro)
+            dx = (point.x + point.width/2) - (origin.x + origin.width/2)
+            dy = (point.y + point.height/2) - (origin.y + origin.height/2)
             
             # Convertir a posiciones de grilla (redondeando al entero más cercano)
             grid_col = round(dx / avg_w)
@@ -179,26 +297,45 @@ class CarcassonneTileDetector:
             point.grid_col = grid_col
     
     def interpolate_tile_position(self, grid_row: int, grid_col: int) -> Tuple[int, int, int, int]:
-        """Interpola la posición y tamaño de una loseta usando los puntos de referencia"""
+        """Interpola la posición y tamaño de una loseta usando los puntos de referencia con mayor precisión"""
         if len(self.reference_points) < 3:
             return None
         
-        # Usar interpolación bilineal basada en los puntos de referencia más cercanos
+        # Encontrar los 4 puntos de referencia más cercanos para interpolación bilineal
+        distances = []
+        for ref in self.reference_points:
+            dr = grid_row - ref.grid_row
+            dc = grid_col - ref.grid_col
+            distance = np.sqrt(dr**2 + dc**2)
+            distances.append((distance, ref))
+        
+        # Ordenar por distancia y tomar los 4 más cercanos (o todos si hay menos)
+        distances.sort(key=lambda x: x[0])
+        closest_refs = [ref for dist, ref in distances[:min(4, len(distances))]]
+        
+        if len(closest_refs) == 0:
+            return None
+        
+        # Calcular pesos usando inverse distance weighting con potencia mayor para mejor precisión
         weights = []
         positions = []
         
-        for ref in self.reference_points:
-            # Calcular distancia en grilla
+        for ref in closest_refs:
             dr = grid_row - ref.grid_row
             dc = grid_col - ref.grid_col
-            distance = np.sqrt(dr**2 + dc**2) + 0.1  # +0.1 para evitar división por cero
+            distance = np.sqrt(dr**2 + dc**2) + 0.01  # Pequeño epsilon
             
-            weight = 1.0 / distance**2  # Peso inverso al cuadrado de la distancia
+            # Peso inverso al cuadrado de la distancia (más peso a puntos cercanos)
+            weight = 1.0 / (distance ** 2)
             weights.append(weight)
             
-            # Calcular posición estimada desde este punto de referencia
-            est_x = ref.x + dc * ref.width
-            est_y = ref.y + dr * ref.height
+            # Calcular posición estimada desde este punto de referencia (centro a centro)
+            est_center_x = (ref.x + ref.width/2) + dc * ref.width
+            est_center_y = (ref.y + ref.height/2) + dr * ref.height
+            
+            # Convertir de centro a esquina superior izquierda
+            est_x = est_center_x - ref.width/2
+            est_y = est_center_y - ref.height/2
             
             positions.append((est_x, est_y, ref.width, ref.height))
         
@@ -215,7 +352,7 @@ class CarcassonneTileDetector:
         return (int(final_x), int(final_y), int(final_w), int(final_h))
     
     def detect_tiles_interpolated(self) -> List[Tile]:
-        """Detecta todas las losetas usando interpolación de puntos de referencia"""
+        """Detecta todas las losetas usando interpolación de puntos de referencia con mejor precisión"""
         if len(self.reference_points) < 3:
             print("Error: Se necesitan al menos 3 puntos de referencia")
             return []
@@ -223,11 +360,11 @@ class CarcassonneTileDetector:
         h, w = self.image.shape[:2]
         tiles = []
         
-        # Determinar rango de grilla a explorar
-        min_row = min(ref.grid_row for ref in self.reference_points) - 10
-        max_row = max(ref.grid_row for ref in self.reference_points) + 10
-        min_col = min(ref.grid_col for ref in self.reference_points) - 10
-        max_col = max(ref.grid_col for ref in self.reference_points) + 10
+        # Determinar rango de grilla a explorar basado en referencias
+        min_row = min(ref.grid_row for ref in self.reference_points) - 12
+        max_row = max(ref.grid_row for ref in self.reference_points) + 12
+        min_col = min(ref.grid_col for ref in self.reference_points) - 12
+        max_col = max(ref.grid_col for ref in self.reference_points) + 12
         
         for row in range(min_row, max_row + 1):
             for col in range(min_col, max_col + 1):
@@ -238,21 +375,42 @@ class CarcassonneTileDetector:
                 
                 x, y, tw, th = result
                 
-                # Verificar límites
-                if x < 0 or y < 0 or x + tw > w or y + th > h:
+                # Verificar límites con margen de seguridad
+                if x < -5 or y < -5 or x + tw > w + 5 or y + th > h + 5:
+                    continue
+                
+                # Ajustar a límites seguros
+                x = max(0, min(x, w - 1))
+                y = max(0, min(y, h - 1))
+                tw = min(tw, w - x)
+                th = min(th, h - y)
+                
+                if tw < 10 or th < 10:
                     continue
                 
                 # Extraer región
-                tile_img = self.image[y:y+th, x:x+tw]
+                tile_img = self.image[int(y):int(y+th), int(x):int(x+tw)]
                 
-                # Verificar si contiene contenido válido
+                if tile_img.size == 0:
+                    continue
+                
+                # Verificar si contiene contenido válido con criterios más estrictos
                 gray = cv2.cvtColor(tile_img, cv2.COLOR_BGR2GRAY)
+                
+                # Usar múltiples métricas para validar la loseta
                 std_val = np.std(gray)
                 mean_val = np.mean(gray)
                 
-                # Filtrar fondos uniformes
-                if std_val > 20 and mean_val < 210:
-                    tile = Tile(x, y, tw, th, tile_img, row, col)
+                # Detectar bordes para confirmar que hay contenido
+                edges = cv2.Canny(gray, 30, 100)
+                edge_density = np.sum(edges > 0) / edges.size
+                
+                # Filtrar fondos uniformes con criterios más estrictos
+                # - Debe tener variación (std > 15)
+                # - No debe ser muy blanco (mean < 240)
+                # - Debe tener algunos bordes (edge_density > 0.01)
+                if std_val > 15 and mean_val < 240 and edge_density > 0.01:
+                    tile = Tile(int(x), int(y), int(tw), int(th), tile_img, row, col)
                     tiles.append(tile)
 
         self.tiles = tiles
