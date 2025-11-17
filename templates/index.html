@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CARCASSCORE - Calculadora Medieval de Puntos</title>
+    <title>Carcascore</title>
+    <link rel="icon" type="image/png" href="/static/logo.png">
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -12,15 +13,62 @@
             box-sizing: border-box;
         }
 
+        /* Estilos personalizados para scrollbar - WebKit (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: linear-gradient(135deg, #1a0f08 0%, #2c1810 100%);
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #d4af37 0%, #c9b037 100%);
+            border-radius: 10px;
+            border: 2px solid #1a0f08;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
+            box-shadow: 
+                inset 0 0 6px rgba(0, 0, 0, 0.5),
+                0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: #1a0f08;
+        }
+
+        /* Estilos para Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #d4af37 #1a0f08;
+        }
+
+        html {
+            overflow-x: hidden;
+            background: #1a0f08;
+            height: 100%;
+            overscroll-behavior: none;
+        }
+
         body {
             font-family: 'Cinzel', serif;
             background: linear-gradient(135deg, #2c1810 0%, #1a0f08 100%);
             background-image: 
                 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="%23000000" opacity="0.1" width="100" height="100"/><path d="M0 0L50 50L0 100M50 0L100 50L50 100M100 0L100 100" stroke="%23d4af37" opacity="0.03" stroke-width="1" fill="none"/></svg>'),
                 linear-gradient(135deg, #2c1810 0%, #1a0f08 100%);
+            background-attachment: fixed;
             min-height: 100vh;
             padding: 20px;
             position: relative;
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+            -webkit-overflow-scrolling: touch;
         }
 
         body::before {
@@ -46,6 +94,14 @@
             color: #d4af37;
             margin-bottom: 40px;
             position: relative;
+        }
+
+        .header-title-image {
+            max-width: 600px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
         }
 
         .header::before,
@@ -113,6 +169,74 @@
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
         }
 
+        .tutorial-section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .tutorial-title {
+            color: #d4af37;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .tutorial-subtitle {
+            color: #c9b037;
+            font-size: 1em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        .tutorial-item {
+            text-align: center;
+        }
+
+        .tutorial-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            border: 3px solid #d4af37;
+            transition: all 0.3s;
+        }
+
+        .tutorial-image.bad {
+            border-color: #ff6b6b;
+        }
+
+        .tutorial-image.good {
+            border-color: #4ecb71;
+        }
+
+        .tutorial-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.8);
+        }
+
+        .tutorial-label {
+            margin-top: 10px;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .tutorial-label.bad {
+            color: #ff6b6b;
+        }
+
+        .tutorial-label.good {
+            color: #4ecb71;
+        }
+
         .upload-section {
             text-align: center;
             margin-bottom: 30px;
@@ -121,7 +245,7 @@
         .upload-area {
             border: 3px dashed #d4af37;
             border-radius: 15px;
-            padding: 60px 20px;
+            padding: 40px 20px;
             background: linear-gradient(135deg, rgba(44, 24, 16, 0.6) 0%, rgba(26, 15, 8, 0.6) 100%);
             cursor: pointer;
             transition: all 0.3s;
@@ -329,12 +453,7 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
-        .images-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
+
 
         .image-container {
             text-align: center;
@@ -412,9 +531,138 @@
             border-top: none;
         }
 
+        footer {
+            margin-top: 60px;
+            padding: 40px 20px 20px;
+            background: linear-gradient(135deg, #2a1810 0%, #1a0f08 100%);
+            border-top: 3px solid #d4af37;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 20px rgba(212, 175, 55, 0.3);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            color: #d4af37;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-family: 'MedievalSharp', cursive;
+        }
+
+        .footer-section {
+            margin-bottom: 25px;
+        }
+
+        .footer-title {
+            color: #d4af37;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .footer-text {
+            color: #c9b037;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .footer-team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .team-member {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(201, 176, 55, 0.1) 100%);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #d4af37;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .team-member:hover {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(201, 176, 55, 0.2) 100%);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .footer-divider {
+            width: 60%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 25px auto;
+            opacity: 0.5;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .footer-copyright {
+            color: #c9b037;
+            font-size: 0.85em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .footer-version {
+            background: linear-gradient(135deg, #d4af37 0%, #c9b037 100%);
+            color: #2a1810;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+        }
+
         @media (max-width: 768px) {
-            .scores-container,
-            .images-grid {
+            .footer-bottom {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .footer-team {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .team-member {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .scores-container {
                 grid-template-columns: 1fr;
             }
 
@@ -430,14 +678,18 @@
             .header::after {
                 display: none;
             }
+
+            .tutorial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="castle-icon">🏰</div>
-            <h1>CARCASSCORE</h1>
+            <img src="/static/titulo.png" alt="CARCASSCORE" class="header-title-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <h1 style="display:none;">CARCASSCORE</h1>
             <p>Calculadora de Puntos de Carcassonne</p>
         </div>
 
@@ -446,6 +698,29 @@
             <div class="decorative-corner top-right"></div>
             <div class="decorative-corner bottom-left"></div>
             <div class="decorative-corner bottom-right"></div>
+
+            <div class="tutorial-section">
+                <h2 class="tutorial-title">📸 ¿Cómo tomar la foto del tablero?</h2>
+                <p class="tutorial-subtitle">Asegúrate de capturar el tablero completo desde arriba, sin sombras y poner los meeples en posiciones no ambiguas</p>
+                <div class="tutorial-grid">
+                    <div class="tutorial-item">
+                        <img src="/static/tutorial_mal_1.png" alt="Ejemplo incorrecto 1" class="tutorial-image bad">
+                        <div class="tutorial-label bad">❌ Incorrecto</div>
+                    </div>
+                    <div class="tutorial-item">
+                        <img src="/static/tutorial_mal_2.png" alt="Ejemplo incorrecto 2" class="tutorial-image bad">
+                        <div class="tutorial-label bad">❌ Incorrecto</div>
+                    </div>
+                    <div class="tutorial-item">
+                        <img src="/static/tutorial_bien_1.png" alt="Ejemplo correcto 1" class="tutorial-image good">
+                        <div class="tutorial-label good">✓ Correcto</div>
+                    </div>
+                    <div class="tutorial-item">
+                        <img src="/static/tutorial_bien_2.png" alt="Ejemplo correcto 2" class="tutorial-image good">
+                        <div class="tutorial-label good">✓ Correcto</div>
+                    </div>
+                </div>
+            </div>
 
             <div class="upload-section" id="uploadSection">
                 <div class="upload-area" id="uploadArea">
@@ -488,15 +763,9 @@
                     </div>
                 </div>
 
-                <div class="images-grid">
-                    <div class="image-container">
-                        <div class="image-label">Imagen Original</div>
-                        <img id="originalImage" class="result-image" alt="Original">
-                    </div>
-                    <div class="image-container">
-                        <div class="image-label">Tablero Procesado</div>
-                        <img id="processedImage" class="result-image" alt="Processed">
-                    </div>
+                <div class="image-container" style="margin: 0 auto; max-width: 800px;">
+                    <div class="image-label">Tablero Analizado</div>
+                    <img id="originalImage" class="result-image" alt="Original">
                 </div>
 
                 <div class="new-analysis-btn">
@@ -505,6 +774,41 @@
             </div>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🏰 CARCASCORE</div>
+            
+            <div class="footer-section">
+                <div class="footer-title">Proyecto Académico</div>
+                <div class="footer-text">
+                    Universidad Nacional de Río Cuarto<br>
+                    Carrera: Analista en Computación<br>
+                    Materia: Proyecto (2° Cuatrimestre 2025)
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <div class="footer-title">Equipo de Desarrollo</div>
+                <div class="footer-team">
+                    <div class="team-member">Agustín Becerra</div>
+                    <div class="team-member">Agustín Moyano</div>
+                    <div class="team-member">Amadeo Mai</div>
+                    <div class="team-member">Joaquín Puebla</div>
+                    <div class="team-member">Juan Bonatto</div>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2025 UNRC - Proyecto Final | Todos los derechos reservados
+                </div>
+                <div class="footer-version">🛠️ Beta v0.9</div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         const uploadArea = document.getElementById('uploadArea');
@@ -771,7 +1075,7 @@
                 
                 // Dibujar rectángulo actual
                 if (currentRect) {
-                    ctx.strokeStyle = '#00FF00'; // Verde brillante mientras dibuja
+                    ctx.strokeStyle = '#FFD700'; // Amarillo dorado
                     ctx.lineWidth = 3;
                     ctx.setLineDash([10, 5]);
                     ctx.strokeRect(currentRect.x, currentRect.y, currentRect.width, currentRect.height);
@@ -996,17 +1300,16 @@
                 
                 tileDiv.innerHTML = `
                     <h3 style="color: #d4af37; margin-bottom: 15px; text-align: center;">
-                        Loseta #${index + 1} - Posición (${tile.grid_position[0]}, ${tile.grid_position[1]})
+                        Loseta #${index + 1}
                     </h3>
                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; align-items: center;">
                         <div style="text-align: center;">
-                            <p style="color: #c9b037; margin-bottom: 10px; font-weight: bold;">Opción A: ${tile.options[0].letter}</p>
+                            <p style="color: #c9b037; margin-bottom: 10px; font-weight: bold;">Opción A</p>
                             <img src="data:image/png;base64,${tile.options[0].reference_image}" 
                                  style="width: 120px; height: 120px; border: 2px solid #d4af37; border-radius: 10px; cursor: pointer;"
                                  onclick="selectTileOption(${tile.tile_index}, '${tile.options[0].letter}', this)"
                                  class="tile-option"
                                  data-tile-index="${tile.tile_index}">
-                            <p style="color: #ffd700; margin-top: 5px; font-size: 0.9em;">Conf: ${(tile.options[0].confidence * 100).toFixed(1)}%</p>
                             <p style="color: #c9b037; margin-top: 5px; font-size: 0.85em;">Presiona A</p>
                         </div>
                         <div style="text-align: center;">
@@ -1015,14 +1318,13 @@
                                  style="width: 120px; height: 120px; border: 2px solid #fff; border-radius: 10px;">
                         </div>
                         <div style="text-align: center;">
-                            <p style="color: #c9b037; margin-bottom: 10px; font-weight: bold;">Opción D: ${tile.options[1].letter}</p>
+                            <p style="color: #c9b037; margin-bottom: 10px; font-weight: bold;">Opción B</p>
                             <img src="data:image/png;base64,${tile.options[1].reference_image}" 
                                  style="width: 120px; height: 120px; border: 2px solid #d4af37; border-radius: 10px; cursor: pointer;"
                                  onclick="selectTileOption(${tile.tile_index}, '${tile.options[1].letter}', this)"
                                  class="tile-option"
                                  data-tile-index="${tile.tile_index}">
-                            <p style="color: #ffd700; margin-top: 5px; font-size: 0.9em;">Conf: ${(tile.options[1].confidence * 100).toFixed(1)}%</p>
-                            <p style="color: #c9b037; margin-top: 5px; font-size: 0.85em;">Presiona D</p>
+                            <p style="color: #c9b037; margin-top: 5px; font-size: 0.85em;">Presiona B</p>
                         </div>
                     </div>
                     <div id="selection-${tile.tile_index}" style="text-align: center; margin-top: 10px; color: #ffd700; font-weight: bold;"></div>
@@ -1053,10 +1355,6 @@
             // Marcar la selección actual
             imgElement.style.border = '4px solid #ffd700';
             imgElement.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.8)';
-            
-            // Mostrar mensaje de confirmación
-            const selectionDiv = document.getElementById(`selection-${tileIndex}`);
-            selectionDiv.textContent = `✓ Seleccionado: ${letter}`;
         }
 
         function handleKeyboardSelection(event) {
@@ -1082,7 +1380,7 @@
             
             if (event.key === 'a' || event.key === 'A') {
                 options[0].click();
-            } else if (event.key === 'd' || event.key === 'D') {
+            } else if (event.key === 'b' || event.key === 'B') {
                 options[1].click();
             }
         }
@@ -1146,9 +1444,8 @@
             document.getElementById('player1Total').textContent = data.scores.player1.total;
             document.getElementById('player2Total').textContent = data.scores.player2.total;
 
-            // Mostrar imágenes
+            // Mostrar imagen
             document.getElementById('originalImage').src = data.original_image;
-            document.getElementById('processedImage').src = data.processed_image;
         }
 
         function showError(message) {

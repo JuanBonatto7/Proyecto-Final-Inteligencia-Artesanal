@@ -263,12 +263,14 @@ def confirm_tiles():
         # Todas las confirmaciones completadas, generar resultado final
         
         # Limpiar archivos temporales de losetas
-        for temp_file in os.listdir('.'):
-            if temp_file.startswith('temp_tile_') and temp_file.endswith('.png'):
-                try:
-                    os.remove(temp_file)
-                except:
-                    pass
+        temp_tiles_dir = "temp_tiles"
+        if os.path.exists(temp_tiles_dir):
+            for temp_file in os.listdir(temp_tiles_dir):
+                if temp_file.startswith('temp_tile_') and temp_file.endswith('.png'):
+                    try:
+                        os.remove(os.path.join(temp_tiles_dir, temp_file))
+                    except:
+                        pass
         
         # Generar imagen del tablero
         tiles_img_path = os.path.join("resources", "tiles_texture_pack-v3")
@@ -328,6 +330,13 @@ def get_upload_image(filename):
         return send_file(os.path.join(app.config['UPLOAD_FOLDER'], filename), mimetype='image/jpeg')
     except Exception as e:
         return jsonify({'error': 'Imagen no encontrada'}), 404
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    try:
+        return send_file(os.path.join('static', filename))
+    except Exception as e:
+        return jsonify({'error': 'Archivo no encontrado'}), 404
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
