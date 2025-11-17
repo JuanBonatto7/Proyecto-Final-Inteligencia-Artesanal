@@ -31,6 +31,10 @@ class OriginMatrixConverter:
         self.rows = 0
         self.cols = 0
         self.pending_confirmations = []  # Para almacenar losetas que necesitan confirmación
+        
+        # Crear carpeta para archivos temporales
+        self.temp_dir = "temp_tiles"
+        os.makedirs(self.temp_dir, exist_ok=True)
     
     def convert(self, image_path: str, num_reference_points: int = 8, web_mode: bool = False, 
                 manual_selections: dict = None, reference_coords: list = None) -> Optional[Board]:
@@ -93,7 +97,7 @@ class OriginMatrixConverter:
         manual_selections = manual_selections or {}
         
         for i, tile in enumerate(tiles):
-            temp_path = f"temp_tile_{i}.png"
+            temp_path = os.path.join(self.temp_dir, f"temp_tile_{i}.png")
             cv2.imwrite(temp_path, tile.image)
             
             # Detectar tipo

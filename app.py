@@ -263,12 +263,14 @@ def confirm_tiles():
         # Todas las confirmaciones completadas, generar resultado final
         
         # Limpiar archivos temporales de losetas
-        for temp_file in os.listdir('.'):
-            if temp_file.startswith('temp_tile_') and temp_file.endswith('.png'):
-                try:
-                    os.remove(temp_file)
-                except:
-                    pass
+        temp_tiles_dir = "temp_tiles"
+        if os.path.exists(temp_tiles_dir):
+            for temp_file in os.listdir(temp_tiles_dir):
+                if temp_file.startswith('temp_tile_') and temp_file.endswith('.png'):
+                    try:
+                        os.remove(os.path.join(temp_tiles_dir, temp_file))
+                    except:
+                        pass
         
         # Generar imagen del tablero
         tiles_img_path = os.path.join("resources", "tiles_texture_pack-v3")
